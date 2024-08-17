@@ -1,0 +1,24 @@
+{
+    "name": "jp.lilxyzw.editortoolbox",
+    "rootNamespace": "jp.lilxyzw.editortoolbox",
+    "references": [],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [
+        "Unity.SharpZipLib.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.sharp-zip-lib",
+            "expression": "",
+            "define": "LIL_SHADPZIPLIB"
+        }
+    ],
+    "noEngineReferences": false
+}

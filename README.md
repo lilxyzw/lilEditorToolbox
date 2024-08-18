@@ -34,3 +34,21 @@ Hierarchy上にオブジェクトのオンオフ、コンポーネント、タ�
 2. `Assets/GUIDList/`内に手順1で指定したターゲットの設定が追加されるので必要に応じて設定を編集
 3. `Tools/lilEditorToolbox/[AssetGrimoire] Output GUIDs`をクリックし、ダイアログでデータベース出力先フォルダを選択
 4. [guid_database](https://github.com/lilxyzw/guid_database)のPull Requestで追加リクエストを送信
+
+## テクスチャ変換ツール
+
+テクスチャを右クリックして`_lil/TextureUtil/`内のメニューから変換できます。
+
+`MetallicGlossMap`変換時にG・Bのチャンネルに1.0が設定されるため、多くの場合はそのまま`Mask Map`として使用できます。基本的に`Perceptual Roughness`として変換を行い、結果が滑らかすぎる場合は`Roughness`で変換を行ってください。
+
+|Menu Name|Selection (Bold is required, others are optional)|Output|
+|-|-|-|
+|[Texture] Convert normal map (DirectX <-> OpenGL)|**Normal map**|Normal map|
+|[Texture] Smoothness/Smoothness -> MetallicGlossMap|**Smoothness**|MetallicGlossMap|
+|[Texture] Smoothness/Metallic, Smoothness (, Occlusion, Detail) -> MetallicGlossMap (MaskMap)|**Metallic**, **Smoothness**, Occlusion, Detail|MetallicGlossMap or Mask Map|
+|[Texture] Perceptual Roughness/Roughness -> Smoothness|**Roughness**|Smoothness|
+|[Texture] Perceptual Roughness/Roughness -> MetallicGlossMap|**Roughness**|MetallicGlossMap|
+|[Texture] Perceptual Roughness/Metallic, Roughness (, Occlusion, Detail) -> MetallicGlossMap (MaskMap)|**Metallic**, **Roughness**, Occlusion, Detail|MetallicGlossMap or Mask Map|
+|[Texture] Roughness/Roughness -> Smoothness|**Roughness**|Smoothness|
+|[Texture] Roughness/Roughness -> MetallicGlossMap|**Roughness**|MetallicGlossMap|
+|[Texture] Roughness/Metallic, Roughness (, Occlusion, Detail) -> MetallicGlossMap (MaskMap)|**Metallic**, **Roughness**, Occlusion, Detail|MetallicGlossMap or Mask Map|

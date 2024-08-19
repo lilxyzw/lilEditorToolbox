@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace jp.lilxyzw.editortoolbox
 {
@@ -11,6 +10,14 @@ namespace jp.lilxyzw.editortoolbox
     {
         [Header("Asset Import")]
         public bool dragAndDropOverwrite = true;
+
+        [Header("Texture Import")]
+        public bool turnOffCrunchCompression = true;
+        public bool turnOnStreamingMipmaps = true;
+
+        [Header("Model Import")]
+        public bool turnOnReadable = true;
+        public bool fixBlendshapes = true;
 
         [Header("Hierarchy")]
         public Color backgroundColor = new Color(0.5f,0.5f,0.5f,0.05f);

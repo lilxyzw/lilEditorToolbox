@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace jp.lilxyzw.editortoolbox
 {
-    public class AssetOverwriter : AssetPostprocessor
+    internal class AssetOverwriter : AssetPostprocessor
     {
         private static HashSet<string> filesToRemove = new HashSet<string>();
 

@@ -1,7 +1,5 @@
 #if UNITY_EDITOR
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEditor;
@@ -9,7 +7,7 @@ using Object = UnityEngine.Object;
 
 namespace jp.lilxyzw.editortoolbox
 {
-    public class TextureUtil
+    internal class TextureUtil
     {
         private const string menuPathAssets                 = "Assets/_lil/lilEditorToolbox/";
         private const string menuPathConvertNormal          = menuPathAssets + "[Texture] Convert normal map (DirectX <-> OpenGL)";

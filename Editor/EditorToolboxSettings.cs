@@ -6,7 +6,7 @@ using UnityEngine;
 namespace jp.lilxyzw.editortoolbox
 {
     [FilePath("editortoolbox.asset", FilePathAttribute.Location.PreferencesFolder)]
-    public class EditorToolboxSettings : ScriptableSingleton<EditorToolboxSettings>
+    internal class EditorToolboxSettings : ScriptableSingleton<EditorToolboxSettings>
     {
         [Header("Asset Import")]
         public bool dragAndDropOverwrite = true;

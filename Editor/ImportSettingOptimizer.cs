@@ -5,7 +5,7 @@ using UnityEditor.Build;
 
 namespace jp.lilxyzw.editortoolbox
 {
-    public class ImportSettingOptimizer : AssetPostprocessor
+    internal class ImportSettingOptimizer : AssetPostprocessor
     {
         private static string[] platforms;
         private static string[] Platforms => platforms ??= typeof(NamedBuildTarget).GetField("k_ValidNames", BindingFlags.Static | BindingFlags.NonPublic).GetValue(null) as string[];

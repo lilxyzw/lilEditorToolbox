@@ -63,3 +63,7 @@ Project上に拡張子やprefabの情報などを表示できます。`IProjectE
 
 - テクスチャの`Crunch Compression`のオフと`Streaming Mipmaps`のオン
 - モデルの`Legacy Blend Shape Normals`のオフと`Blend Shape Normals`設定の最適化
+
+## シェーダーキーワード確認ツール
+
+シェーダー開発用に作成した**シェーダー本体**のシェーダーキーワードを確認するツールです。`Tools/lilEditorToolbox/Shader Keyword Viewer`から利用できます。

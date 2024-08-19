@@ -39,9 +39,11 @@ namespace jp.lilxyzw.editortoolbox
                 expands.Clear();
                 var serializedObject = new SerializedObject(shader);
                 var passes = GetArrayProperties(serializedObject.FindProperty("m_CompileInfo.m_Snippets")).ToArray();
+                var names = GetArrayProperties(serializedObject.FindProperty("m_ParsedForm.m_SubShaders")).SelectMany(p => GetArrayProperties(p.FindPropertyRelative("m_Passes"))).Select(p => (p.FindPropertyRelative("m_State.gpuProgramID").intValue, p.FindPropertyRelative("m_State.m_Name").stringValue + p.FindPropertyRelative("m_Name").stringValue + p.FindPropertyRelative("m_UseName").stringValue)).Where(kv => kv.Item1 != -1).ToDictionary(kv => kv.Item1, kv => kv.Item2);
                 int i = 0;
                 foreach(var pass in passes)
                 {
+                    var first = pass.FindPropertyRelative("first").intValue;
                     var second = pass.FindPropertyRelative("second");
                     var m_VariantsUserGlobal0 = GetKeywords(second, "m_VariantsUserGlobal0");
                     var m_VariantsUserGlobal1 = GetKeywords(second, "m_VariantsUserGlobal1");
@@ -65,7 +67,7 @@ namespace jp.lilxyzw.editortoolbox
                     var m_NonStrippedUserKeywords = second.FindPropertyRelative("m_NonStrippedUserKeywords").stringValue.Split(' ').Where(k => !string.IsNullOrEmpty(k)).Where(k => showBuiltin || !KEYWORDS_BUILTIN.Contains(k)).ToArray();
 
                     var passData = new PassData(){
-                        name = $"Pass {i}: {second.FindPropertyRelative("m_AssetPath").stringValue}",
+                        name = names.ContainsKey(first) && !string.IsNullOrEmpty(names[first]) ? names[first] : $"Pass {i}: {second.FindPropertyRelative("m_AssetPath").stringValue}",
                         index = i,
                         stageDatas = new(),
                         keywordsMultiCompile = string.Join("\r\n", m_NonStrippedUserKeywords)

@@ -34,7 +34,7 @@ namespace jp.lilxyzw.editortoolbox
         private static void Draw(string guid, Rect position)
         {
             var path = AssetDatabase.GUIDToAssetPath(guid);
-            if(position.height > 16 || string.IsNullOrEmpty(path) || !File.Exists(path)) return;
+            if(position.height > 16 || string.IsNullOrEmpty(path)) return;
 
             var name = Path.GetFileNameWithoutExtension(path);
             var extension = Path.GetExtension(path);

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace jp.lilxyzw.editortoolbox
 {
-    internal class HierarchyLine : IHierarchyExtentionConponent
+    internal class HierarchyLine : IHierarchyExtensionComponent
     {
         public int Priority => -900;
 

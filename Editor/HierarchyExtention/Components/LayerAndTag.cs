@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace jp.lilxyzw.editortoolbox
 {
-    internal class LayerAndTag : IHierarchyExtentionConponent
+    internal class LayerAndTag : IHierarchyExtensionComponent
     {
         private static GUIStyle m_styleMiniText;
         private static GUIStyle StyleMiniText => m_styleMiniText != null ? m_styleMiniText : m_styleMiniText = new GUIStyle(EditorStyles.label){fontSize = (int)(EditorStyles.label.fontSize*0.75f)};

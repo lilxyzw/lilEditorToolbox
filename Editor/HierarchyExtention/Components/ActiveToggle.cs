@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace jp.lilxyzw.editortoolbox
 {
-    internal class ActiveToggle : IHierarchyExtentionConponent
+    internal class ActiveToggle : IHierarchyExtensionComponent
     {
         private const int ICON_SIZE = 16;
 

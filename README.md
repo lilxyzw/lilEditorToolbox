@@ -20,7 +20,11 @@ Main Cameraに付けるとScene画面でもアンチエイリアスが適用さ�
 
 ## Hierarchy拡張
 
-Hierarchy上にオブジェクトのオンオフ、コンポーネント、タグ、レイヤーなどを表示できます。`IHierarchyExtentionConponent`を実装することで独自に拡張を追加することもできます。書き方は`Editor/HierarchyExtention/Components`配下のスクリプトを参考にしてください。
+Hierarchy上にオブジェクトのオンオフ、コンポーネント、タグ、レイヤーなどを表示できます。`IHierarchyExtensionConponent`を実装することで独自に拡張を追加することもできます。書き方は`Editor/HierarchyExtension/Components`配下のスクリプトを参考にしてください。
+
+## Project拡張
+
+Project上に拡張子やprefabの情報などを表示できます。`IProjectExtensionConponent`を実装することで独自に拡張を追加することもできます。書き方は`Editor/ProjectExtension/Components`配下のスクリプトを参考にしてください。
 
 ## アセット特定ツール
 

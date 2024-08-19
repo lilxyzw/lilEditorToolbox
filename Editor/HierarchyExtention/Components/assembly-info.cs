@@ -1,5 +1,5 @@
 using jp.lilxyzw.editortoolbox;
-[assembly: ExportsComponent(
+[assembly: ExportsHierarchyExtensionComponent(
     typeof(ActiveToggle),
     typeof(AlternatingBackground),
     typeof(ChildrenDrawer),

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace jp.lilxyzw.editortoolbox
 {
-    internal class ComponentsDrawer : IHierarchyExtentionConponent
+    internal class ComponentsDrawer : IHierarchyExtensionComponent
     {
         private const int ICON_SIZE = 16;
 
@@ -28,7 +28,7 @@ namespace jp.lilxyzw.editortoolbox
                         case Collider c: GUI.enabled = c.enabled; break;
                     }
                     if(component) GUI.Box(currentRect, AssetPreview.GetMiniThumbnail(component), GUIStyle.none);
-                    else          GUI.Box(currentRect, HierarchyExtention.MissingScriptIcon(), GUIStyle.none);
+                    else          GUI.Box(currentRect, HierarchyExtension.MissingScriptIcon(), GUIStyle.none);
                     GUI.enabled = true;
 
                     switch(component)

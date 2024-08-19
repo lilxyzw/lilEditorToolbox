@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace jp.lilxyzw.editortoolbox
 {
-    public interface IHierarchyExtentionConponent
+    public interface IHierarchyExtensionComponent
     {
         /// <summary>
         /// <para>-2000 to -1001 : Background</para>
@@ -17,9 +17,9 @@ namespace jp.lilxyzw.editortoolbox
     }
 
     [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
-    public sealed class ExportsComponent : Attribute
+    public sealed class ExportsHierarchyExtensionComponent : Attribute
     {
         public Type[] Types { get; }
-        public ExportsComponent(params Type[] types) => Types = types;
+        public ExportsHierarchyExtensionComponent(params Type[] types) => Types = types;
     }
 }

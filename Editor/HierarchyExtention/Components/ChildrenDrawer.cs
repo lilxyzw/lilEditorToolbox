@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace jp.lilxyzw.editortoolbox
 {
-    internal class ChildrenDrawer : IHierarchyExtentionConponent
+    internal class ChildrenDrawer : IHierarchyExtensionComponent
     {
         private const int ICON_SIZE_CHILD = 8;
 
@@ -34,7 +34,7 @@ namespace jp.lilxyzw.editortoolbox
             {
                 currentRect.x -= ICON_SIZE_CHILD;
                 currentRect.width = ICON_SIZE_CHILD;
-                GUI.Box(currentRect, HierarchyExtention.MissingScriptIcon(), GUIStyle.none);
+                GUI.Box(currentRect, HierarchyExtension.MissingScriptIcon(), GUIStyle.none);
             }
         }
     }

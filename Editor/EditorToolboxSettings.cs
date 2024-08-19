@@ -22,7 +22,10 @@ namespace jp.lilxyzw.editortoolbox
         [Header("Hierarchy")]
         public Color backgroundColor = new Color(0.5f,0.5f,0.5f,0.05f);
         public Color lineColor = new Color(0.5f,0.5f,0.5f,0.33f);
-        public string[] hierarchyComponents = HierarchyExtention.names;
+        public string[] hierarchyComponents = HierarchyExtension.names;
+
+        [Header("Project")]
+        public string[] projectComponents = ProjectExtension.names;
 
         internal void Save() => Save(true);
     }
@@ -36,40 +39,52 @@ namespace jp.lilxyzw.editortoolbox
             serializedObject.UpdateIfRequiredOrScript();
             SerializedProperty iterator = serializedObject.GetIterator();
             iterator.NextVisible(true); // m_Script
+            void StringListAsToggle(string[] names)
+            {
+                var vals = Enumerable.Range(0, iterator.arraySize).Select(i => iterator.GetArrayElementAtIndex(i).stringValue).ToList();
+                foreach(var name in names)
+                {
+                    var contains = vals.Contains(name);
+                    var toggle = EditorGUILayout.ToggleLeft(name, contains);
+                    if(contains != toggle)
+                    {
+                        if(toggle)
+                        {
+                            iterator.InsertArrayElementAtIndex(iterator.arraySize);
+                            iterator.GetArrayElementAtIndex(iterator.arraySize-1).stringValue = name;
+                        }
+                        else
+                        {
+                            iterator.DeleteArrayElementAtIndex(vals.IndexOf(name));
+                        }
+                    }
+                }
+            }
             while(iterator.NextVisible(false))
             {
-                if(iterator.name != "hierarchyComponents")
+                if(iterator.name == "hierarchyComponents")
                 {
-                    EditorGUILayout.PropertyField(iterator, true);
+                    StringListAsToggle(HierarchyExtension.names);
+                }
+                else if(iterator.name == "projectComponents")
+                {
+                    EditorGUILayout.Space();
+                    EditorGUILayout.LabelField("Project", EditorStyles.boldLabel);
+                    StringListAsToggle(ProjectExtension.names);
                 }
                 else
                 {
-                    var vals = Enumerable.Range(0, iterator.arraySize).Select(i => iterator.GetArrayElementAtIndex(i).stringValue).ToList();
-                    foreach(var name in HierarchyExtention.names)
-                    {
-                        var contains = vals.Contains(name);
-                        var toggle = EditorGUILayout.ToggleLeft(name, contains);
-                        if(contains != toggle)
-                        {
-                            if(toggle)
-                            {
-                                iterator.InsertArrayElementAtIndex(iterator.arraySize);
-                                iterator.GetArrayElementAtIndex(iterator.arraySize-1).stringValue = name;
-                            }
-                            else
-                            {
-                                iterator.DeleteArrayElementAtIndex(vals.IndexOf(name));
-                            }
-                        }
-                    }
+                    EditorGUILayout.PropertyField(iterator, true);
                 }
             }
             if(EditorGUI.EndChangeCheck())
             {
                 serializedObject.ApplyModifiedProperties();
                 EditorToolboxSettings.instance.Save();
-                HierarchyExtention.Resolve();
+                HierarchyExtension.Resolve();
+                ProjectExtension.Resolve();
                 EditorApplication.RepaintHierarchyWindow();
+                EditorApplication.RepaintProjectWindow();
             }
         }
     }

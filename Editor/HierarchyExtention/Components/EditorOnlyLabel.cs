@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace jp.lilxyzw.editortoolbox
 {
-    internal class EditorOnlyLabel : IHierarchyExtentionConponent
+    internal class EditorOnlyLabel : IHierarchyExtensionComponent
     {
         public int Priority => -800;
         private static GUIStyle m_EOIcon;

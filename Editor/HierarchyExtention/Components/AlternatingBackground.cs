@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace jp.lilxyzw.editortoolbox
 {
-    internal class AlternatingBackground : IHierarchyExtentionConponent
+    internal class AlternatingBackground : IHierarchyExtensionComponent
     {
         public int Priority => -1500;
 

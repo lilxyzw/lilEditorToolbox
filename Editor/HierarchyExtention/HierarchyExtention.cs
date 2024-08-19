@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace jp.lilxyzw.editortoolbox
 {
-    internal class HierarchyExtention
+    internal class HierarchyExtension
     {
         private static readonly Color32 missingScriptIconColor = new Color32(255,0,255,255);
         private const int ICON_SIZE = 16;
@@ -16,21 +16,20 @@ namespace jp.lilxyzw.editortoolbox
             if(m_missingScriptIcon) return m_missingScriptIcon;
             return m_missingScriptIcon = GenerateTexture(missingScriptIconColor,ICON_SIZE,ICON_SIZE);
         }
-        private static EditorToolboxSettings Settings => EditorToolboxSettings.instance;
-        private static List<IHierarchyExtentionConponent> hierarchyExtentionConponents;
+        private static List<IHierarchyExtensionComponent> hierarchyExtensionComponents;
 
         [InitializeOnLoadMethod] private static void Initialize() => EditorApplication.hierarchyWindowItemOnGUI += OnGUI;
 
         internal static readonly Type[] types = AppDomain.CurrentDomain.GetAssemblies()
-            .SelectMany(a => a.GetCustomAttributes(typeof(ExportsComponent), false))
-            .SelectMany(export => ((ExportsComponent)export).Types).ToArray();
+            .SelectMany(a => a.GetCustomAttributes(typeof(ExportsHierarchyExtensionComponent), false))
+            .SelectMany(export => ((ExportsHierarchyExtensionComponent)export).Types).ToArray();
 
         internal static readonly string[] names = types.Select(t => t.FullName).ToArray();
 
-        internal static IHierarchyExtentionConponent Resolve()
+        internal static IHierarchyExtensionComponent Resolve()
         {
-            hierarchyExtentionConponents = new List<IHierarchyExtentionConponent>();
-            hierarchyExtentionConponents.AddRange(types.Where(t => Settings.hierarchyComponents.Contains(t.FullName)).Select(t => (IHierarchyExtentionConponent)Activator.CreateInstance(t)).OrderBy(c => c.Priority));
+            hierarchyExtensionComponents = new List<IHierarchyExtensionComponent>();
+            hierarchyExtensionComponents.AddRange(types.Where(t => EditorToolboxSettings.instance.hierarchyComponents.Contains(t.FullName)).Select(t => (IHierarchyExtensionComponent)Activator.CreateInstance(t)).OrderBy(c => c.Priority));
             return null;
         }
 
@@ -43,9 +42,9 @@ namespace jp.lilxyzw.editortoolbox
             var rectOrigin = selectionRect;
             selectionRect.x = selectionRect.xMax;
 
-            if(hierarchyExtentionConponents == null) Resolve();
+            if(hierarchyExtensionComponents == null) Resolve();
 
-            foreach(var c in hierarchyExtentionConponents) c.OnGUI(ref selectionRect, go, instanceID, rectOrigin);
+            foreach(var c in hierarchyExtensionComponents) c.OnGUI(ref selectionRect, go, instanceID, rectOrigin);
         }
 
         private static Texture2D GenerateTexture(Color32 color, int width, int height)

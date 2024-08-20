@@ -71,3 +71,7 @@ Project上に拡張子やprefabの情報などを表示できます。`IProjectE
 ## Scene Viewキャプチャツール
 
 Scene Viewと同じ画角で高解像度キャプチャするツールです。`Tools/lilEditorToolbox/Scene Capture`から利用できます。
+
+## Missing発見ツール
+
+オブジェクトの中からMissingなコンポーネントやアセットを発見するツールです。`Tools/lilEditorToolbox/Missing Finder`から利用できます。

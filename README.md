@@ -67,3 +67,7 @@ Project上に拡張子やprefabの情報などを表示できます。`IProjectE
 ## シェーダーキーワード確認ツール
 
 シェーダー開発用に作成した**シェーダー本体**のシェーダーキーワードを確認するツールです。`Tools/lilEditorToolbox/Shader Keyword Viewer`から利用できます。
+
+## Scene Viewキャプチャツール
+
+Scene Viewと同じ画角で高解像度キャプチャするツールです。`Tools/lilEditorToolbox/Scene Capture`から利用できます。

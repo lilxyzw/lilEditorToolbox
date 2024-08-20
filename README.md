@@ -75,3 +75,7 @@ Scene Viewと同じ画角で高解像度キャプチャするツールです。`
 ## Missing発見ツール
 
 オブジェクトの中からMissingなコンポーネントやアセットを発見するツールです。`Tools/lilEditorToolbox/Missing Finder`から利用できます。
+
+## テクスチャパッキングツール
+
+複数のテクスチャ（MetallicやRoughnessなど）を各チャンネルにパッキングして1枚にするツールです。`Tools/lilEditorToolbox/Texture Packer`から利用できます。

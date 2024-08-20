@@ -129,6 +129,11 @@ namespace jp.lilxyzw.editortoolbox
                 {
                     if(bytes.SequenceEqual(guid)) return lib;
                 }
+
+                lib.displayName = null;
+                lib.name = null;
+                lib.url = null;
+                lib.repo = null;
             }
             return null;
         }

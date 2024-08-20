@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace jp.lilxyzw.editortoolbox
 {
-    public class ExtensionDrawer : IProjectExtensionComponent
+    internal class ExtensionDrawer : IProjectExtensionComponent
     {
         public int Priority => 0;
 

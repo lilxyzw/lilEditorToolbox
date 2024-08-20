@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace jp.lilxyzw.editortoolbox
 {
-    public class TexturePacker : EditorWindow
+    internal class TexturePacker : EditorWindow
     {
         public ChannelParam[] channelParams = {
             new(){mode = ChannelMode.R, def = 0},
@@ -164,7 +164,7 @@ namespace jp.lilxyzw.editortoolbox
         }
 
         [Serializable]
-        public class ChannelParam
+        internal class ChannelParam
         {
             public Texture2D tex;
             public ChannelMode mode;
@@ -172,7 +172,7 @@ namespace jp.lilxyzw.editortoolbox
             public float def = 0;
         }
 
-        public enum ChannelMode
+        internal enum ChannelMode
         {
             R,
             G,

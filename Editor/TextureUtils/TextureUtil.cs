@@ -433,7 +433,7 @@ namespace jp.lilxyzw.editortoolbox
             AssetDatabase.Refresh();
         }
 
-        public static string SaveToPng(string path, string add, Texture2D tex)
+        private static string SaveToPng(string path, string add, Texture2D tex)
         {
             string savePath = Path.GetDirectoryName(path) + "/" + Path.GetFileNameWithoutExtension(path) + add + ".png";
             File.WriteAllBytes(savePath, tex.EncodeToPNG());

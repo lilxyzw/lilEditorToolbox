@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace jp.lilxyzw.editortoolbox
 {
-    public class PrefabInfo : IProjectExtensionComponent
+    internal class PrefabInfo : IProjectExtensionComponent
     {
         public int Priority => 0;
         private static GUIStyle styleAssetLabel;

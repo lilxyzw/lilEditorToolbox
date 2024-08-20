@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace jp.lilxyzw.editortoolbox
 {
-    public class MissingFinder : EditorWindow
+    internal class MissingFinder : EditorWindow
     {
         [MenuItem("Tools/lilEditorToolbox/Missing Finder")]
         static void Init() => GetWindow(typeof(MissingFinder)).Show();

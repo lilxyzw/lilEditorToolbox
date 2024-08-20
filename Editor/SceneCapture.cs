@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
@@ -69,15 +70,19 @@ namespace jp.lilxyzw.editortoolbox
             camera.allowHDR = true;
             camera.allowMSAA = true;
 
-            GameObject obj = null;
+            var objs = new List<GameObject>();
             if(captureTarget)
             {
                 camera.clearFlags = CameraClearFlags.SolidColor;
                 camera.backgroundColor = Color.clear;
                 camera.cullingMask = 1 << 31;
-                obj = Instantiate(Selection.activeGameObject);
-                obj.SetActive(true);
-                foreach(var t in obj.GetComponentsInChildren<Transform>()) t.gameObject.layer = 31;
+                foreach(var gameObject in Selection.gameObjects)
+                {
+                    var obj = Instantiate(gameObject);
+                    obj.SetActive(true);
+                    foreach(var t in obj.GetComponentsInChildren<Transform>()) t.gameObject.layer = 31;
+                    objs.Add(obj);
+                }
             }
 
             camera.Render();
@@ -95,7 +100,7 @@ namespace jp.lilxyzw.editortoolbox
 
             RenderTexture.active = currentRT;
 
-            if(obj) DestroyImmediate(obj);
+            foreach(var obj in objs) DestroyImmediate(obj);
             DestroyImmediate(camera.gameObject);
             DestroyImmediate(tex);
 

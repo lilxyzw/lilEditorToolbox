@@ -1,39 +1,40 @@
 lilEditorToolbox
 ====
 
-りるさんが適当につくったエディタ拡張をまとめたやつです。機能のオンオフは基本的に`Preferences`の`lilEditorToolbox`タブからできます。
-
-## SceneMSAA
-
-Main Cameraに付けるとScene画面でもアンチエイリアスが適用されるようになるコンポーネントです。
-
-## カメラモード拡張
-
-`Vertex Attribute`がカメラモードに追加されます。このモードでは、シーン画面左上から確認対象を切り替えられます。
-
-> [!WARNING]
-> ジオメトリシェーダーを使用しているため`Metal`環境では一部機能が動作しません。
+単体で出すほどでもないエディタ拡張をまとめたものです。機能のオンオフは基本的に`Preferences`の`lilEditorToolbox`タブからできます。
 
 ## インポート拡張
 
-アセットをD&Dした階層に同名のファイルがある場合上書きインポートするようになります。また、unitypackageのインポート時に現在開いているフォルダ配下にインポートするようになります。
-
-## インポート設定最適化ツール
-
-アセットの初回インポート時にインポート設定の最適化を行います。
-
+- アセットをD&Dした階層に同名のファイルがある場合上書きインポート
+- unitypackageをD&Dした階層にインポート
 - テクスチャの`Crunch Compression`のオフと`Streaming Mipmaps`のオン
-- モデルの`Legacy Blend Shape Normals`のオフと`Blend Shape Normals`設定の最適化
+- モデルの`Legacy Blend Shape Normals`のオフと`Blend Shape Normals`設定の最適化、Humanoidから`Jaw`の削除
 
 ## Hierarchy拡張
 
 Hierarchy上にオブジェクトのオンオフ、コンポーネント、タグ、レイヤーなどを表示できます。`IHierarchyExtensionConponent`を実装することで独自に拡張を追加することもできます。書き方は`Editor/HierarchyExtension/Components`配下のスクリプトを参考にしてください。
 
-## Project拡張
+## Project Window拡張
 
 Project上に拡張子やprefabの情報などを表示できます。`IProjectExtensionConponent`を実装することで独自に拡張を追加することもできます。書き方は`Editor/ProjectExtension/Components`配下のスクリプトを参考にしてください。
 
-## アセット特定ツール
+## Scene View拡張
+
+- Scene Viewを高解像度キャプチャ（`Tools/lilEditorToolbox/Scene Capture`）
+- アンチエイリアス適用（Main Cameraに`SceneMSAA`コンポーネントを付ける）
+- モデルデータを確認するカメラモード追加（`Vertex Attribute`）
+
+> [!WARNING]
+> カメラモード拡張でジオメトリシェーダーを使用しているため`Metal`環境では一部機能が動作しません。
+
+## その他ツール
+
+- 不足アセット特定ツール（詳細は後述）
+- シェーダー本体のキーワード確認（`Tools/lilEditorToolbox/Shader Keyword Viewer`）
+- Missing参照発見ツール（`Tools/lilEditorToolbox/Missing Finder`）
+- テクスチャチャンネルパッキングツール（`Tools/lilEditorToolbox/Texture Packer`）
+
+## 不足アセット特定ツール
 
 [GUIDのデータベース](https://github.com/lilxyzw/guid_database)を見てプロジェクトに不足しているツールやシェーダーを特定するツールです。不足しているアセットがデータベースに登録されている場合、エラーになっているマテリアルやコンポーネントのInspectorに不足アセットが表示されます。データベースは`Tools/lilEditorToolbox/[AssetGrimoire] Update Database`で更新できます。
 
@@ -45,37 +46,3 @@ Project上に拡張子やprefabの情報などを表示できます。`IProjectE
 2. `Assets/GUIDList/`内に手順1で指定したターゲットの設定が追加されるので必要に応じて設定を編集
 3. `Tools/lilEditorToolbox/[AssetGrimoire] Output GUIDs`をクリックし、ダイアログでデータベース出力先フォルダを選択
 4. [guid_database](https://github.com/lilxyzw/guid_database)のPull Requestで追加リクエストを送信
-
-## テクスチャ変換ツール
-
-テクスチャを右クリックして`_lil/TextureUtil/`内のメニューから変換できます。
-
-`MetallicGlossMap`変換時にG・Bのチャンネルに1.0が設定されるため、多くの場合はそのまま`Mask Map`として使用できます。基本的に`Perceptual Roughness`として変換を行い、結果が滑らかすぎる場合は`Roughness`で変換を行ってください。
-
-|Menu Name|Selection (Bold is required, others are optional)|Output|
-|-|-|-|
-|[Texture] Convert normal map (DirectX <-> OpenGL)|**Normal map**|Normal map|
-|[Texture] Smoothness/Smoothness -> MetallicGlossMap|**Smoothness**|MetallicGlossMap|
-|[Texture] Smoothness/Metallic, Smoothness (, Occlusion, Detail) -> MetallicGlossMap (MaskMap)|**Metallic**, **Smoothness**, Occlusion, Detail|MetallicGlossMap or Mask Map|
-|[Texture] Perceptual Roughness/Roughness -> Smoothness|**Roughness**|Smoothness|
-|[Texture] Perceptual Roughness/Roughness -> MetallicGlossMap|**Roughness**|MetallicGlossMap|
-|[Texture] Perceptual Roughness/Metallic, Roughness (, Occlusion, Detail) -> MetallicGlossMap (MaskMap)|**Metallic**, **Roughness**, Occlusion, Detail|MetallicGlossMap or Mask Map|
-|[Texture] Roughness/Roughness -> Smoothness|**Roughness**|Smoothness|
-|[Texture] Roughness/Roughness -> MetallicGlossMap|**Roughness**|MetallicGlossMap|
-|[Texture] Roughness/Metallic, Roughness (, Occlusion, Detail) -> MetallicGlossMap (MaskMap)|**Metallic**, **Roughness**, Occlusion, Detail|MetallicGlossMap or Mask Map|
-
-## シェーダーキーワード確認ツール
-
-シェーダー開発用に作成した**シェーダー本体**のシェーダーキーワードを確認するツールです。`Tools/lilEditorToolbox/Shader Keyword Viewer`から利用できます。
-
-## Scene Viewキャプチャツール
-
-Scene Viewと同じ画角で高解像度キャプチャするツールです。`Tools/lilEditorToolbox/Scene Capture`から利用できます。
-
-## Missing発見ツール
-
-オブジェクトの中からMissingなコンポーネントやアセットを発見するツールです。`Tools/lilEditorToolbox/Missing Finder`から利用できます。
-
-## テクスチャパッキングツール
-
-複数のテクスチャ（MetallicやRoughnessなど）を各チャンネルにパッキングして1枚にするツールです。`Tools/lilEditorToolbox/Texture Packer`から利用できます。

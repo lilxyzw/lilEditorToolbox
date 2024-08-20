@@ -22,12 +22,13 @@ namespace jp.lilxyzw.editortoolbox
         public bool removeJaw = true;
 
         [Header("Hierarchy")]
-        public Color backgroundColor = new Color(0.5f,0.5f,0.5f,0.05f);
-        public Color lineColor = new Color(0.5f,0.5f,0.5f,0.33f);
         public string[] hierarchyComponents = HierarchyExtension.names;
 
         [Header("Project")]
         public string[] projectComponents = ProjectExtension.names;
+
+        internal readonly Color backgroundColor = new Color(0.5f,0.5f,0.5f,0.05f);
+        internal readonly Color lineColor = new Color(0.5f,0.5f,0.5f,0.33f);
 
         internal void Save() => Save(true);
     }
@@ -66,6 +67,8 @@ namespace jp.lilxyzw.editortoolbox
             {
                 if(iterator.name == "hierarchyComponents")
                 {
+                    EditorGUILayout.Space();
+                    EditorGUILayout.LabelField("Hierarchy", EditorStyles.boldLabel);
                     StringListAsToggle(HierarchyExtension.names);
                 }
                 else if(iterator.name == "projectComponents")

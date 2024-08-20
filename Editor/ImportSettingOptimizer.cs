@@ -1,7 +1,9 @@
+using System;
 using System.Linq;
 using System.Reflection;
 using UnityEditor;
 using UnityEditor.Build;
+using UnityEngine;
 
 namespace jp.lilxyzw.editortoolbox
 {
@@ -61,6 +63,19 @@ namespace jp.lilxyzw.editortoolbox
             {
                 if(importer.importBlendShapeNormals == ModelImporterNormals.Calculate) importer.importBlendShapeNormals = ModelImporterNormals.None;
                 typeof(ModelImporter).GetProperty("legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(importer, false);
+            }
+        }
+
+        private void OnPostprocessModel(GameObject obj)
+        {
+            if(assetPath.StartsWith("Packages")) return;
+
+            var importer = assetImporter as ModelImporter;
+            if(EditorToolboxSettings.instance.removeJaw)
+            {
+                var humanDescription = importer.humanDescription;
+                humanDescription.human = humanDescription.human.Where(b => b.humanName != "Jaw" || b.boneName.Contains("jaw", StringComparison.InvariantCultureIgnoreCase)).ToArray();
+                importer.humanDescription = humanDescription;
             }
         }
     }

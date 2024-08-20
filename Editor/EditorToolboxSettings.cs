@@ -18,6 +18,7 @@ namespace jp.lilxyzw.editortoolbox
         [Header("Model Import")]
         public bool turnOnReadable = true;
         public bool fixBlendshapes = true;
+        public bool removeJaw = true;
 
         [Header("Hierarchy")]
         public Color backgroundColor = new Color(0.5f,0.5f,0.5f,0.05f);

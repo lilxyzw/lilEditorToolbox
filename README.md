@@ -16,7 +16,14 @@ Main Cameraに付けるとScene画面でもアンチエイリアスが適用さ�
 
 ## インポート拡張
 
-アセットをD&Dした階層に同名のファイルがある場合上書きインポートするようになります。
+アセットをD&Dした階層に同名のファイルがある場合上書きインポートするようになります。また、unitypackageのインポート時に現在開いているフォルダ配下にインポートするようになります。
+
+## インポート設定最適化ツール
+
+アセットの初回インポート時にインポート設定の最適化を行います。
+
+- テクスチャの`Crunch Compression`のオフと`Streaming Mipmaps`のオン
+- モデルの`Legacy Blend Shape Normals`のオフと`Blend Shape Normals`設定の最適化
 
 ## Hierarchy拡張
 
@@ -56,13 +63,6 @@ Project上に拡張子やprefabの情報などを表示できます。`IProjectE
 |[Texture] Roughness/Roughness -> Smoothness|**Roughness**|Smoothness|
 |[Texture] Roughness/Roughness -> MetallicGlossMap|**Roughness**|MetallicGlossMap|
 |[Texture] Roughness/Metallic, Roughness (, Occlusion, Detail) -> MetallicGlossMap (MaskMap)|**Metallic**, **Roughness**, Occlusion, Detail|MetallicGlossMap or Mask Map|
-
-## インポート設定最適化ツール
-
-アセットの初回インポート時にインポート設定の最適化を行います。
-
-- テクスチャの`Crunch Compression`のオフと`Streaming Mipmaps`のオン
-- モデルの`Legacy Blend Shape Normals`のオフと`Blend Shape Normals`設定の最適化
 
 ## シェーダーキーワード確認ツール
 

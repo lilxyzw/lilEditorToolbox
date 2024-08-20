@@ -10,6 +10,7 @@ namespace jp.lilxyzw.editortoolbox
     {
         [Header("Asset Import")]
         public bool dragAndDropOverwrite = true;
+        public bool unitypackageToFolder = true;
 
         [Header("Texture Import")]
         public bool turnOffCrunchCompression = true;
@@ -81,6 +82,7 @@ namespace jp.lilxyzw.editortoolbox
             if(EditorGUI.EndChangeCheck())
             {
                 serializedObject.ApplyModifiedProperties();
+                UnitypackageImporter.Init();
                 EditorToolboxSettings.instance.Save();
                 HierarchyExtension.Resolve();
                 ProjectExtension.Resolve();

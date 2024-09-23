@@ -23,7 +23,13 @@ namespace jp.lilxyzw.editortoolbox
             AssetDatabase.importPackageFailed += (_,_) => isImportingPackage = false;
         }
 
-        private void OnPreprocessTexture()
+        private void OnPreprocessAsset()
+        {
+            if(assetImporter is TextureImporter) OnPreprocessTextureInternal();
+            if(assetImporter is ModelImporter) OnPreprocessModelInternal();
+        }
+
+        private void OnPreprocessTextureInternal()
         {
             if(assetPath.StartsWith("Packages") || !IsFirstTime) return;
 
@@ -53,7 +59,7 @@ namespace jp.lilxyzw.editortoolbox
             importer.SetPlatformTextureSettings(settings);
         }
 
-        private void OnPreprocessModel()
+        private void OnPreprocessModelInternal()
         {
             if(assetPath.StartsWith("Packages") || !IsFirstTime) return;
 

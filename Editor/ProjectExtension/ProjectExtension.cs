@@ -4,11 +4,22 @@ using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace jp.lilxyzw.editortoolbox
 {
-    internal class ProjectExtension
+    public class ProjectExtension
     {
+        // 各IProjectExtensionComponentでオブジェクトのロードをすると無駄なのでここに集約
+        private static readonly Dictionary<string, Object> objMap = new();
+        public static Object GUIDToObject(string guid)
+        {
+            if(objMap.TryGetValue(guid, out var obj)) return obj;
+            var path = AssetDatabase.GUIDToAssetPath(guid);
+            if(string.IsNullOrEmpty(path)) return objMap[guid] = null;
+            return objMap[guid] = AssetDatabase.LoadAssetAtPath<Object>(path);
+        }
+
         internal static readonly Type[] types = AppDomain.CurrentDomain.GetAssemblies()
             .SelectMany(a => a.GetCustomAttributes(typeof(ExportsProjectExtensionComponent), false))
             .SelectMany(export => ((ExportsProjectExtensionComponent)export).Types).ToArray();

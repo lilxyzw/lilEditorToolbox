@@ -31,11 +31,12 @@ namespace jp.lilxyzw.editortoolbox
                     else          GUI.Box(currentRect, HierarchyExtension.MissingScriptIcon(), GUIStyle.none);
                     GUI.enabled = true;
 
-                    switch(component)
+                    if((component is Renderer || component is Behaviour || component is Collider) && GUI.Button(currentRect, Texture2D.blackTexture, GUIStyle.none))
                     {
-                        case Renderer c: if(GUI.Button(currentRect, Texture2D.blackTexture, GUIStyle.none)) c.enabled = !c.enabled; break;
-                        case Behaviour c: if(GUI.Button(currentRect, Texture2D.blackTexture, GUIStyle.none)) c.enabled = !c.enabled; break;
-                        case Collider c: if(GUI.Button(currentRect, Texture2D.blackTexture, GUIStyle.none)) c.enabled = !c.enabled; break;
+                        using var so = new SerializedObject(component);
+                        using var m_Enabled = so.FindProperty("m_Enabled");
+                        m_Enabled.boolValue = !m_Enabled.boolValue;
+                        so.ApplyModifiedProperties();
                     }
 
                     currentRect.x += ICON_SIZE;

@@ -14,7 +14,13 @@ namespace jp.lilxyzw.editortoolbox
             currentRect.x -= ICON_SIZE;
             currentRect.width = ICON_SIZE;
             var active = EditorGUI.Toggle(currentRect, gameObject.activeSelf);
-            if(gameObject.activeSelf != active) gameObject.SetActive(active);
+            if(gameObject.activeSelf != active)
+            {
+                using var so = new SerializedObject(gameObject);
+                using var m_IsActive = so.FindProperty("m_IsActive");
+                m_IsActive.boolValue = active;
+                so.ApplyModifiedProperties();
+            }
             currentRect.x -= 8;
         }
     }

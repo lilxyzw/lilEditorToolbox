@@ -15,6 +15,7 @@ namespace jp.lilxyzw.editortoolbox
         [Header("Texture Import")]
         public bool turnOffCrunchCompression = true;
         public bool turnOnStreamingMipmaps = true;
+        public bool changeToKaiserMipmaps = true;
 
         [Header("Model Import")]
         public bool turnOnReadable = true;

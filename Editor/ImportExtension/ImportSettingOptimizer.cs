@@ -36,6 +36,7 @@ namespace jp.lilxyzw.editortoolbox
             var importer = assetImporter as TextureImporter;
 
             if(EditorToolboxSettings.instance.turnOnStreamingMipmaps) importer.streamingMipmaps = true;
+            if(EditorToolboxSettings.instance.changeToKaiserMipmaps) importer.mipmapFilter = TextureImporterMipFilter.KaiserFilter;
             if(EditorToolboxSettings.instance.turnOffCrunchCompression)
             {
                 importer.crunchedCompression = false;

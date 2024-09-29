@@ -67,6 +67,9 @@ namespace jp.lilxyzw.editortoolbox
             catch{}
         }
 
+        private static string guidPrev = "";
+        public static bool isSubAsset = false;
+
         private static void Draw(string guid, Rect position)
         {
             var path = AssetDatabase.GUIDToAssetPath(guid);
@@ -84,7 +87,10 @@ namespace jp.lilxyzw.editortoolbox
 
             if(projectExtensionComponents == null) Resolve();
 
+            isSubAsset = guid == guidPrev;
             foreach(var c in projectExtensionComponents) c.OnGUI(ref currentRect, guid, path, name, extension, position);
+
+            guidPrev = guid;
         }
     }
 }

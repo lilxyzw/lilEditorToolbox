@@ -28,6 +28,9 @@ namespace jp.lilxyzw.editortoolbox
         [Header("Project")]
         public string[] projectComponents = ProjectExtension.names;
 
+        [Header("Toolbar")]
+        public string[] toolbarComponents = ToolbarExtension.names;
+
         internal readonly Color backgroundColor = new Color(0.5f,0.5f,0.5f,0.05f);
         internal readonly Color lineColor = new Color(0.5f,0.5f,0.5f,0.33f);
 
@@ -78,6 +81,12 @@ namespace jp.lilxyzw.editortoolbox
                     EditorGUILayout.LabelField("Project", EditorStyles.boldLabel);
                     StringListAsToggle(ProjectExtension.names);
                 }
+                else if(iterator.name == "toolbarComponents")
+                {
+                    EditorGUILayout.Space();
+                    EditorGUILayout.LabelField("Toolbar", EditorStyles.boldLabel);
+                    StringListAsToggle(ToolbarExtension.names);
+                }
                 else
                 {
                     EditorGUILayout.PropertyField(iterator, true);
@@ -90,6 +99,7 @@ namespace jp.lilxyzw.editortoolbox
                 EditorToolboxSettings.instance.Save();
                 HierarchyExtension.Resolve();
                 ProjectExtension.Resolve();
+                ToolbarExtension.Resolve();
                 EditorApplication.RepaintHierarchyWindow();
                 EditorApplication.RepaintProjectWindow();
             }

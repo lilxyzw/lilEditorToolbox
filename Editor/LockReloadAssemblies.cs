@@ -5,9 +5,9 @@ namespace jp.lilxyzw.editortoolbox
     internal static class LockReloadAssemblies
     {
         private const string MENU_PATH = Common.MENU_HEAD + "Lock Reload Assemblies";
-        private static bool isLocked = false;
+        internal static bool isLocked = false;
         [MenuItem(MENU_PATH)]
-        private static void Lock()
+        internal static void ToggleLock()
         {
             isLocked = !isLocked;
             Menu.SetChecked(MENU_PATH, isLocked);

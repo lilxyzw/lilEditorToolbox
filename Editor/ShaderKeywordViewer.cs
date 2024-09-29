@@ -15,7 +15,7 @@ namespace jp.lilxyzw.editortoolbox
         private List<PassData> passDatas = new();
         private Shader shader;
 
-        [MenuItem("Tools/lilEditorToolbox/Shader Keyword Viewer")]
+        [MenuItem(Common.MENU_HEAD + "Shader Keyword Viewer")]
         static void Init() => GetWindow(typeof(ShaderKeywordViewer)).Show();
 
         void OnGUI()

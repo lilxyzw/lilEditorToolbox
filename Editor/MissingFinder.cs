@@ -6,7 +6,7 @@ namespace jp.lilxyzw.editortoolbox
 {
     internal class MissingFinder : EditorWindow
     {
-        [MenuItem("Tools/lilEditorToolbox/Missing Finder")]
+        [MenuItem(Common.MENU_HEAD + "Missing Finder")]
         static void Init() => GetWindow(typeof(MissingFinder)).Show();
 
         HashSet<Object> objects = new HashSet<Object>();

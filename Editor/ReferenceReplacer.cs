@@ -13,7 +13,7 @@ namespace jp.lilxyzw.editortoolbox
         public Object from;
         public Object to;
         public HashSet<Object> modified = new();
-        [MenuItem("Tools/lilEditorToolbox/Reference Replacer")]
+        [MenuItem(Common.MENU_HEAD + "Reference Replacer")]
         static void Init() => GetWindow(typeof(ReferenceReplacer)).Show();
 
         void OnGUI()

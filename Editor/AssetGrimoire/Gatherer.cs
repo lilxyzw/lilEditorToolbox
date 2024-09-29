@@ -9,7 +9,7 @@ namespace jp.lilxyzw.editortoolbox
 {
     internal static class Gatherer
     {
-        [MenuItem("Tools/lilEditorToolbox/[AssetGrimoire] Output GUIDs")]
+        [MenuItem(Common.MENU_HEAD + "[AssetGrimoire] Output GUIDs")]
         private static void GahterGUIDs()
         {
             var libs = AssetDatabase.FindAssets("t:GUIDLibrary", null);
@@ -37,7 +37,7 @@ namespace jp.lilxyzw.editortoolbox
             }
         }
 
-        [MenuItem("Tools/lilEditorToolbox/[AssetGrimoire] Make Target (Folder)")]
+        [MenuItem(Common.MENU_HEAD + "[AssetGrimoire] Make Target (Folder)")]
         private static void MakeTarget()
         {
             if(!Directory.Exists("Assets/GUIDList")) AssetDatabase.CreateFolder("Assets", "GUIDList");
@@ -63,7 +63,7 @@ namespace jp.lilxyzw.editortoolbox
                 AssetDatabase.CreateAsset(lib, $"Assets/GUIDList/{name}.asset");
             }
         }
-        [MenuItem("Tools/lilEditorToolbox/[AssetGrimoire] Update Database")]
+        [MenuItem(Common.MENU_HEAD + "[AssetGrimoire] Update Database")]
         private static void UpdateDatabase() => GUIDLibrary.Update();
 
         [InitializeOnLoadMethod]
@@ -80,7 +80,7 @@ namespace jp.lilxyzw.editortoolbox
         // Need to install com.unity.sharp-zip-lib
         // https://docs.unity3d.com/Packages/com.unity.sharp-zip-lib@1.3/manual/Installation.html
         #if LIL_SHADPZIPLIB
-        [MenuItem("Tools/lilEditorToolbox/[AssetGrimoire] Make Target (Unitypackage)")]
+        [MenuItem(Common.MENU_HEAD + "[AssetGrimoire] Make Target (Unitypackage)")]
         private static void MakeTargetUnitypackage()
         {
             var path = EditorUtility.OpenFilePanel("Open", "", "unitypackage");

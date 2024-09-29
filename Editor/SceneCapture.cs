@@ -13,7 +13,7 @@ namespace jp.lilxyzw.editortoolbox
 
         public bool captureTarget = false;
 
-        [MenuItem("Tools/lilEditorToolbox/Scene Capture")]
+        [MenuItem(Common.MENU_HEAD + "Scene Capture")]
         static void Init() => GetWindow(typeof(SceneCapture)).Show();
 
         void OnGUI()

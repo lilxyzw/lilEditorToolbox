@@ -19,7 +19,7 @@ namespace jp.lilxyzw.editortoolbox
 
         private readonly Dictionary<Texture2D, Texture2D> rawTexs = new();
 
-        [MenuItem("Tools/lilEditorToolbox/Texture Packer")]
+        [MenuItem(Common.MENU_HEAD + "Texture Packer")]
         static void Init()
         {
             var window = GetWindow(typeof(TexturePacker));

@@ -44,7 +44,10 @@ namespace jp.lilxyzw.editortoolbox
 
             if(hierarchyExtensionComponents == null) Resolve();
 
+            var mix = EditorGUI.showMixedValue;
+            EditorGUI.showMixedValue = false;
             foreach(var c in hierarchyExtensionComponents) c.OnGUI(ref selectionRect, go, instanceID, rectOrigin);
+            EditorGUI.showMixedValue = mix;
         }
 
         private static Texture2D GenerateTexture(Color32 color, int width, int height)

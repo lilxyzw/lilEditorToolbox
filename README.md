@@ -7,7 +7,7 @@ lilEditorToolbox
 
 - アセットをD&Dした階層に同名のファイルがある場合上書きインポート
 - unitypackageをD&Dした階層にインポート
-- テクスチャの`Crunch Compression`のオフと`Streaming Mipmaps`のオン
+- テクスチャの`Crunch Compression`のオフと`Streaming Mipmaps`のオンと`Kaiser`ミップマップ化
 - モデルの`Legacy Blend Shape Normals`のオフと`Blend Shape Normals`設定の最適化、Humanoidから`Jaw`の削除
 
 ## Hierarchy拡張
@@ -17,6 +17,10 @@ Hierarchy上にオブジェクトのオンオフ、コンポーネント、タ�
 ## Project Window拡張
 
 Project上に拡張子やprefabの情報などを表示できます。`IProjectExtensionConponent`を実装することで独自に拡張を追加することもできます。書き方は`Editor/ProjectExtension/Components`配下のスクリプトを参考にしてください。
+
+## Toolbar拡張
+
+Toolbar上に重要度の高い情報を表示できます。`IToolbarExtensionConponent`を実装することで独自に拡張を追加することもできます。書き方は`Editor/ToolbarExtension/Components`配下のスクリプトを参考にしてください。
 
 ## Scene View拡張
 
@@ -33,6 +37,10 @@ Project上に拡張子やprefabの情報などを表示できます。`IProjectE
 - シェーダー本体のキーワード確認（`Tools/lilEditorToolbox/Shader Keyword Viewer`）
 - Missing参照発見ツール（`Tools/lilEditorToolbox/Missing Finder`）
 - テクスチャチャンネルパッキングツール（`Tools/lilEditorToolbox/Texture Packer`）
+- オブジェクト参照を何でも一括置き換え（`Tools/lilEditorToolbox/Reference Replacer`）
+- スクリプトのコンパイルを抑制（`Tools/lilEditorToolbox/Lock Reload Assemblies`）
+- 任意のObjectをjson形式で確認＆編集（`Tools/lilEditorToolbox/Json Object Viewer`）
+- Stencil確認用prefab（`lilEditorToolbox/Editor/Shaders/StencilChecker.prefab`）
 
 ## 不足アセット特定ツール
 

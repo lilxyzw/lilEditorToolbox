@@ -1,4 +1,5 @@
 using jp.lilxyzw.editortoolbox;
 [assembly: ExportsToolbarExtensionComponent(
-    typeof(LockReloadAssembliesButton)
+    typeof(LockReloadAssembliesButton),
+    typeof(AddInspectorTabButton)
 )]

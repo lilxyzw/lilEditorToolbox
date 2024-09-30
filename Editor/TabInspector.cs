@@ -23,10 +23,10 @@ namespace jp.lilxyzw.editortoolbox
         //[MenuItem("Assets/Open in new Inspector", false, 15)]
         internal static void Init()
         {
-            if(Selection.activeObject is Object obj)
+            if(Selection.activeObject)
             {
-                var window = CreateWindow<TabInspector>(new[]{T_InspectorWindow});
-                window.titleContent = EditorGUIUtility.ObjectContent(obj, obj.GetType());
+                var window = CreateWindow<TabInspector>(Selection.activeObject.name, new[]{T_InspectorWindow});
+                window.titleContent.image = AssetPreview.GetMiniThumbnail(Selection.activeObject);
             }
         }
 

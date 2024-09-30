@@ -12,14 +12,22 @@ namespace jp.lilxyzw.editortoolbox
     internal class TabInspector : EditorWindow
     {
         private static readonly Type T_InspectorWindow = typeof(Editor).Assembly.GetType("UnityEditor.InspectorWindow");
+        private static readonly Type T_PropertyEditor = typeof(Editor).Assembly.GetType("UnityEditor.PropertyEditor");
         private static readonly MethodInfo MI_SetObjectsLocked = T_InspectorWindow.GetMethod("SetObjectsLocked", BindingFlags.NonPublic | BindingFlags.Instance);
+        private static readonly MethodInfo MI_SetNormal = T_PropertyEditor.GetMethod("SetNormal", BindingFlags.NonPublic | BindingFlags.Instance);
+        private static readonly MethodInfo MI_SetDebug = T_PropertyEditor.GetMethod("SetDebug", BindingFlags.NonPublic | BindingFlags.Instance);
+        private static readonly MethodInfo MI_SetDebugInternal = T_PropertyEditor.GetMethod("SetDebugInternal", BindingFlags.NonPublic | BindingFlags.Instance);
         public List<Object> targets;
+        public EditorWindow inspector;
 
         //[MenuItem("Assets/Open in new Inspector", false, 15)]
         internal static void Init()
         {
-            if(Selection.activeObject)
-                CreateWindow<TabInspector>($"@{Selection.activeObject.name}", new[]{T_InspectorWindow});
+            if(Selection.activeObject is Object obj)
+            {
+                var window = CreateWindow<TabInspector>(new[]{T_InspectorWindow});
+                window.titleContent = EditorGUIUtility.ObjectContent(obj, obj.GetType());
+            }
         }
 
         public void CreateGUI()
@@ -35,13 +43,24 @@ namespace jp.lilxyzw.editortoolbox
             objfield.style.flexGrow = 1;
             header.Add(objfield);
 
+            // Mode Button
+            var buttonNormal = new Button{text = "Normal"};
+            buttonNormal.clicked += () => MI_SetNormal.Invoke(inspector, null);
+            header.Add(buttonNormal);
+            var buttonDebug = new Button{text = "Debug"};
+            buttonDebug.clicked += () => MI_SetDebug.Invoke(inspector, null);
+            header.Add(buttonDebug);
+            var buttonInternal = new Button{text = "Internal"};
+            buttonInternal.clicked += () => MI_SetDebugInternal.Invoke(inspector, null);
+            header.Add(buttonInternal);
+
             // Close Button
             var button = new Button{text = "☓", tooltip = "Close this tab."};
             button.clicked += () => Close();
             header.Add(button);
 
             // Inspector
-            var inspector = CreateInstance(T_InspectorWindow) as EditorWindow;
+            inspector = CreateInstance(T_InspectorWindow) as EditorWindow;
             MI_SetObjectsLocked.Invoke(inspector, new object[]{targets});
             inspector.rootVisualElement.style.flexGrow = 1;
 

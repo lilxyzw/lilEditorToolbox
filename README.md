@@ -18,6 +18,10 @@ Hierarchy上にオブジェクトのオンオフ、コンポーネント、タ�
 
 Project上に拡張子やprefabの情報などを表示できます。`IProjectExtensionConponent`を実装することで独自に拡張を追加することもできます。書き方は`Editor/ProjectExtension/Components`配下のスクリプトを参考にしてください。
 
+## Inspector拡張
+
+Toolbar上にある+ボタンを押すと他のオブジェクトを選択しても表示対象が変わらないInspectorが開かれます。Unity標準の`Properties...`でも同様のことができますが、こちらはオブジェクトフィールドから編集対象のオブジェクトに飛べたり、開発者モード専用Inspectorに切り替えたりなどができます。
+
 ## Toolbar拡張
 
 Toolbar上に重要度の高い情報を表示できます。`IToolbarExtensionConponent`を実装することで独自に拡張を追加することもできます。書き方は`Editor/ToolbarExtension/Components`配下のスクリプトを参考にしてください。

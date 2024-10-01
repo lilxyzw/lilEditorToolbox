@@ -1,7 +1,9 @@
 {
     "name": "jp.lilxyzw.editortoolbox",
     "rootNamespace": "jp.lilxyzw.editortoolbox",
-    "references": [],
+    "references": [
+        "jp.lilxyzw.editortoolbox.runtime"
+    ],
     "includePlatforms": [
         "Editor"
     ],

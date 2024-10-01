@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace jp.lilxyzw.editortoolbox.runtime
 {
+    [AddComponentMenu("/")]
     internal class CoroutineHandler : MonoBehaviour
     {
         private static CoroutineHandler m_Instance;

@@ -50,6 +50,16 @@ namespace jp.lilxyzw.editortoolbox
         {
             if(!obj || scaneds.Contains(obj)) return;
             scaneds.Add(obj);
+
+            if(obj is GameObject g)
+            {
+                foreach(var c in g.GetComponentsInChildren<Component>(true))
+                {
+                    if(!c) objects.Add(c);
+                    ScanRecursive(c);
+                }
+            }
+
             if(Common.SkipScan(obj)) return;
 
             using var serializedObject = new SerializedObject(obj);
@@ -75,16 +85,6 @@ namespace jp.lilxyzw.editortoolbox
                         enterChildren = false;
                         break;
                 }
-            }
-
-            if(obj is GameObject g)
-            {
-                foreach(var component in g.GetComponents<Component>())
-                {
-                    if(!component) objects.Add(g);
-                    else ScanRecursive(component);
-                }
-                foreach(var transform in g.GetComponentsInChildren<Transform>(true)) ScanRecursive(transform.gameObject);
             }
         }
     }

@@ -10,14 +10,11 @@ namespace jp.lilxyzw.editortoolbox
         public int Priority => 0;
         public bool InLeftSide => false;
 
-        private static ToolbarButton root;
-        private static Image icon;
         private static Texture tex = EditorGUIUtility.IconContent("Toolbar Plus").image;
         public VisualElement GetRootElement()
         {
-            if(root != null) return root;
-            root = new();
-            icon = new(){image = tex};
+            var root = new ToolbarButton();
+            var icon = new Image{image = tex};
             root.Add(icon);
             root.clicked += () => TabInspector.Init();
             return root;

@@ -24,7 +24,7 @@ namespace jp.lilxyzw.editortoolbox
 
             if(KEYWORDS_BUILTIN == null) InitializeBuiltinKeywords();
 
-            if(showBuiltin != (showBuiltin = EditorGUILayout.Toggle("Show builtin keywords", showBuiltin)))
+            if(showBuiltin != (showBuiltin = EditorGUILayout.Toggle(L10n.L("Show builtin keywords"), showBuiltin)))
                 shader = null;
 
             //EditorGUILayout.TextArea(EditorJsonUtility.ToJson(Selection.activeObject, true));
@@ -136,9 +136,9 @@ namespace jp.lilxyzw.editortoolbox
         private void DrawStage(StageData stageData)
         {
             EditorGUILayout.LabelField($"# {stageData.stage} Shader", EditorStyles.boldLabel);
-            DrawKeywords("Global Keywords", stageData.keywordsGlobal);
-            DrawKeywords("Local Keywords", stageData.keywordsLocal);
-            if(showBuiltin) DrawKeywords("Builtin Keywords", stageData.keywordsBuiltin);
+            DrawKeywords(L10n.L("Global Keywords"), stageData.keywordsGlobal);
+            DrawKeywords(L10n.L("Local Keywords"), stageData.keywordsLocal);
+            if(showBuiltin) DrawKeywords(L10n.L("Builtin Keywords"), stageData.keywordsBuiltin);
             EditorGUILayout.Space();
         }
 

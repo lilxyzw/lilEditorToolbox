@@ -3,6 +3,7 @@ using System.Collections;
 using System.Linq;
 using System.Reflection;
 using UnityEditor;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace jp.lilxyzw.editortoolbox
@@ -67,9 +68,10 @@ namespace jp.lilxyzw.editortoolbox
             var ShowTreeGUI = (bool)MI_ShowTreeGUI.Invoke(window, new object[]{m_ImportPackageItems});
             if(!ShowTreeGUI)
             {
-                var button = new Button(){text = "Show Import Window"};
+                var button = new Button(){text = L10n.L("Show Import Window")};
+                EditorStyles.label.CalcMinMaxWidth(new GUIContent(button.text), out float minWidth, out float maxWidth);
                 button.style.marginTop = 36;
-                button.style.width = 150;
+                button.style.width = maxWidth + 32;
                 button.clicked += () => {
                     foreach(var i in items)
                         if(!i.isFolder) i.assetChanged = true;

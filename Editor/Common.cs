@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 
 namespace jp.lilxyzw.editortoolbox
@@ -17,6 +18,19 @@ namespace jp.lilxyzw.editortoolbox
                 obj is Shader ||
                 obj is TextAsset ||
                 obj.GetType() == typeof(Object);
+        }
+    }
+
+    internal class ToggleLeftAttribute : PropertyAttribute { }
+
+    [CustomPropertyDrawer(typeof(ToggleLeftAttribute))]
+    internal class ToggleLeftDrawer : PropertyDrawer
+    {
+        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+        {
+            EditorGUI.BeginChangeCheck();
+            var boolValue = EditorGUI.ToggleLeft(position, label, property.boolValue);
+            if(EditorGUI.EndChangeCheck()) property.boolValue = boolValue;
         }
     }
 }

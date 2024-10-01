@@ -8,14 +8,12 @@ namespace jp.lilxyzw.editortoolbox
         public int Priority => 0;
         public bool InLeftSide => true;
 
-        private static ToolbarToggle root;
         public VisualElement GetRootElement()
         {
-            if(root != null) return root;
-            root = new(){text = "Assemblies Unlocked"};
+            var root = new ToolbarToggle (){text = L10n.L("Assemblies Unlocked")};
             root.RegisterValueChangedCallback(e => {
                 LockReloadAssemblies.ToggleLock();
-                root.text = LockReloadAssemblies.isLocked ? "Assemblies Locked" : "Assemblies Unlocked";
+                root.text = LockReloadAssemblies.isLocked ? L10n.L("Assemblies Locked") : L10n.L("Assemblies Unlocked");
             });
             return root;
         }

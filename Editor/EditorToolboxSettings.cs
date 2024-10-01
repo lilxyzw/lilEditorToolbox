@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
@@ -8,27 +10,30 @@ namespace jp.lilxyzw.editortoolbox
     [FilePath("editortoolbox.asset", FilePathAttribute.Location.PreferencesFolder)]
     internal class EditorToolboxSettings : ScriptableSingleton<EditorToolboxSettings>
     {
-        [Header("Asset Import")]
-        public bool dragAndDropOverwrite = true;
-        public bool unitypackageToFolder = true;
+        [Header("Language")]
+        public string language = CultureInfo.CurrentCulture.Name;
 
-        [Header("Texture Import")]
-        public bool turnOffCrunchCompression = true;
-        public bool turnOnStreamingMipmaps = true;
-        public bool changeToKaiserMipmaps = true;
+        [L10nHeader("Asset Import")]
+        [ToggleLeft] public bool dragAndDropOverwrite = true;
+        [ToggleLeft] public bool unitypackageToFolder = true;
 
-        [Header("Model Import")]
-        public bool turnOnReadable = true;
-        public bool fixBlendshapes = true;
-        public bool removeJaw = true;
+        [L10nHeader("Texture Import")]
+        [ToggleLeft] public bool turnOffCrunchCompression = true;
+        [ToggleLeft] public bool turnOnStreamingMipmaps = true;
+        [ToggleLeft] public bool changeToKaiserMipmaps = true;
 
-        [Header("Hierarchy")]
+        [L10nHeader("Model Import")]
+        [ToggleLeft] public bool turnOnReadable = true;
+        [ToggleLeft] public bool fixBlendshapes = true;
+        [ToggleLeft] public bool removeJaw = true;
+
+        [L10nHeader("Hierarchy Extension")]
         public string[] hierarchyComponents = HierarchyExtension.names;
 
-        [Header("Project")]
+        [L10nHeader("Project Extension")]
         public string[] projectComponents = ProjectExtension.names;
 
-        [Header("Toolbar")]
+        [L10nHeader("Toolbar Extension")]
         public string[] toolbarComponents = ToolbarExtension.names;
 
         internal readonly Color backgroundColor = new Color(0.5f,0.5f,0.5f,0.05f);
@@ -67,34 +72,48 @@ namespace jp.lilxyzw.editortoolbox
                     }
                 }
             }
+
             while(iterator.NextVisible(false))
             {
                 if(iterator.name == "hierarchyComponents")
                 {
                     EditorGUILayout.Space();
-                    EditorGUILayout.LabelField("Hierarchy", EditorStyles.boldLabel);
+                    EditorGUILayout.LabelField(L10n.G("Hierarchy Extension"), EditorStyles.boldLabel);
                     StringListAsToggle(HierarchyExtension.names);
                 }
                 else if(iterator.name == "projectComponents")
                 {
                     EditorGUILayout.Space();
-                    EditorGUILayout.LabelField("Project", EditorStyles.boldLabel);
+                    EditorGUILayout.LabelField(L10n.G("Project Extension"), EditorStyles.boldLabel);
                     StringListAsToggle(ProjectExtension.names);
                 }
                 else if(iterator.name == "toolbarComponents")
                 {
                     EditorGUILayout.Space();
-                    EditorGUILayout.LabelField("Toolbar", EditorStyles.boldLabel);
+                    EditorGUILayout.LabelField(L10n.G("Toolbar Extension"), EditorStyles.boldLabel);
                     StringListAsToggle(ToolbarExtension.names);
+                }
+                else if(iterator.name == "language")
+                {
+                    EditorGUILayout.Space();
+                    EditorGUILayout.LabelField("Language", EditorStyles.boldLabel);
+
+                    var langs = L10n.GetLanguages();
+                    var names = L10n.GetLanguageNames();
+                    EditorGUI.BeginChangeCheck();
+                    var ind = EditorGUILayout.Popup("Language", Array.IndexOf(langs, iterator.stringValue), names);
+                    if(EditorGUI.EndChangeCheck()) iterator.stringValue = langs[ind];
                 }
                 else
                 {
-                    EditorGUILayout.PropertyField(iterator, true);
+                    EditorGUILayout.PropertyField(iterator, L10n.G(iterator.displayName), true);
                 }
             }
+
             if(EditorGUI.EndChangeCheck())
             {
                 serializedObject.ApplyModifiedProperties();
+                L10n.Load();
                 UnitypackageImporter.Init();
                 EditorToolboxSettings.instance.Save();
                 HierarchyExtension.Resolve();

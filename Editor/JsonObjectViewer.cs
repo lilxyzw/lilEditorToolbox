@@ -19,8 +19,8 @@ namespace jp.lilxyzw.editortoolbox
             if(EditorGUI.EndChangeCheck()) json = target ? EditorJsonUtility.ToJson(target, true) : "";
             if(!target) return;
 
-            if(GUILayout.Button("Refresh")) json = EditorJsonUtility.ToJson(target, true);
-            if(GUILayout.Button("Apply Modification"))
+            if(GUILayout.Button(L10n.L("Refresh"))) json = EditorJsonUtility.ToJson(target, true);
+            if(GUILayout.Button(L10n.L("Apply Modification")))
             {
                 var clone = Instantiate(target);
                 EditorJsonUtility.FromJsonOverwrite(json, clone);

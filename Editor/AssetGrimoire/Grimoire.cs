@@ -38,7 +38,7 @@ namespace jp.lilxyzw.editortoolbox
 
             GUI.enabled = true;
             EditorGUILayout.Space();
-            EditorGUILayout.LabelField("Missing assets", EditorStyles.boldLabel);
+            EditorGUILayout.LabelField(L10n.L("Missing assets"), EditorStyles.boldLabel);
 
             foreach(var lib in libs)
             {
@@ -52,14 +52,14 @@ namespace jp.lilxyzw.editortoolbox
                 {
                     EditorGUILayout.Space();
                     EditorGUILayout.SelectableLabel(lib.url, GUILayout.Height(EditorGUIUtility.singleLineHeight));
-                    if(GUILayout.Button("Open web page")) Application.OpenURL(lib.url);
+                    if(GUILayout.Button(L10n.L("Open web page"))) Application.OpenURL(lib.url);
                 }
 
                 if(!string.IsNullOrEmpty(lib.repo))
                 {
                     EditorGUILayout.Space();
                     EditorGUILayout.SelectableLabel(lib.repo, GUILayout.Height(EditorGUIUtility.singleLineHeight));
-                    if(GUILayout.Button("Add to VCC")) Application.OpenURL($"vcc://vpm/addRepo?url={lib.url}");
+                    if(GUILayout.Button(L10n.L("Add to VCC"))) Application.OpenURL($"vcc://vpm/addRepo?url={lib.url}");
                 }
 
                 EditorGUILayout.EndVertical();

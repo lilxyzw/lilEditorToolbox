@@ -1,0 +1,212 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ja-JP\n"
+
+msgid "OK"
+msgstr "OK"
+
+
+
+#: AssetGrimoire/Grimoire.cs
+
+msgid "Missing assets"
+msgstr "不足アセット"
+
+msgid "Open web page"
+msgstr "Webページを開く"
+
+msgid "Add to VCC"
+msgstr "VCCに追加"
+
+
+
+#: ImportExtension/UnityPackageImporter.cs
+
+msgid "Show Import Window"
+msgstr "インポート画面を表示"
+
+
+
+#: ToolbarExtension/Components/LockReloadAssembliesButton.cs
+
+msgid "Assemblies Locked"
+msgstr "アセンブリをロック中"
+
+msgid "Assemblies Unlocked"
+msgstr "アセンブリをアンロック中"
+
+
+
+#: EditorToolboxSettings.cs
+
+msgid "Asset Import"
+msgstr "アセットインポート"
+
+msgid "Texture Import"
+msgstr "テクスチャインポート"
+
+msgid "Model Import"
+msgstr "モデルインポート"
+
+msgid "Hierarchy Extension"
+msgstr "ヒエラルキー拡張"
+
+msgid "Project Extension"
+msgstr "プロジェクト拡張"
+
+msgid "Toolbar Extension"
+msgstr "ツールバー拡張"
+
+msgid "Drag And Drop Overwrite"
+msgstr "ドラッグ＆ドロップで自動上書き"
+
+msgid "Unitypackage To Folder"
+msgstr "unitypackageを開いているフォルダ内に展開"
+
+msgid "Turn Off Crunch Compression"
+msgstr "Crunch Compressionを自動オフ"
+
+msgid "Turn On Streaming Mipmaps"
+msgstr "Streaming Mipmapsを自動オン"
+
+msgid "Change To Kaiser Mipmaps"
+msgstr "Kaiser Mipmapsに自動変更"
+
+msgid "Turn On Readable"
+msgstr "Readableを自動オン"
+
+msgid "Fix Blendshapes"
+msgstr "Blendshapes設定を自動修正"
+
+msgid "Remove Jaw"
+msgstr "HumanoidからJawを自動削除"
+
+
+
+#: JsonObjectViewer.cs
+
+msgid "Refresh"
+msgstr "更新"
+
+msgid "Apply Modification"
+msgstr "変更を適用"
+
+
+
+#: MissingFinder.cs
+
+msgid "No object selected."
+msgstr "オブジェクトが選択されていません。"
+
+msgid "There are probably no missing references."
+msgstr "Missing参照はたぶんありません。"
+
+
+
+#: ReferenceReplacer.cs
+
+msgid "Edit target"
+msgstr "編集対象"
+
+msgid "From"
+msgstr "置き換え前"
+
+msgid "To"
+msgstr "置き換え後"
+
+msgid "Run"
+msgstr "実行"
+
+msgid "Please open a scene before running."
+msgstr "実行前にシーンを開いてください。"
+
+msgid "Complete!"
+msgstr "完了しました。"
+
+msgid "Modified Objects"
+msgstr "変更が行われたオブジェクト"
+
+
+
+#: SceneCapture.cs
+
+msgid "Scene View is not open."
+msgstr "Scene Viewが開かれていません。"
+
+msgid "Capture only selected objects"
+msgstr "選択中のオブジェクトのみキャプチャする"
+
+msgid "No GameObject is selected."
+msgstr "GameObjectが選択されていません。"
+
+msgid "Fit Aspect Ratio to Scene View"
+msgstr "アスペクト比をScene Viewに合わせる"
+
+msgid "Width"
+msgstr "幅"
+
+msgid "Height"
+msgstr "高さ"
+
+msgid "Capture"
+msgstr "キャプチャ"
+
+msgid "Finish!"
+msgstr "完了しました。"
+
+
+
+#: ShaderKeywordViewer.cs
+
+msgid "Show builtin keywords"
+msgstr "ビルトインキーワードを表示"
+
+msgid "Global Keywords"
+msgstr "グローバルキーワード"
+
+msgid "Local Keywords"
+msgstr "ローカルキーワード"
+
+msgid "Builtin Keywords"
+msgstr "ビルトインキーワード"
+
+
+
+#: TabInspector.cs
+
+msgid "Normal"
+msgstr "ノーマル"
+
+msgid "Debug"
+msgstr "デバッグ"
+
+msgid "Developer"
+msgstr "開発者"
+
+
+
+#: TexturePacker.cs
+
+msgid "R Channel"
+msgstr "Rチャンネル"
+
+msgid "G Channel"
+msgstr "Gチャンネル"
+
+msgid "B Channel"
+msgstr "Bチャンネル"
+
+msgid "A Channel"
+msgstr "Aチャンネル"
+
+msgid "Export Texture"
+msgstr "テクスチャを出力"
+
+msgid "Channel to use"
+msgstr "使うチャンネル"
+
+msgid "Default value"
+msgstr "チャンネルを埋める値"

@@ -18,12 +18,12 @@ namespace jp.lilxyzw.editortoolbox
 
         void OnGUI()
         {
-            target = EditorGUILayout.ObjectField("Edit target", target, typeof(Object), true);
+            target = EditorGUILayout.ObjectField(L10n.L("Edit target"), target, typeof(Object), true);
             EditorGUILayout.Space();
-            from = EditorGUILayout.ObjectField("From", from, typeof(Object), true);
-            to = EditorGUILayout.ObjectField("To", to, typeof(Object), true);
+            from = EditorGUILayout.ObjectField(L10n.L("From"), from, typeof(Object), true);
+            to = EditorGUILayout.ObjectField(L10n.L("To"), to, typeof(Object), true);
             EditorGUILayout.Space();
-            if(GUILayout.Button("Run"))
+            if(GUILayout.Button(L10n.L("Run")))
             {
                 modified.Clear();
                 var scaned = new HashSet<Object>();
@@ -35,7 +35,7 @@ namespace jp.lilxyzw.editortoolbox
                 {
                     if(AssetDatabase.GetAssetPath(target) != SceneManager.GetActiveScene().path)
                     {
-                        EditorUtility.DisplayDialog("Reference Replacer", "実行前にシーンを開いてください。", "OK");
+                        EditorUtility.DisplayDialog("Reference Replacer", L10n.L("Please open a scene before running."), L10n.L("OK"));
                         return;
                     }
                     else
@@ -49,12 +49,12 @@ namespace jp.lilxyzw.editortoolbox
                     if(!string.IsNullOrEmpty(assetPath)) Replace(scaned, AssetDatabase.LoadAllAssetsAtPath(assetPath));
                     else Replace(scaned, target);
                 }
-                EditorUtility.DisplayDialog("Reference Replacer", "Complete!", "OK");
+                EditorUtility.DisplayDialog("Reference Replacer", L10n.L("Complete!"), L10n.L("OK"));
             }
             if(modified.Count > 0)
             {
                 EditorGUILayout.Space();
-                EditorGUILayout.LabelField("Modified Objects", EditorStyles.boldLabel);
+                EditorGUILayout.LabelField(L10n.L("Modified Objects"), EditorStyles.boldLabel);
                 EditorGUILayout.BeginVertical(EditorStyles.helpBox);
                 scrollPos = EditorGUILayout.BeginScrollView(scrollPos);
                 EditorGUI.BeginDisabledGroup(true);

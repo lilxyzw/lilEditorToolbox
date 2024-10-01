@@ -21,33 +21,33 @@ namespace jp.lilxyzw.editortoolbox
             var sceneView = SceneView.lastActiveSceneView;
             if(!sceneView || !sceneView.camera)
             {
-                EditorGUILayout.LabelField("Scene Viewが開かれていません。");
+                EditorGUILayout.LabelField(L10n.L("Scene View is not open."));
                 return;
             }
 
-            captureTarget = EditorGUILayout.ToggleLeft("選択中のオブジェクトのみキャプチャする", captureTarget);
+            captureTarget = EditorGUILayout.ToggleLeft(L10n.L("Capture only selected objects"), captureTarget);
 
             if(captureTarget && !Selection.activeGameObject)
             {
-                EditorGUILayout.LabelField("GameObjectが選択されていません。");
+                EditorGUILayout.LabelField(L10n.L("No GameObject is selected."));
                 return;
             }
 
             var aspect = sceneView.position.height / sceneView.position.width;
-            autoHeight = EditorGUILayout.ToggleLeft("アスペクト比をScene Viewに合わせる", autoHeight);
-            width = EditorGUILayout.IntField("Width", width);
+            autoHeight = EditorGUILayout.ToggleLeft(L10n.L("Fit Aspect Ratio to Scene View"), autoHeight);
+            width = EditorGUILayout.IntField(L10n.L("Width"), width);
             if(autoHeight)
             {
                 GUI.enabled = false;
-                EditorGUILayout.IntField("Height", (int)(width * aspect));
+                EditorGUILayout.IntField(L10n.L("Height"), (int)(width * aspect));
                 GUI.enabled = true;
             }
             else
             {
-                height = EditorGUILayout.IntField("Height", height);
+                height = EditorGUILayout.IntField(L10n.L("Height"), height);
             }
 
-            if(GUILayout.Button("Capture")) Capture();
+            if(GUILayout.Button(L10n.L("Capture"))) Capture();
         }
 
         private void Capture()
@@ -101,7 +101,7 @@ namespace jp.lilxyzw.editortoolbox
             DestroyImmediate(camera.gameObject);
             DestroyImmediate(tex);
 
-            EditorUtility.DisplayDialog("Scene Capture", "Finish!", "OK");
+            EditorUtility.DisplayDialog("Scene Capture", L10n.L("Complete!"), L10n.L("OK"));
         }
     }
 }

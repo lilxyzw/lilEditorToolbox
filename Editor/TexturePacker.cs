@@ -31,10 +31,10 @@ namespace jp.lilxyzw.editortoolbox
         {
             EditorGUI.BeginChangeCheck();
             EditorGUILayout.BeginHorizontal();
-            GUIPerChannel("R Channel", channelParams[0]);
-            GUIPerChannel("G Channel", channelParams[1]);
-            GUIPerChannel("B Channel", channelParams[2]);
-            GUIPerChannel("A Channel", channelParams[3]);
+            GUIPerChannel(L10n.L("R Channel"), channelParams[0]);
+            GUIPerChannel(L10n.L("G Channel"), channelParams[1]);
+            GUIPerChannel(L10n.L("B Channel"), channelParams[2]);
+            GUIPerChannel(L10n.L("A Channel"), channelParams[3]);
             EditorGUILayout.EndHorizontal();
             if(EditorGUI.EndChangeCheck())
             {
@@ -78,7 +78,6 @@ namespace jp.lilxyzw.editortoolbox
                 packed.ReadPixels(new Rect(0, 0, width, height), 0, 0);
                 packed.Apply();
                 RenderTexture.active = currentRT;
-                //File.WriteAllBytes(path, tex.EncodeToPNG());
             }
 
             if(packed)
@@ -98,7 +97,7 @@ namespace jp.lilxyzw.editortoolbox
                     height = height4T;
                 }
                 EditorGUI.DrawTextureTransparent(new Rect(rect.x+(rect.width-width)/2,rect.y+16,width,height), packed);
-                if(GUI.Button(new Rect(rect.x,rect.yMax-32,rect.width,32), "Export Texture"))
+                if(GUI.Button(new Rect(rect.x,rect.yMax-32,rect.width,32), L10n.L("Export Texture")))
                 {
                     var path = EditorUtility.SaveFilePanel("Save capture", "", "", "png");
                     if(string.IsNullOrEmpty(path)) return;
@@ -135,12 +134,12 @@ namespace jp.lilxyzw.editortoolbox
             param.tex = EditorGUI.ObjectField(EditorGUILayout.GetControlRect(GUILayout.Width(96), GUILayout.Height(96)), param.tex, typeof(Texture2D), false) as Texture2D;
             if(param.tex)
             {
-                param.mode = (ChannelMode)EditorGUILayout.EnumPopup("使うチャンネル", param.mode);
+                param.mode = (ChannelMode)EditorGUILayout.EnumPopup(L10n.L("Channel to use"), param.mode);
                 if(param.mode == ChannelMode.Custom) param.blend = EditorGUILayout.Vector4Field("", param.blend);
             }
             else
             {
-                param.def = EditorGUILayout.FloatField("チャンネルを埋める値", param.def);
+                param.def = EditorGUILayout.FloatField(L10n.L("Default value"), param.def);
             }
             EditorGUILayout.EndVertical();
         }

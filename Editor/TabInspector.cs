@@ -44,13 +44,13 @@ namespace jp.lilxyzw.editortoolbox
             header.Add(objfield);
 
             // Mode Button
-            var buttonNormal = new Button{text = "Normal"};
+            var buttonNormal = new Button{text = L10n.L("Normal")};
             buttonNormal.clicked += () => MI_SetNormal.Invoke(inspector, null);
             header.Add(buttonNormal);
-            var buttonDebug = new Button{text = "Debug"};
+            var buttonDebug = new Button{text = L10n.L("Debug")};
             buttonDebug.clicked += () => MI_SetDebug.Invoke(inspector, null);
             header.Add(buttonDebug);
-            var buttonInternal = new Button{text = "Internal"};
+            var buttonInternal = new Button{text = L10n.L("Developer")};
             buttonInternal.clicked += () => MI_SetDebugInternal.Invoke(inspector, null);
             header.Add(buttonInternal);
 

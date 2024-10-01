@@ -76,16 +76,7 @@ namespace jp.lilxyzw.editortoolbox
 
             if(!obj || scaned.Contains(obj)) return obj;
             scaned.Add(obj);
-            if(obj is GameObject ||
-                // Skip - Component
-                obj is Transform ||
-                // Skip - Asset
-                obj is Mesh ||
-                obj is Texture ||
-                obj is Shader ||
-                obj is TextAsset ||
-                obj.GetType() == typeof(Object)
-            ) return obj;
+            if(Common.SkipScan(obj)) return obj;
 
             Debug.Log(obj, obj);
 

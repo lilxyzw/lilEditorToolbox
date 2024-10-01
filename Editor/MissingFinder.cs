@@ -50,8 +50,10 @@ namespace jp.lilxyzw.editortoolbox
         {
             if(!obj || scaneds.Contains(obj)) return;
             scaneds.Add(obj);
-            var serializedObject = new SerializedObject(obj);
-            SerializedProperty iter = serializedObject.GetIterator();
+            if(Common.SkipScan(obj)) return;
+
+            using var serializedObject = new SerializedObject(obj);
+            using var iter = serializedObject.GetIterator();
             bool enterChildren = true;
             while(iter.Next(enterChildren))
             {

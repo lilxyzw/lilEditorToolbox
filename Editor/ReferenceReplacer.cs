@@ -78,8 +78,6 @@ namespace jp.lilxyzw.editortoolbox
             scaned.Add(obj);
             if(Common.SkipScan(obj)) return obj;
 
-            Debug.Log(obj, obj);
-
             using var so = new SerializedObject(obj);
             using var iter = so.GetIterator();
             var enterChildren = true;

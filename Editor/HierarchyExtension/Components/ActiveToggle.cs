@@ -14,7 +14,7 @@ namespace jp.lilxyzw.editortoolbox
             currentRect.x -= ICON_SIZE;
             currentRect.width = ICON_SIZE;
             EditorGUI.BeginChangeCheck();
-            var active = EditorGUI.Toggle(currentRect, gameObject.activeSelf);
+            var active = GUIHelper.DToggle("jp.lilxyzw.editortoolbox.ActiveToggle", instanceID.ToString(), currentRect, gameObject.activeSelf);
             if(EditorGUI.EndChangeCheck())
             {
                 using var so = new SerializedObject(gameObject);

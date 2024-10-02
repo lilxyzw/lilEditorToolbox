@@ -24,7 +24,7 @@ namespace jp.lilxyzw.editortoolbox
             .SelectMany(a => a.GetCustomAttributes(typeof(ExportsProjectExtensionComponent), false))
             .SelectMany(export => ((ExportsProjectExtensionComponent)export).Types).ToArray();
 
-        internal static readonly string[] names = types.Select(t => t.FullName).ToArray();
+        internal static readonly (string key, string fullname)[] names =  types.Select(t => (Common.ToDisplayName(t.Name), t.FullName)).ToArray();
 
         private static List<IProjectExtensionComponent> projectExtensionComponents;
         private static string guidEditing = "";

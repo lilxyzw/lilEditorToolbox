@@ -24,7 +24,7 @@ namespace jp.lilxyzw.editortoolbox
             .SelectMany(a => a.GetCustomAttributes(typeof(ExportsHierarchyExtensionComponent), false))
             .SelectMany(export => ((ExportsHierarchyExtensionComponent)export).Types).ToArray();
 
-        internal static readonly string[] names = types.Select(t => t.FullName).ToArray();
+        internal static readonly (string key, string fullname)[] names =  types.Select(t => (Common.ToDisplayName(t.Name), t.FullName)).ToArray();
 
         internal static IHierarchyExtensionComponent Resolve()
         {

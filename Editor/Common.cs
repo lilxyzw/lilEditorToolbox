@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -19,6 +20,9 @@ namespace jp.lilxyzw.editortoolbox
                 obj is TextAsset ||
                 obj.GetType() == typeof(Object);
         }
+
+        internal static string ToDisplayName(string name)
+            => string.Concat(name.Select(c => char.IsUpper(c) ? $" {c}" : $"{c}")).TrimStart();
     }
 
     internal class ToggleLeftAttribute : PropertyAttribute { }

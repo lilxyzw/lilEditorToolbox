@@ -58,23 +58,25 @@ namespace jp.lilxyzw.editortoolbox
             serializedObject.UpdateIfRequiredOrScript();
             SerializedProperty iterator = serializedObject.GetIterator();
             iterator.NextVisible(true); // m_Script
-            void StringListAsToggle(string[] names)
+            void StringListAsToggle((string key, string fullname)[] names)
             {
                 var vals = Enumerable.Range(0, iterator.arraySize).Select(i => iterator.GetArrayElementAtIndex(i).stringValue).ToList();
                 foreach(var name in names)
                 {
-                    var contains = vals.Contains(name);
-                    var toggle = EditorGUILayout.ToggleLeft(name, contains);
+                    var contains = vals.Contains(name.fullname);
+                    string label = L10n.L(name.key);
+                    if(!name.fullname.StartsWith("jp.lilxyzw.editortoolbox")) label = $"{label} ({name.fullname})";
+                    var toggle = EditorGUILayout.ToggleLeft(label, contains);
                     if(contains != toggle)
                     {
                         if(toggle)
                         {
                             iterator.InsertArrayElementAtIndex(iterator.arraySize);
-                            iterator.GetArrayElementAtIndex(iterator.arraySize-1).stringValue = name;
+                            iterator.GetArrayElementAtIndex(iterator.arraySize-1).stringValue = name.fullname;
                         }
                         else
                         {
-                            iterator.DeleteArrayElementAtIndex(vals.IndexOf(name));
+                            iterator.DeleteArrayElementAtIndex(vals.IndexOf(name.fullname));
                         }
                     }
                 }

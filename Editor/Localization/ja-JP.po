@@ -89,6 +89,63 @@ msgstr "HumanoidからJawを自動削除"
 
 
 
+#: EditorToolboxSettings.cs/HierarchyExtension
+
+msgid "Active Toggle"
+msgstr "オブジェクトのオンオフ"
+
+msgid "Alternating Background"
+msgstr "背景色を交互にする"
+
+msgid "Children Drawer"
+msgstr "子のコンポーネント"
+
+msgid "Components Drawer"
+msgstr "コンポーネント"
+
+msgid "Editor Only Label"
+msgstr "EditorOnlyラベル"
+
+msgid "Hierarchy Line"
+msgstr "ヒエラルキーの線"
+
+msgid "Layer And Tag"
+msgstr "LayerとTag"
+
+
+
+#: EditorToolboxSettings.cs/ProjectExtension
+
+msgid "Alternating Project Background"
+msgstr "背景色を交互にする"
+
+msgid "Extension Drawer"
+msgstr "拡張子を表示"
+
+msgid "Prefab Info"
+msgstr "Prefab情報"
+
+msgid "Material Variant"
+msgstr "Material Variant"
+
+msgid "Material Queue"
+msgstr "マテリアルのRenderQueue"
+
+msgid "Material Shader"
+msgstr "マテリアルのShader"
+
+
+
+#: EditorToolboxSettings.cs/ToolbarExtension
+
+msgid "Lock Reload Assemblies Button"
+msgstr "アセンブリのロックボタン"
+
+msgid "Add Inspector Tab Button"
+msgstr "インスペクターのタブ追加ボタン"
+
+
+
 #: JsonObjectViewer.cs
 
 msgid "Refresh"

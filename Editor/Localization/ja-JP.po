@@ -42,6 +42,9 @@ msgstr "アセンブリをアンロック中"
 
 #: EditorToolboxSettings.cs
 
+msgid "Open preference folder"
+msgstr "設定ファイルの保存先を表示"
+
 msgid "Asset Import"
 msgstr "アセットインポート"
 

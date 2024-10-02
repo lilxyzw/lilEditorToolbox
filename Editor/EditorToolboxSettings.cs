@@ -7,34 +7,34 @@ using UnityEngine;
 
 namespace jp.lilxyzw.editortoolbox
 {
-    [FilePath("editortoolbox.asset", FilePathAttribute.Location.PreferencesFolder)]
+    [FilePath("jp.lilxyzw/editortoolbox.asset", FilePathAttribute.Location.PreferencesFolder)]
     internal class EditorToolboxSettings : ScriptableSingleton<EditorToolboxSettings>
     {
         [Header("Language")]
         public string language = CultureInfo.CurrentCulture.Name;
 
         [L10nHeader("Asset Import")]
-        [ToggleLeft] public bool dragAndDropOverwrite = true;
-        [ToggleLeft] public bool unitypackageToFolder = true;
+        [ToggleLeft] public bool dragAndDropOverwrite = false;
+        [ToggleLeft] public bool unitypackageToFolder = false;
 
         [L10nHeader("Texture Import")]
-        [ToggleLeft] public bool turnOffCrunchCompression = true;
-        [ToggleLeft] public bool turnOnStreamingMipmaps = true;
-        [ToggleLeft] public bool changeToKaiserMipmaps = true;
+        [ToggleLeft] public bool turnOffCrunchCompression = false;
+        [ToggleLeft] public bool turnOnStreamingMipmaps = false;
+        [ToggleLeft] public bool changeToKaiserMipmaps = false;
 
         [L10nHeader("Model Import")]
-        [ToggleLeft] public bool turnOnReadable = true;
-        [ToggleLeft] public bool fixBlendshapes = true;
-        [ToggleLeft] public bool removeJaw = true;
+        [ToggleLeft] public bool turnOnReadable = false;
+        [ToggleLeft] public bool fixBlendshapes = false;
+        [ToggleLeft] public bool removeJaw = false;
 
         [L10nHeader("Hierarchy Extension")]
-        public string[] hierarchyComponents = HierarchyExtension.names;
+        public string[] hierarchyComponents = new string[]{};
 
         [L10nHeader("Project Extension")]
-        public string[] projectComponents = ProjectExtension.names;
+        public string[] projectComponents = new string[]{};
 
         [L10nHeader("Toolbar Extension")]
-        public string[] toolbarComponents = ToolbarExtension.names;
+        public string[] toolbarComponents = new string[]{};
 
         internal readonly Color backgroundColor = new Color(0.5f,0.5f,0.5f,0.05f);
         internal readonly Color lineColor = new Color(0.5f,0.5f,0.5f,0.33f);
@@ -47,6 +47,13 @@ namespace jp.lilxyzw.editortoolbox
     {
         public override void OnInspectorGUI()
         {
+            var openPreferenceFolder = L10n.G("Open preference folder");
+            EditorStyles.label.CalcMinMaxWidth(openPreferenceFolder, out float minWidth, out float maxWidth);
+            if(GUILayout.Button(openPreferenceFolder, GUILayout.MaxWidth(maxWidth+16)))
+            {
+                System.Diagnostics.Process.Start(UnityEditorInternal.InternalEditorUtility.unityPreferencesFolder + "/jp.lilxyzw");
+            }
+
             EditorGUI.BeginChangeCheck();
             serializedObject.UpdateIfRequiredOrScript();
             SerializedProperty iterator = serializedObject.GetIterator();

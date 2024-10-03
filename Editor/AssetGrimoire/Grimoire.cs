@@ -7,7 +7,7 @@ namespace jp.lilxyzw.editortoolbox
 {
     internal static class Grimoire
     {
-        internal static readonly string PATH_DATABASE = $"{UnityEditorInternal.InternalEditorUtility.unityPreferencesFolder}/jp.lilxyzw/guid_database.zip";
+        internal static readonly string PATH_DATABASE = $"{Common.PREFERENCE_FOLDER}/guid_database.zip";
 
         internal static void Scan(SerializedObject serializedObject, List<GUIDLibrary> libs)
         {

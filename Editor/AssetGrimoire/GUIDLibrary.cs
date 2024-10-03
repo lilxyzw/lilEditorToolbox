@@ -42,6 +42,7 @@ namespace jp.lilxyzw.editortoolbox
             zip.Dispose();
 
             if(File.Exists(Grimoire.PATH_DATABASE)) File.Delete(Grimoire.PATH_DATABASE);
+            if(!Directory.Exists(Common.PREFERENCE_FOLDER)) Directory.CreateDirectory(Common.PREFERENCE_FOLDER);
             ZipFile.CreateFromDirectory(filesPath, Grimoire.PATH_DATABASE);
             File.Delete(zipPath);
             Directory.Delete(filesPath, true);

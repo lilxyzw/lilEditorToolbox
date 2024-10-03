@@ -7,6 +7,7 @@ namespace jp.lilxyzw.editortoolbox
     internal static class Common
     {
         internal const string MENU_HEAD = "Tools/lilEditorToolbox/";
+        internal static readonly string PREFERENCE_FOLDER = $"{UnityEditorInternal.InternalEditorUtility.unityPreferencesFolder}/jp.lilxyzw";
 
         internal static bool SkipScan(Object obj)
         {

@@ -24,7 +24,7 @@ Toolbar上にある+ボタンを押すと他のオブジェクトを選択して
 
 ## Toolbar拡張
 
-Toolbar上に重要度の高い情報を表示できます。`IToolbarExtensionConponent`を実装することで独自に拡張を追加することもできます。書き方は`Editor/ToolbarExtension/Components`配下のスクリプトを参考にしてください。
+Toolbar上にアセンブリのロックボタンや拡張インスペクターのタブを開くボタンを表示できます。`IToolbarExtensionConponent`を実装することで独自に拡張を追加することもできます。書き方は`Editor/ToolbarExtension/Components`配下のスクリプトを参考にしてください。
 
 ## Scene View拡張
 
@@ -35,6 +35,10 @@ Toolbar上に重要度の高い情報を表示できます。`IToolbarExtensionC
 > [!WARNING]
 > カメラモード拡張でジオメトリシェーダーを使用しているため`Metal`環境では一部機能が動作しません。
 
+## メニューの階層変更・削除
+
+メニューバーにあるメニューの階層を変更したり削除したりして任意にカスタマイズできます。`Preferences`の`lilEditorToolbox`タブに設定があります。`Tools/*`のように指定して複数まとめて編集することもできます。
+
 ## その他ツール
 
 - 不足アセット特定ツール（詳細は後述）
@@ -44,6 +48,7 @@ Toolbar上に重要度の高い情報を表示できます。`IToolbarExtensionC
 - オブジェクト参照を何でも一括置き換え（`Tools/lilEditorToolbox/Reference Replacer`）
 - スクリプトのコンパイルを抑制（`Tools/lilEditorToolbox/Lock Reload Assemblies`）
 - 任意のObjectをjson形式で確認＆編集（`Tools/lilEditorToolbox/Json Object Viewer`）
+- Unity関連フォルダを開く（`Tools/lilEditorToolbox/Folder Opener`）
 - Stencil確認用prefab（`lilEditorToolbox/Editor/Shaders/StencilChecker.prefab`）
 
 ## 不足アセット特定ツール

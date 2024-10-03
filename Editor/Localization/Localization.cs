@@ -44,11 +44,15 @@ namespace jp.lilxyzw.editortoolbox
             return instance.localizationAsset.GetLocalizedString(key);
         }
 
-        internal static GUIContent G(string key)
+        internal static GUIContent G(string key) => G(key, null, "");
+        internal static GUIContent G(string key, string tooltip) => G(key, null, tooltip);
+        internal static GUIContent G(string key, Texture image) => G(key, image, "");
+
+        internal static GUIContent G(string key, Texture image, string tooltip)
         {
             if(!instance.localizationAsset) Load();
             if(guicontents.TryGetValue(key, out var content)) return content;
-            return guicontents[key] = new GUIContent(L(key));
+            return guicontents[key] = new GUIContent(L(key), image, L(tooltip));
         }
     }
 
@@ -75,6 +79,36 @@ namespace jp.lilxyzw.editortoolbox
         public override float GetHeight()
         {
             return EditorGUIUtility.singleLineHeight * 1.5f;
+        }
+    }
+
+    internal class L10nHelpBoxAttribute : PropertyAttribute
+    {
+        public readonly string key;
+        public readonly MessageType type;
+        public string text => L10n.L(key);
+        public GUIContent content => L10n.G(text, type == MessageType.None ? null : EditorGUIUtility.IconContent("console.infoicon").image);
+        public L10nHelpBoxAttribute(string key, MessageType type = MessageType.None)
+        {
+            this.key = key;
+            this.type = type;
+        }
+    }
+
+    [CustomPropertyDrawer(typeof(L10nHelpBoxAttribute))]
+    internal class L10nHelpBoxDrawer : DecoratorDrawer
+    {
+        public override void OnGUI(Rect position)
+        {
+            var attr = attribute as L10nHelpBoxAttribute;
+            position = EditorGUI.IndentedRect(position);
+            EditorGUI.HelpBox(position, attr.text, attr.type);
+        }
+
+        public override float GetHeight()
+        {
+            var attr = attribute as L10nHelpBoxAttribute;
+            return EditorStyles.helpBox.CalcHeight(attr.content, EditorGUIUtility.currentViewWidth - 10);
         }
     }
 }

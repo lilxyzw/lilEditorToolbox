@@ -36,6 +36,11 @@ namespace jp.lilxyzw.editortoolbox
         [L10nHeader("Toolbar Extension")]
         public string[] toolbarComponents = new string[]{};
 
+        [L10nHeader("Menu Directory Replaces")]
+        [L10nHelpBox("Some menu items may not be compatible with replacement.", MessageType.Warning)]
+        [ToggleLeft] public bool enableMenuDirectoryReplaces = false;
+        public MenuReplace[] menuDirectoryReplaces = new MenuReplace[]{};
+
         internal readonly Color backgroundColor = new Color(0.5f,0.5f,0.5f,0.05f);
         internal readonly Color lineColor = new Color(0.5f,0.5f,0.5f,0.33f);
 
@@ -130,7 +135,15 @@ namespace jp.lilxyzw.editortoolbox
                 ToolbarExtension.Resolve();
                 EditorApplication.RepaintHierarchyWindow();
                 EditorApplication.RepaintProjectWindow();
+                MenuItemModifier.ReplaceMenuItems();
             }
+        }
+        
+        [InitializeOnLoadMethod]
+        private static void Init()
+        {
+            EditorApplication.delayCall -= MenuItemModifier.ReplaceMenuItems;
+            EditorApplication.delayCall += MenuItemModifier.ReplaceMenuItems;
         }
     }
 

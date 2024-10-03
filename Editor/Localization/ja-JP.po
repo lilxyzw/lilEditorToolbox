@@ -87,6 +87,15 @@ msgstr "Blendshapes設定を自動修正"
 msgid "Remove Jaw"
 msgstr "HumanoidからJawを自動削除"
 
+msgid "Menu Directory Replaces"
+msgstr "メニューの階層変更・削除"
+
+msgid "Some menu items may not be compatible with replacement."
+msgstr "一部メニューについては置き換えに対応していない場合があります。"
+
+msgid "Enable Menu Directory Replaces"
+msgstr "メニューの階層変更・削除を有効化"
+
 
 
 #: EditorToolboxSettings.cs/HierarchyExtension

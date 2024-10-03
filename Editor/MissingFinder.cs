@@ -27,7 +27,7 @@ namespace jp.lilxyzw.editortoolbox
 
             if(!target)
             {
-                EditorGUILayout.LabelField(L10n.L("No object selected."));
+                EditorGUILayout.LabelField(L10n.G("No object selected."));
                 return;
             }
 
@@ -42,7 +42,7 @@ namespace jp.lilxyzw.editortoolbox
             }
             else
             {
-                EditorGUILayout.LabelField(L10n.L("There are probably no missing references."));
+                EditorGUILayout.LabelField(L10n.G("There are probably no missing references."));
             }
         }
 

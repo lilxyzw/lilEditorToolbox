@@ -59,7 +59,7 @@ namespace jp.lilxyzw.editortoolbox
     internal class L10nHeaderAttribute : PropertyAttribute
     {
         public readonly string key;
-        public string header => L10n.L(key);
+        public GUIContent header => L10n.G(key);
         public L10nHeaderAttribute(string key)
         {
             this.key = key;

@@ -18,12 +18,12 @@ namespace jp.lilxyzw.editortoolbox
 
         void OnGUI()
         {
-            target = EditorGUILayout.ObjectField(L10n.L("Edit target"), target, typeof(Object), true);
+            target = EditorGUILayout.ObjectField(L10n.G("Edit target"), target, typeof(Object), true);
             EditorGUILayout.Space();
-            from = EditorGUILayout.ObjectField(L10n.L("From"), from, typeof(Object), true);
-            to = EditorGUILayout.ObjectField(L10n.L("To"), to, typeof(Object), true);
+            from = EditorGUILayout.ObjectField(L10n.G("From"), from, typeof(Object), true);
+            to = EditorGUILayout.ObjectField(L10n.G("To"), to, typeof(Object), true);
             EditorGUILayout.Space();
-            if(GUILayout.Button(L10n.L("Run")))
+            if(GUILayout.Button(L10n.G("Run")))
             {
                 modified.Clear();
                 var scaned = new HashSet<Object>();
@@ -54,7 +54,7 @@ namespace jp.lilxyzw.editortoolbox
             if(modified.Count > 0)
             {
                 EditorGUILayout.Space();
-                EditorGUILayout.LabelField(L10n.L("Modified Objects"), EditorStyles.boldLabel);
+                EditorGUILayout.LabelField(L10n.G("Modified Objects"), EditorStyles.boldLabel);
                 EditorGUILayout.BeginVertical(EditorStyles.helpBox);
                 scrollPos = EditorGUILayout.BeginScrollView(scrollPos);
                 EditorGUI.BeginDisabledGroup(true);

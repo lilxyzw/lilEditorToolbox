@@ -21,33 +21,33 @@ namespace jp.lilxyzw.editortoolbox
             var sceneView = SceneView.lastActiveSceneView;
             if(!sceneView || !sceneView.camera)
             {
-                EditorGUILayout.LabelField(L10n.L("Scene View is not open."));
+                EditorGUILayout.LabelField(L10n.G("Scene View is not open."));
                 return;
             }
 
-            captureTarget = EditorGUILayout.ToggleLeft(L10n.L("Capture only selected objects"), captureTarget);
+            captureTarget = EditorGUILayout.ToggleLeft(L10n.G("Capture only selected objects"), captureTarget);
 
             if(captureTarget && !Selection.activeGameObject)
             {
-                EditorGUILayout.LabelField(L10n.L("No GameObject is selected."));
+                EditorGUILayout.LabelField(L10n.G("No GameObject is selected."));
                 return;
             }
 
             var aspect = sceneView.position.height / sceneView.position.width;
-            autoHeight = EditorGUILayout.ToggleLeft(L10n.L("Fit Aspect Ratio to Scene View"), autoHeight);
-            width = EditorGUILayout.IntField(L10n.L("Width"), width);
+            autoHeight = EditorGUILayout.ToggleLeft(L10n.G("Fit Aspect Ratio to Scene View"), autoHeight);
+            width = EditorGUILayout.IntField(L10n.G("Width"), width);
             if(autoHeight)
             {
                 GUI.enabled = false;
-                EditorGUILayout.IntField(L10n.L("Height"), (int)(width * aspect));
+                EditorGUILayout.IntField(L10n.G("Height"), (int)(width * aspect));
                 GUI.enabled = true;
             }
             else
             {
-                height = EditorGUILayout.IntField(L10n.L("Height"), height);
+                height = EditorGUILayout.IntField(L10n.G("Height"), height);
             }
 
-            if(GUILayout.Button(L10n.L("Capture"))) Capture();
+            if(GUILayout.Button(L10n.G("Capture"))) Capture();
         }
 
         private void Capture()

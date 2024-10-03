@@ -25,6 +25,9 @@ msgstr "VCCに追加"
 
 #: ImportExtension/UnityPackageImporter.cs
 
+msgid "Import directory"
+msgstr "インポート先"
+
 msgid "Show Import Window"
 msgstr "インポート画面を表示"
 
@@ -65,9 +68,6 @@ msgstr "ツールバー拡張"
 
 msgid "Drag And Drop Overwrite"
 msgstr "ドラッグ＆ドロップで自動上書き"
-
-msgid "Unitypackage To Folder"
-msgstr "unitypackageを開いているフォルダ内に展開"
 
 msgid "Turn Off Crunch Compression"
 msgstr "Crunch Compressionを自動オフ"

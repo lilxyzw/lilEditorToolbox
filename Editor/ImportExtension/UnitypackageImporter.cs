@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using UnityEditor;
@@ -22,22 +23,19 @@ namespace jp.lilxyzw.editortoolbox
         private static readonly FieldInfo FI_m_PackageName = T_PackageImport.GetField("m_PackageName", BindingFlags.NonPublic | BindingFlags.Instance);
         private static readonly MethodInfo MI_ShowTreeGUI = T_PackageImport.GetMethod("ShowTreeGUI", BindingFlags.NonPublic | BindingFlags.Instance);
 
-        private static string folder;
-        private static bool needToReplace = false;
-
         [InitializeOnLoadMethod]
         internal static void Init()
         {
             AssetDatabase.importPackageStarted -= OnImportPackageStarted;
-            if(EditorToolboxSettings.instance.unitypackageToFolder) AssetDatabase.importPackageStarted += OnImportPackageStarted;
+            AssetDatabase.importPackageStarted += OnImportPackageStarted;
         }
 
         internal static void OnImportPackageStarted(string _)
         {
             if(DragAndDrop.paths.Length == 0) return;
-            folder = ProjectWindowPath();
-            needToReplace = !string.IsNullOrEmpty(folder) && folder.StartsWith("Assets/");
-            runtime.CoroutineHandler.StartStaticCoroutine(ClosePackageImportWindow());
+            var folder = ProjectWindowPath();
+            var needToReplace = !string.IsNullOrEmpty(folder) && folder.StartsWith("Assets/");
+            runtime.CoroutineHandler.StartStaticCoroutine(ClosePackageImportWindow(needToReplace, folder));
         }
 
         private static string ProjectWindowPath()
@@ -46,27 +44,56 @@ namespace jp.lilxyzw.editortoolbox
             return folders.Length == 1 ? folders[0] : "Assets/";
         }
 
-        private static IEnumerator ClosePackageImportWindow()
+        private static IEnumerator ClosePackageImportWindow(bool needToReplace, string folder)
         {
             while(!(bool)MI_HasOpenInstancesPackageImport.Invoke(null,null)) yield return null;
             var window = EditorWindow.GetWindow(T_PackageImport);
             var m_ImportPackageItems = FI_m_ImportPackageItems.GetValue(window) as object[];
             var items = m_ImportPackageItems.Select(o => new ImportPackageItemWrap(o)).ToArray();
 
-            // パスの置換
-            if(needToReplace)
-            {
-                foreach(var item in items)
-                {
-                    if(!string.IsNullOrEmpty(item.existingAssetPath) || !item.destinationAssetPath.StartsWith("Assets/")) continue;
-                    item.destinationAssetPath = folder + item.destinationAssetPath.Substring("Assets".Length);
-                }
-                FI_m_PackageName.SetValue(window, $"{FI_m_PackageName.GetValue(window) as string} to \"{folder}\"");
-            }
-
             // 既存アセットの場所を表示
             var ShowTreeGUI = (bool)MI_ShowTreeGUI.Invoke(window, new object[]{m_ImportPackageItems});
-            if(!ShowTreeGUI)
+            if(ShowTreeGUI)
+            {
+                if(!needToReplace) yield break;
+                var origins = new Dictionary<object, string>();
+                var root = new VisualElement();
+                root.style.marginLeft = 6;
+                root.style.alignItems = Align.Center;
+                root.style.flexDirection = FlexDirection.Row;
+                root.Add(new Label(L10n.L("Import directory")));
+
+                var button = new Button(){text = "Assets/"};
+                EditorStyles.label.CalcMinMaxWidth(new GUIContent(button.text), out float minWidth, out float maxWidth);
+                button.style.width = maxWidth + 16;
+                button.clicked += () => {
+                    if(origins.Count == 0)
+                    {
+                        foreach(var item in items)
+                        {
+                            if(!string.IsNullOrEmpty(item.existingAssetPath) || !item.destinationAssetPath.StartsWith("Assets/")) continue;
+                            origins[item] = item.destinationAssetPath;
+                            item.destinationAssetPath = folder + item.destinationAssetPath.Substring("Assets".Length);
+                        }
+                        button.text = folder+"/";
+                        EditorStyles.label.CalcMinMaxWidth(new GUIContent(button.text), out float minWidth, out float maxWidth);
+                        button.style.width = maxWidth + 16;
+                    }
+                    else
+                    {
+                        foreach(var item in items)
+                            if(origins.TryGetValue(item, out var path)) item.destinationAssetPath = path;
+                        origins.Clear();
+                        button.text = "Assets/";
+                        EditorStyles.label.CalcMinMaxWidth(new GUIContent(button.text), out float minWidth, out float maxWidth);
+                        button.style.width = maxWidth + 16;
+                    }
+                };
+
+                root.Add(button);
+                window.rootVisualElement.Add(root);
+            }
+            else
             {
                 var button = new Button(){text = L10n.L("Show Import Window")};
                 EditorStyles.label.CalcMinMaxWidth(new GUIContent(button.text), out float minWidth, out float maxWidth);

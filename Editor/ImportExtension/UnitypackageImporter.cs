@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using UnityEditor;
@@ -34,8 +35,7 @@ namespace jp.lilxyzw.editortoolbox
         {
             if(DragAndDrop.paths.Length == 0) return;
             var folder = ProjectWindowPath();
-            var needToReplace = !string.IsNullOrEmpty(folder) && folder.StartsWith("Assets/");
-            runtime.CoroutineHandler.StartStaticCoroutine(ClosePackageImportWindow(needToReplace, folder));
+            runtime.CoroutineHandler.StartStaticCoroutine(ClosePackageImportWindow(folder));
         }
 
         private static string ProjectWindowPath()
@@ -44,18 +44,29 @@ namespace jp.lilxyzw.editortoolbox
             return folders.Length == 1 ? folders[0] : "Assets/";
         }
 
-        private static IEnumerator ClosePackageImportWindow(bool needToReplace, string folder)
+        private static IEnumerator ClosePackageImportWindow(string folder)
         {
             while(!(bool)MI_HasOpenInstancesPackageImport.Invoke(null,null)) yield return null;
             var window = EditorWindow.GetWindow(T_PackageImport);
             var m_ImportPackageItems = FI_m_ImportPackageItems.GetValue(window) as object[];
             var items = m_ImportPackageItems.Select(o => new ImportPackageItemWrap(o)).ToArray();
 
+            // Packages配下の上書き防止
+            if(EditorToolboxSettings.instance.cancelUnitypackageOverwriteInPackages)
+            {
+                foreach(var item in items)
+                {
+                    var dest = item.destinationAssetPath;
+                    if(!dest.StartsWith("Packages/") || !Directory.Exists(dest[..(dest.IndexOf('/', "Packages/".Length) + 1)])) continue;
+                    item.assetChanged = false;
+                }
+            }
+
             // 既存アセットの場所を表示
             var ShowTreeGUI = (bool)MI_ShowTreeGUI.Invoke(window, new object[]{m_ImportPackageItems});
             if(ShowTreeGUI)
             {
-                if(!needToReplace) yield break;
+                if(string.IsNullOrEmpty(folder) || !folder.StartsWith("Assets/")) yield break;
                 var origins = new Dictionary<object, string>();
                 var root = new VisualElement();
                 root.style.marginLeft = 6;

@@ -15,6 +15,7 @@ namespace jp.lilxyzw.editortoolbox
 
         [L10nHeader("Asset Import")]
         [ToggleLeft] public bool dragAndDropOverwrite = false;
+        [ToggleLeft] public bool cancelUnitypackageOverwriteInPackages = false;
 
         [L10nHeader("Texture Import")]
         [ToggleLeft] public bool turnOffCrunchCompression = false;

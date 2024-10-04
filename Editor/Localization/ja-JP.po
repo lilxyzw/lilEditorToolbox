@@ -69,6 +69,9 @@ msgstr "ツールバー拡張"
 msgid "Drag And Drop Overwrite"
 msgstr "ドラッグ＆ドロップで自動上書き"
 
+msgid "Cancel Unitypackage Overwrite In Packages"
+msgstr "unitypackageインポート時にPackages配下のアセットの上書きを防止"
+
 msgid "Turn Off Crunch Compression"
 msgstr "Crunch Compressionを自動オフ"
 

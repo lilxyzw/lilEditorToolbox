@@ -18,7 +18,13 @@ namespace jp.lilxyzw.editortoolbox
         }
         private static List<IHierarchyExtensionComponent> hierarchyExtensionComponents;
 
-        [InitializeOnLoadMethod] private static void Initialize() => EditorApplication.hierarchyWindowItemOnGUI += OnGUI;
+        [InitializeOnLoadMethod] private static void Initialize()
+        {
+            EditorApplication.hierarchyWindowItemOnGUI -= OnGUI;
+            EditorApplication.hierarchyWindowItemOnGUI += OnGUI;
+            EditorToolboxSettingsEditor.update -= Resolve;
+            EditorToolboxSettingsEditor.update += Resolve;
+        }
 
         internal static readonly Type[] types = AppDomain.CurrentDomain.GetAssemblies()
             .SelectMany(a => a.GetCustomAttributes(typeof(ExportsHierarchyExtensionComponent), false))
@@ -26,11 +32,10 @@ namespace jp.lilxyzw.editortoolbox
 
         internal static readonly (string key, string fullname)[] names =  types.Select(t => (Common.ToDisplayName(t.Name), t.FullName)).ToArray();
 
-        internal static IHierarchyExtensionComponent Resolve()
+        private static void Resolve()
         {
             hierarchyExtensionComponents = new List<IHierarchyExtensionComponent>();
             hierarchyExtensionComponents.AddRange(types.Where(t => EditorToolboxSettings.instance.hierarchyComponents.Contains(t.FullName)).Select(t => (IHierarchyExtensionComponent)Activator.CreateInstance(t)).OrderBy(c => c.Priority));
-            return null;
         }
 
         // GUI

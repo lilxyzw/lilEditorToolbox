@@ -15,6 +15,6 @@ namespace jp.lilxyzw.editortoolbox
         public ToolbarWrap(object instance) => this.instance = instance;
 
         public static ToolbarWrap get => new(FI_get.GetValue(null));
-        public VisualElement m_Root => FI_m_Root.GetValue(get) as VisualElement;
+        public VisualElement m_Root => FI_m_Root.GetValue(instance) as VisualElement;
     }
 }

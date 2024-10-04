@@ -9,9 +9,18 @@ namespace jp.lilxyzw.editortoolbox
 {
     internal static class MenuItemModifier
     {
+        [InitializeOnLoadMethod]
+        private static void Init()
+        {
+            EditorApplication.delayCall -= ReplaceMenuItems;
+            EditorApplication.delayCall += ReplaceMenuItems;
+            EditorToolboxSettingsEditor.update -= ReplaceMenuItems;
+            EditorToolboxSettingsEditor.update += ReplaceMenuItems;
+        }
+
         private static bool isChanged = false;
 
-        internal static void ReplaceMenuItems()
+        private static void ReplaceMenuItems()
         {
             if(!isChanged && !EditorToolboxSettings.instance.enableMenuDirectoryReplaces) return;
             ReplaceMenuItems(EditorToolboxSettings.instance.menuDirectoryReplaces);

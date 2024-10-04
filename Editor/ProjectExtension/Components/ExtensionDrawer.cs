@@ -10,8 +10,8 @@ namespace jp.lilxyzw.editortoolbox
 
         public void OnGUI(ref Rect currentRect, string guid, string path, string name, string extension, Rect fullRect)
         {
-            if(!File.Exists(path) || ProjectExtension.isSubAsset) return;
-            currentRect.width = EditorStyles.label.CalcSize(new GUIContent(extension)).x;
+            if(ProjectExtension.isIconGUI || !File.Exists(path) || ProjectExtension.isSubAsset) return;
+            currentRect.width = Common.GetTextWidth(extension);
             GUI.Label(currentRect, extension, EditorStyles.label);
             currentRect.x += currentRect.width;
         }

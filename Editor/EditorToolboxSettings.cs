@@ -43,18 +43,20 @@ namespace jp.lilxyzw.editortoolbox
 
         internal readonly Color backgroundColor = new Color(0.5f,0.5f,0.5f,0.05f);
         internal readonly Color lineColor = new Color(0.5f,0.5f,0.5f,0.33f);
+        internal readonly Color backgroundHilightColor = new Color(1.0f,0.95f,0.5f,0.2f);
 
         internal void Save() => Save(true);
     }
 
     [CustomEditor(typeof(EditorToolboxSettings))]
-    internal class EditorToolboxSettingsEditor : Editor
+    public class EditorToolboxSettingsEditor : Editor
     {
+        public static Action update;
+
         public override void OnInspectorGUI()
         {
             var openPreferenceFolder = L10n.G("Open preference folder");
-            EditorStyles.label.CalcMinMaxWidth(openPreferenceFolder, out float minWidth, out float maxWidth);
-            if(GUILayout.Button(openPreferenceFolder, GUILayout.MaxWidth(maxWidth+16)))
+            if(GUILayout.Button(openPreferenceFolder, GUILayout.MaxWidth(Common.GetTextWidth(openPreferenceFolder)+16)))
             {
                 System.Diagnostics.Process.Start(UnityEditorInternal.InternalEditorUtility.unityPreferencesFolder + "/jp.lilxyzw");
             }
@@ -128,22 +130,11 @@ namespace jp.lilxyzw.editortoolbox
             {
                 serializedObject.ApplyModifiedProperties();
                 L10n.Load();
-                UnitypackageImporter.Init();
                 EditorToolboxSettings.instance.Save();
-                HierarchyExtension.Resolve();
-                ProjectExtension.Resolve();
-                ToolbarExtension.Resolve();
                 EditorApplication.RepaintHierarchyWindow();
                 EditorApplication.RepaintProjectWindow();
-                MenuItemModifier.ReplaceMenuItems();
+                update.Invoke();
             }
-        }
-        
-        [InitializeOnLoadMethod]
-        private static void Init()
-        {
-            EditorApplication.delayCall -= MenuItemModifier.ReplaceMenuItems;
-            EditorApplication.delayCall += MenuItemModifier.ReplaceMenuItems;
         }
     }
 

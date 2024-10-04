@@ -10,6 +10,12 @@ namespace jp.lilxyzw.editortoolbox
 {
     public class ProjectExtension
     {
+        // アイコン表示かどうか
+        public static bool isIconGUI = false;
+
+        // サブアセットかどうか
+        public static bool isSubAsset = false;
+
         // 各IProjectExtensionComponentでオブジェクトのロードをすると無駄なのでここに集約
         private static readonly Dictionary<string, Object> objMap = new();
         public static Object GUIDToObject(string guid)
@@ -30,11 +36,10 @@ namespace jp.lilxyzw.editortoolbox
         private static string guidEditing = "";
         private static Dictionary<EditorWindow, (SerializedObject so, SerializedProperty m_IsRenaming, SerializedProperty m_IsWaitingForDelay)> windows = new();
 
-        internal static IProjectExtensionComponent Resolve()
+        private static void Resolve()
         {
             projectExtensionComponents = new List<IProjectExtensionComponent>();
             projectExtensionComponents.AddRange(types.Where(t => EditorToolboxSettings.instance.projectComponents.Contains(t.FullName)).Select(t => (IProjectExtensionComponent)Activator.CreateInstance(t)).OrderBy(c => c.Priority));
-            return null;
         }
 
         [InitializeOnLoadMethod]
@@ -44,6 +49,8 @@ namespace jp.lilxyzw.editortoolbox
             EditorApplication.update += EditorUpdate;
             EditorApplication.projectWindowItemOnGUI -= Draw;
             EditorApplication.projectWindowItemOnGUI += Draw;
+            EditorToolboxSettingsEditor.update -= Resolve;
+            EditorToolboxSettingsEditor.update += Resolve;
         }
 
         private static void EditorUpdate()
@@ -68,22 +75,22 @@ namespace jp.lilxyzw.editortoolbox
         }
 
         private static string guidPrev = "";
-        public static bool isSubAsset = false;
 
         private static void Draw(string guid, Rect position)
         {
             var path = AssetDatabase.GUIDToAssetPath(guid);
-            if(position.height > 16 || string.IsNullOrEmpty(path) || guidEditing == guid) return;
+            if(string.IsNullOrEmpty(path) || guidEditing == guid) return;
 
             var name = Path.GetFileNameWithoutExtension(path);
             var extension = Path.GetExtension(path);
             var currentRect = position;
-            currentRect.xMin += EditorStyles.label.CalcSize(new GUIContent(name)).x + 17;
+            currentRect.xMin += Common.GetTextWidth(name) + 17;
             if(position.x > 16) // One Column
             {
                 currentRect.xMin -= 2;
                 currentRect.y -= 1;
             }
+            isIconGUI = position.height > 16;
 
             if(projectExtensionComponents == null) Resolve();
 

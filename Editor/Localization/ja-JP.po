@@ -8,6 +8,12 @@ msgstr ""
 msgid "OK"
 msgstr "OK"
 
+msgid "Add"
+msgstr "追加"
+
+msgid "Remove"
+msgstr "削除"
+
 
 
 #: AssetGrimoire/Grimoire.cs
@@ -130,6 +136,9 @@ msgstr "LayerとTag"
 
 msgid "Alternating Project Background"
 msgstr "背景色を交互にする"
+
+msgid "Unitypackage Hilighter"
+msgstr "unitypackageのアイテムを強調"
 
 msgid "Extension Drawer"
 msgstr "拡張子を表示"

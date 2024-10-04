@@ -1,38 +1,40 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEditor;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace jp.lilxyzw.editortoolbox
 {
+    // ディレクトリが空だとUnityのバグでエラーになるので Assets/../ は必須
+    [FilePath("Assets/../jp.lilxyzw.editortoolbox.UnitypackageImporter.asset", FilePathAttribute.Location.ProjectFolder)]
     internal class UnitypackageImporter : ScriptableSingleton<UnitypackageImporter>
     {
-        public List<string> importedAssets = new();
-        private static List<string> importingAssets = new();
-
+        public List<UnitypackageAssets> importedAssets = new();
 
         [InitializeOnLoadMethod]
         internal static void Init()
         {
             AssetDatabase.importPackageStarted -= OnImportPackageStarted;
             AssetDatabase.importPackageStarted += OnImportPackageStarted;
-            AssetDatabase.importPackageCompleted -= OnImportPackageCompleted;
-            AssetDatabase.importPackageCompleted += OnImportPackageCompleted;
+            if(instance.importedAssets.Count == 0) AddToList("None", new());
         }
 
-        internal static void OnImportPackageCompleted(string _)
+        internal void Save() => instance.Save(true);
+
+        private static void AddToList(string name, List<string> guids)
         {
-            instance.importedAssets = importingAssets;
+            instance.importedAssets.Add(new UnitypackageAssets{name = name, guids = guids});
+            instance.Save(true);
         }
 
-        internal static void OnImportPackageStarted(string _)
+        private static void OnImportPackageStarted(string name)
         {
             if(DragAndDrop.paths.Length == 0) return;
             var folder = ProjectWindowPath();
-            runtime.CoroutineHandler.StartStaticCoroutine(ClosePackageImportWindow(folder));
+            runtime.CoroutineHandler.StartStaticCoroutine(ClosePackageImportWindow(name, folder));
         }
 
         private static string ProjectWindowPath()
@@ -41,14 +43,16 @@ namespace jp.lilxyzw.editortoolbox
             return folders.Length == 1 ? folders[0] : "Assets/";
         }
 
-        private static IEnumerator ClosePackageImportWindow(string folder)
+        private static IEnumerator ClosePackageImportWindow(string name, string folder)
         {
             while(!PackageImportWrap.HasOpenInstances()) yield return null;
             var window = new PackageImportWrap(EditorWindow.GetWindow(PackageImportWrap.type));
             var m_ImportPackageItems = window.m_ImportPackageItems;
             var items = m_ImportPackageItems.Select(o => new ImportPackageItemWrap(o)).ToArray();
 
-            importingAssets = items.Where(i => i.assetChanged).Select(i => i.destinationAssetPath).ToList();
+            var packageName = $"{name}.unitypackage";
+            if(!instance.importedAssets.Any(i => i.name == packageName))
+                AddToList(packageName, items.Select(i => i.guid).ToList());
 
             // Packages配下の上書き防止
             if(EditorToolboxSettings.instance.cancelUnitypackageOverwriteInPackages)
@@ -73,8 +77,7 @@ namespace jp.lilxyzw.editortoolbox
                 root.Add(new Label(L10n.L("Import directory")));
 
                 var button = new Button(){text = "Assets/"};
-                EditorStyles.label.CalcMinMaxWidth(new GUIContent(button.text), out float minWidth, out float maxWidth);
-                button.style.width = maxWidth + 16;
+                button.style.width = Common.GetTextWidth(button.text) + 16;
                 button.clicked += () => {
                     if(origins.Count == 0)
                     {
@@ -85,8 +88,7 @@ namespace jp.lilxyzw.editortoolbox
                             item.destinationAssetPath = folder + item.destinationAssetPath.Substring("Assets".Length);
                         }
                         button.text = folder+"/";
-                        EditorStyles.label.CalcMinMaxWidth(new GUIContent(button.text), out float minWidth, out float maxWidth);
-                        button.style.width = maxWidth + 16;
+                        button.style.width = Common.GetTextWidth(button.text) + 16;
                     }
                     else
                     {
@@ -94,8 +96,7 @@ namespace jp.lilxyzw.editortoolbox
                             if(origins.TryGetValue(item, out var path)) item.destinationAssetPath = path;
                         origins.Clear();
                         button.text = "Assets/";
-                        EditorStyles.label.CalcMinMaxWidth(new GUIContent(button.text), out float minWidth, out float maxWidth);
-                        button.style.width = maxWidth + 16;
+                        button.style.width = Common.GetTextWidth(button.text) + 16;
                     }
                 };
 
@@ -105,9 +106,8 @@ namespace jp.lilxyzw.editortoolbox
             else
             {
                 var button = new Button(){text = L10n.L("Show Import Window")};
-                EditorStyles.label.CalcMinMaxWidth(new GUIContent(button.text), out float minWidth, out float maxWidth);
                 button.style.marginTop = 36;
-                button.style.width = maxWidth + 32;
+                button.style.width = Common.GetTextWidth(button.text) + 32;
                 button.clicked += () => {
                     foreach(var i in items)
                         if(!i.isFolder) i.assetChanged = true;
@@ -115,6 +115,13 @@ namespace jp.lilxyzw.editortoolbox
                 };
                 window.w.rootVisualElement.Add(button);
             }
+        }
+
+        [Serializable]
+        internal class UnitypackageAssets
+        {
+            public string name;
+            public List<string> guids;
         }
     }
 }

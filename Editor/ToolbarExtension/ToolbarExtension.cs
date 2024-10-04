@@ -21,7 +21,7 @@ namespace jp.lilxyzw.editortoolbox
 
         internal static readonly (string key, string fullname)[] names =  types.Select(t => (Common.ToDisplayName(t.Name), t.FullName)).ToArray();
 
-        internal static void Resolve()
+        private static void Resolve()
         {
             toolbarExtensionComponents = new List<IToolbarExtensionComponent>();
             toolbarExtensionComponents.AddRange(types.Where(t => EditorToolboxSettings.instance.toolbarComponents.Contains(t.FullName)).Select(t => (IToolbarExtensionComponent)Activator.CreateInstance(t)).OrderBy(c => c.Priority));
@@ -57,6 +57,8 @@ namespace jp.lilxyzw.editortoolbox
         {
             EditorApplication.update -= GetVisualElements;
             EditorApplication.update += GetVisualElements;
+            EditorToolboxSettingsEditor.update += Resolve;
+            EditorToolboxSettingsEditor.update += Resolve;
         }
 
         private static void GetVisualElements()

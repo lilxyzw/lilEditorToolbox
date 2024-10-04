@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using UnityEditor;
 using UnityEngine.UIElements;
 
@@ -9,10 +8,6 @@ namespace jp.lilxyzw.editortoolbox
 {
     internal static class ToolbarExtension
     {
-        private static readonly Type T_Toolbar = typeof(Editor).Assembly.GetType("UnityEditor.Toolbar");
-        private static readonly FieldInfo FI_get = T_Toolbar.GetField("get", BindingFlags.Public | BindingFlags.Static);
-        private static readonly FieldInfo FI_m_Root = T_Toolbar.GetField("m_Root", BindingFlags.NonPublic | BindingFlags.Instance);
-
         private static VisualElement rootVisualElement;
         private static VisualElement leftElement;
         private static VisualElement rightElement;
@@ -66,7 +61,7 @@ namespace jp.lilxyzw.editortoolbox
 
         private static void GetVisualElements()
         {
-            rootVisualElement = FI_m_Root.GetValue(FI_get.GetValue(null)) as VisualElement;
+            rootVisualElement = ToolbarWrap.get.m_Root;
             if(rootVisualElement == null) return;
             leftElement = rootVisualElement.Q("ToolbarZoneLeftAlign");
             rightElement = rootVisualElement.Q("ToolbarZoneRightAlign");

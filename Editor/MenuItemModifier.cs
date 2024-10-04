@@ -132,45 +132,6 @@ namespace jp.lilxyzw.editortoolbox
             public Func<bool> validate;
             public bool isEnabled = true;
         }
-
-        private static class MenuWrap
-        {
-            private static readonly Type T_Menu = typeof(Menu);
-            private static readonly MethodInfo MI_AddMenuItem = T_Menu.GetMethod("AddMenuItem", BindingFlags.NonPublic | BindingFlags.Static);
-            private static readonly MethodInfo MI_RemoveMenuItem = T_Menu.GetMethod("RemoveMenuItem", BindingFlags.NonPublic | BindingFlags.Static);
-            private static readonly MethodInfo MI_RebuildAllMenus = T_Menu.GetMethod("RebuildAllMenus", BindingFlags.NonPublic | BindingFlags.Static);
-
-            internal static void AddMenuItem(string name, string shortcut, bool @checked, int priority, Action execute, Func<bool> validate)
-                => MI_AddMenuItem.Invoke(null, new object[]{name, shortcut, @checked, priority, execute, validate});
-
-            internal static void RemoveMenuItem(string name)
-                => MI_RemoveMenuItem.Invoke(null, new object[]{name});
-
-            internal static void RebuildAllMenus()
-                => MI_RebuildAllMenus.Invoke(null, null);
-        }
-
-        private static class MenuServiceWrap
-        {
-            private static readonly Type T_MenuService = typeof(Editor).Assembly.GetType("UnityEditor.MenuService");
-            private static readonly MethodInfo MI_ValidateMethodForMenuCommand = T_MenuService.GetMethod("ValidateMethodForMenuCommand", BindingFlags.NonPublic | BindingFlags.Static);
-            private static readonly MethodInfo MI_SanitizeMenuItemName = T_MenuService.GetMethod("SanitizeMenuItemName", BindingFlags.NonPublic | BindingFlags.Static);
-
-            internal static bool ValidateMethodForMenuCommand(MethodInfo methodInfo)
-                => (bool)MI_ValidateMethodForMenuCommand.Invoke(null, new object[]{methodInfo});
-
-            internal static string SanitizeMenuItemName(string name)
-                => (string)MI_SanitizeMenuItemName.Invoke(null, new object[]{name});
-        }
-
-        private static class EditorUtilityWrap
-        {
-            private static readonly Type T_EditorUtility = typeof(EditorUtility);
-            private static readonly MethodInfo MI_Internal_UpdateAllMenus = T_EditorUtility.GetMethod("Internal_UpdateAllMenus", BindingFlags.NonPublic | BindingFlags.Static);
-
-            internal static void Internal_UpdateAllMenus()
-                => MI_Internal_UpdateAllMenus.Invoke(null, null);
-        }
     }
 
     [Serializable]

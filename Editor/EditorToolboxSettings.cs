@@ -57,8 +57,7 @@ namespace jp.lilxyzw.editortoolbox
 
         public override void OnInspectorGUI()
         {
-            var openPreferenceFolder = L10n.G("Open preference folder");
-            if(GUILayout.Button(openPreferenceFolder, GUILayout.MaxWidth(Common.GetTextWidth(openPreferenceFolder)+16)))
+            if(L10n.ButtonLimited("Open preference folder"))
             {
                 System.Diagnostics.Process.Start(UnityEditorInternal.InternalEditorUtility.unityPreferencesFolder + "/jp.lilxyzw");
             }
@@ -103,13 +102,13 @@ namespace jp.lilxyzw.editortoolbox
                 else if(iterator.name == "projectComponents")
                 {
                     EditorGUILayout.Space();
-                    EditorGUILayout.LabelField(L10n.G("Project Extension"), EditorStyles.boldLabel);
+                    L10n.LabelField("Project Extension", EditorStyles.boldLabel);
                     StringListAsToggle(ProjectExtension.names);
                 }
                 else if(iterator.name == "toolbarComponents")
                 {
                     EditorGUILayout.Space();
-                    EditorGUILayout.LabelField(L10n.G("Toolbar Extension"), EditorStyles.boldLabel);
+                    L10n.LabelField("Toolbar Extension", EditorStyles.boldLabel);
                     StringListAsToggle(ToolbarExtension.names);
                 }
                 else if(iterator.name == "language")
@@ -125,7 +124,7 @@ namespace jp.lilxyzw.editortoolbox
                 }
                 else
                 {
-                    EditorGUILayout.PropertyField(iterator, L10n.G(iterator.displayName), true);
+                    L10n.PropertyField(iterator);
                 }
             }
 

@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace jp.lilxyzw.editortoolbox
 {
-    internal class L10n : ScriptableSingleton<L10n>
+    internal partial class L10n : ScriptableSingleton<L10n>
     {
         public LocalizationAsset localizationAsset;
         private static string[] languages;
@@ -44,11 +44,11 @@ namespace jp.lilxyzw.editortoolbox
             return instance.localizationAsset.GetLocalizedString(key);
         }
 
-        internal static GUIContent G(string key) => G(key, null, "");
-        internal static GUIContent G(string key, string tooltip) => G(key, null, tooltip);
-        internal static GUIContent G(string key, Texture image) => G(key, image, "");
+        private static GUIContent G(string key) => G(key, null, "");
+        private static GUIContent G(string key, string tooltip) => G(key, null, tooltip);
+        private static GUIContent G(string key, Texture image) => G(key, image, "");
 
-        internal static GUIContent G(string key, Texture image, string tooltip)
+        private static GUIContent G(string key, Texture image, string tooltip)
         {
             if(!instance.localizationAsset) Load();
             if(guicontents.TryGetValue(key, out var content)) return content;
@@ -59,11 +59,7 @@ namespace jp.lilxyzw.editortoolbox
     internal class L10nHeaderAttribute : PropertyAttribute
     {
         public readonly string key;
-        public GUIContent header => L10n.G(key);
-        public L10nHeaderAttribute(string key)
-        {
-            this.key = key;
-        }
+        public L10nHeaderAttribute(string key) => this.key = key;
     }
 
     [CustomPropertyDrawer(typeof(L10nHeaderAttribute))]
@@ -73,13 +69,10 @@ namespace jp.lilxyzw.editortoolbox
         {
             position.yMin += EditorGUIUtility.singleLineHeight * 0.5f;
             position = EditorGUI.IndentedRect(position);
-            GUI.Label(position, (attribute as L10nHeaderAttribute).header, EditorStyles.boldLabel);
+            L10n.LabelField(position, (attribute as L10nHeaderAttribute).key, EditorStyles.boldLabel);
         }
 
-        public override float GetHeight()
-        {
-            return EditorGUIUtility.singleLineHeight * 1.5f;
-        }
+        public override float GetHeight() => EditorGUIUtility.singleLineHeight * 1.5f;
     }
 
     internal class L10nHelpBoxAttribute : PropertyAttribute
@@ -87,7 +80,7 @@ namespace jp.lilxyzw.editortoolbox
         public readonly string key;
         public readonly MessageType type;
         public string text => L10n.L(key);
-        public GUIContent content => L10n.G(text, type == MessageType.None ? null : EditorGUIUtility.IconContent("console.infoicon").image);
+        public Texture icon;
         public L10nHelpBoxAttribute(string key, MessageType type = MessageType.None)
         {
             this.key = key;
@@ -108,7 +101,7 @@ namespace jp.lilxyzw.editortoolbox
         public override float GetHeight()
         {
             var attr = attribute as L10nHelpBoxAttribute;
-            return EditorStyles.helpBox.CalcHeight(attr.content, EditorGUIUtility.currentViewWidth - 10);
+            return L10n.CalcHeight(attr.key, attr.type == MessageType.None ? null : EditorGUIUtility.IconContent("console.infoicon").image, EditorStyles.helpBox);
         }
     }
 }

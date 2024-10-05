@@ -24,7 +24,7 @@ namespace jp.lilxyzw.editortoolbox
 
             if(KEYWORDS_BUILTIN == null) InitializeBuiltinKeywords();
 
-            if(showBuiltin != (showBuiltin = EditorGUILayout.Toggle(L10n.G("Show builtin keywords"), showBuiltin)))
+            if(showBuiltin != (showBuiltin = L10n.ToggleLeft("Show builtin keywords", showBuiltin)))
                 shader = null;
 
             //EditorGUILayout.TextArea(EditorJsonUtility.ToJson(Selection.activeObject, true));

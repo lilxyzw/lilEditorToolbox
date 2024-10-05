@@ -31,10 +31,10 @@ namespace jp.lilxyzw.editortoolbox
         {
             EditorGUI.BeginChangeCheck();
             EditorGUILayout.BeginHorizontal();
-            GUIPerChannel(L10n.G("R Channel"), channelParams[0]);
-            GUIPerChannel(L10n.G("G Channel"), channelParams[1]);
-            GUIPerChannel(L10n.G("B Channel"), channelParams[2]);
-            GUIPerChannel(L10n.G("A Channel"), channelParams[3]);
+            GUIPerChannel("R Channel", channelParams[0]);
+            GUIPerChannel("G Channel", channelParams[1]);
+            GUIPerChannel("B Channel", channelParams[2]);
+            GUIPerChannel("A Channel", channelParams[3]);
             EditorGUILayout.EndHorizontal();
             if(EditorGUI.EndChangeCheck())
             {
@@ -97,7 +97,7 @@ namespace jp.lilxyzw.editortoolbox
                     height = height4T;
                 }
                 EditorGUI.DrawTextureTransparent(new Rect(rect.x+(rect.width-width)/2,rect.y+16,width,height), packed);
-                if(GUI.Button(new Rect(rect.x,rect.yMax-32,rect.width,32), L10n.G("Export Texture")))
+                if(L10n.Button(new Rect(rect.x,rect.yMax-32,rect.width,32), "Export Texture"))
                 {
                     var path = EditorUtility.SaveFilePanel("Save capture", "", "", "png");
                     if(string.IsNullOrEmpty(path)) return;
@@ -127,19 +127,19 @@ namespace jp.lilxyzw.editortoolbox
             return tex;
         }
 
-        private void GUIPerChannel(GUIContent label, ChannelParam param)
+        private void GUIPerChannel(string key, ChannelParam param)
         {
             EditorGUILayout.BeginVertical(EditorStyles.helpBox);
-            EditorGUILayout.LabelField(label, EditorStyles.boldLabel);
+            L10n.LabelField(key, EditorStyles.boldLabel);
             param.tex = EditorGUI.ObjectField(EditorGUILayout.GetControlRect(GUILayout.Width(96), GUILayout.Height(96)), param.tex, typeof(Texture2D), false) as Texture2D;
             if(param.tex)
             {
-                param.mode = (ChannelMode)EditorGUILayout.EnumPopup(L10n.G("Channel to use"), param.mode);
+                param.mode = (ChannelMode)L10n.EnumPopup("Channel to use", param.mode);
                 if(param.mode == ChannelMode.Custom) param.blend = EditorGUILayout.Vector4Field("", param.blend);
             }
             else
             {
-                param.def = EditorGUILayout.FloatField(L10n.G("Default value"), param.def);
+                param.def = L10n.FloatField("Default value", param.def);
             }
             EditorGUILayout.EndVertical();
         }

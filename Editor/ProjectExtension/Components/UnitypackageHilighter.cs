@@ -106,13 +106,13 @@ namespace jp.lilxyzw.editortoolbox
                     {
                         var rect = EditorGUILayout.GetControlRect();
                         var xMax = rect.xMax;
-                        var buttonWidth = Common.GetTextWidth(L10n.G("Remove")) + 10;
+                        var buttonWidth = L10n.GetTextWidth("Remove") + 10;
                         rect.width -= buttonWidth + 4;
                         EditorGUI.LabelField(rect, n);
                         rect.xMin = rect.xMax;
                         rect.xMax = xMax;
                         EditorGUI.BeginChangeCheck();
-                        GUI.Button(rect, L10n.G("Remove"));
+                        L10n.Button(rect, "Remove");
                         if(EditorGUI.EndChangeCheck())
                         {
                             UnitypackageImporter.instance.importedAssets.RemoveAt(i);

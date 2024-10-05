@@ -19,7 +19,7 @@ namespace jp.lilxyzw.editortoolbox
         void OnGUI()
         {
             EditorGUI.BeginChangeCheck();
-            target = EditorGUILayout.ObjectField(L10n.G("Edit target"), target, typeof(GameObject), true) as GameObject;
+            target = L10n.ObjectField("Edit target", target, typeof(GameObject), true) as GameObject;
             if(EditorGUI.EndChangeCheck())
             {
                 if(target)
@@ -41,10 +41,10 @@ namespace jp.lilxyzw.editortoolbox
             EditorGUILayout.Space();
             EditorGUI.BeginDisabledGroup(!isPrefab);
             EditorGUILayout.BeginVertical(EditorStyles.helpBox);
-            EditorGUILayout.LabelField(L10n.G("Reset to prefab"), EditorStyles.boldLabel);
-            if(GUILayout.Button(L10n.G("All transforms")))
+            L10n.LabelField("Reset to prefab", EditorStyles.boldLabel);
+            if(L10n.Button("All transforms"))
                 ResetAllTransformToPrefab(target);
-            if(GUILayout.Button(L10n.G("Humanoid transforms")))
+            if(L10n.Button("Humanoid transforms"))
                 ResetHumanoidTransformToPrefab(target);
             EditorGUILayout.EndVertical();
             EditorGUI.EndDisabledGroup();
@@ -53,8 +53,8 @@ namespace jp.lilxyzw.editortoolbox
             EditorGUILayout.Space();
             EditorGUI.BeginDisabledGroup(!isHuman);
             EditorGUILayout.BeginVertical(EditorStyles.helpBox);
-            EditorGUILayout.LabelField(L10n.G("Reset to animator"), EditorStyles.boldLabel);
-            if(GUILayout.Button(L10n.G("Humanoid transforms")))
+            L10n.LabelField("Reset to animator", EditorStyles.boldLabel);
+            if(L10n.Button("Humanoid transforms"))
                 ResetHumanoidTransformToAvatar(target);
             EditorGUILayout.EndVertical();
             EditorGUI.EndDisabledGroup();
@@ -62,11 +62,11 @@ namespace jp.lilxyzw.editortoolbox
             // Copy all transforms
             EditorGUILayout.Space();
             EditorGUILayout.BeginVertical(EditorStyles.helpBox);
-            EditorGUILayout.LabelField(L10n.G("Copy from other object"), EditorStyles.boldLabel);
+            L10n.LabelField("Copy from other object", EditorStyles.boldLabel);
             EditorGUI.BeginChangeCheck();
-            prefab = EditorGUILayout.ObjectField(L10n.G("Copy from"), prefab, typeof(GameObject), true) as GameObject;
+            prefab = L10n.ObjectField("Copy from", prefab, typeof(GameObject), true) as GameObject;
             EditorGUI.BeginDisabledGroup(!prefab);
-            if(GUILayout.Button(L10n.G("All transforms")))
+            if(L10n.Button("All transforms"))
                 CopyTransforms(target.GetComponent<Transform>(), prefab.GetComponent<Transform>());
             EditorGUILayout.EndVertical();
             EditorGUI.EndDisabledGroup();

@@ -21,33 +21,33 @@ namespace jp.lilxyzw.editortoolbox
             var sceneView = SceneView.lastActiveSceneView;
             if(!sceneView || !sceneView.camera)
             {
-                EditorGUILayout.LabelField(L10n.G("Scene View is not open."));
+                L10n.LabelField("Scene View is not open.");
                 return;
             }
 
-            captureTarget = EditorGUILayout.ToggleLeft(L10n.G("Capture only selected objects"), captureTarget);
+            captureTarget = L10n.ToggleLeft("Capture only selected objects", captureTarget);
 
             if(captureTarget && !Selection.activeGameObject)
             {
-                EditorGUILayout.LabelField(L10n.G("No GameObject is selected."));
+                L10n.LabelField("No GameObject is selected.");
                 return;
             }
 
             var aspect = sceneView.position.height / sceneView.position.width;
-            autoHeight = EditorGUILayout.ToggleLeft(L10n.G("Fit Aspect Ratio to Scene View"), autoHeight);
-            width = EditorGUILayout.IntField(L10n.G("Width"), width);
+            autoHeight = L10n.ToggleLeft("Fit Aspect Ratio to Scene View", autoHeight);
+            width = L10n.IntField("Width", width);
             if(autoHeight)
             {
                 GUI.enabled = false;
-                EditorGUILayout.IntField(L10n.G("Height"), (int)(width * aspect));
+                L10n.IntField("Height", (int)(width * aspect));
                 GUI.enabled = true;
             }
             else
             {
-                height = EditorGUILayout.IntField(L10n.G("Height"), height);
+                height = L10n.IntField("Height", height);
             }
 
-            if(GUILayout.Button(L10n.G("Capture"))) Capture();
+            if(L10n.Button("Capture")) Capture();
         }
 
         private void Capture()

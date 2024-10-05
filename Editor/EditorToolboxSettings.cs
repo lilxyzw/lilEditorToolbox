@@ -98,7 +98,6 @@ namespace jp.lilxyzw.editortoolbox
                 if(iterator.name == "hierarchyComponents")
                 {
                     EditorGUILayout.Space();
-                    EditorGUILayout.LabelField(L10n.G("Hierarchy Extension"), EditorStyles.boldLabel);
                     StringListAsToggle(HierarchyExtension.names);
                 }
                 else if(iterator.name == "projectComponents")

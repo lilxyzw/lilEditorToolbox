@@ -51,6 +51,7 @@ Toolbar上にアセンブリのロックボタンや拡張インスペクター�
 - スクリプトのコンパイルを抑制（`Tools/lilEditorToolbox/Lock Reload Assemblies`）
 - 任意のObjectをjson形式で確認＆編集（`Tools/lilEditorToolbox/Json Object Viewer`）
 - Unity関連フォルダを開く（`Tools/lilEditorToolbox/Folder Opener`）
+- Transform初期化・コピーツール（`Tools/lilEditorToolbox/Transform Resetter`）
 - Stencil確認用prefab（`lilEditorToolbox/Editor/Shaders/StencilChecker.prefab`）
 
 ## 不足アセット特定ツール

@@ -20,7 +20,7 @@ namespace jp.lilxyzw.editortoolbox
                 bool isTooMany = currentRect.x - ICON_SIZE * iconCount < fullRect.x + 100;
                 if(isTooMany)
                 {
-                    int count = (int)((currentRect.x - fullRect.x - 100) / ICON_SIZE);
+                    int count = (int)((currentRect.x - fullRect.x - 100) / ICON_SIZE)-1;
                     if(count < 0) count = 0;
                     if(count > iconCount) count = iconCount;
                     Array.Resize(ref components, count);

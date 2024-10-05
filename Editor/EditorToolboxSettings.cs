@@ -28,6 +28,8 @@ namespace jp.lilxyzw.editortoolbox
         [ToggleLeft] public bool removeJaw = false;
 
         [L10nHeader("Hierarchy Extension")]
+        public int hierarchySpacerWidth = 0;
+        public int hierarchySpacerPriority = 0;
         public string[] hierarchyComponents = new string[]{};
 
         [L10nHeader("Project Extension")]
@@ -67,6 +69,7 @@ namespace jp.lilxyzw.editortoolbox
             iterator.NextVisible(true); // m_Script
             void StringListAsToggle((string key, string fullname)[] names)
             {
+                EditorGUILayout.BeginVertical(EditorStyles.helpBox);
                 var vals = Enumerable.Range(0, iterator.arraySize).Select(i => iterator.GetArrayElementAtIndex(i).stringValue).ToList();
                 foreach(var name in names)
                 {
@@ -87,6 +90,7 @@ namespace jp.lilxyzw.editortoolbox
                         }
                     }
                 }
+                EditorGUILayout.EndVertical();
             }
 
             while(iterator.NextVisible(false))

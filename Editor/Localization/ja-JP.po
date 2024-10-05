@@ -109,6 +109,15 @@ msgstr "メニューの階層変更・削除を有効化"
 
 #: EditorToolboxSettings.cs/HierarchyExtension
 
+msgid "Hierarchy Spacer Width"
+msgstr "余白の幅"
+
+msgid "Hierarchy Spacer Priority"
+msgstr "余白の挿入タイミング"
+
+msgid "Hierarchy Spacer"
+msgstr "余白の挿入"
+
 msgid "Active Toggle"
 msgstr "オブジェクトのオンオフ"
 

@@ -7,6 +7,8 @@ lilEditorToolbox
 
 - アセットをD&Dした階層に同名のファイルがある場合上書きインポート
 - unitypackageをD&Dした階層にインポート
+- unitypackageでProjects配下のアセットの上書きを防止
+- unitypackageでインポートしたアセットのログを保存して後から確認できる機能
 - テクスチャの`Crunch Compression`のオフと`Streaming Mipmaps`のオンと`Kaiser`ミップマップ化
 - モデルの`Legacy Blend Shape Normals`のオフと`Blend Shape Normals`設定の最適化、Humanoidから`Jaw`の削除
 

@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
@@ -15,7 +16,17 @@ namespace jp.lilxyzw.editortoolbox
             var components = gameObject.GetComponents<Component>().Where(c => c is not Transform).ToArray();
             if(components.Length > 0)
             {
-                currentRect.x -= ICON_SIZE * components.Length;
+                var iconCount = components.Length;
+                bool isTooMany = currentRect.x - ICON_SIZE * iconCount < fullRect.x + 100;
+                if(isTooMany)
+                {
+                    int count = (int)((currentRect.x - fullRect.x - 100) / ICON_SIZE);
+                    if(count < 0) count = 0;
+                    if(count > iconCount) count = iconCount;
+                    Array.Resize(ref components, count);
+                    iconCount = count + 1;
+                }
+                currentRect.x -= ICON_SIZE * iconCount;
                 currentRect.width = ICON_SIZE;
                 var xmin = currentRect.x;
 
@@ -39,6 +50,12 @@ namespace jp.lilxyzw.editortoolbox
                         so.ApplyModifiedProperties();
                     }
 
+                    currentRect.x += ICON_SIZE;
+                }
+
+                if(isTooMany)
+                {
+                    EditorGUI.LabelField(currentRect, "...");
                     currentRect.x += ICON_SIZE;
                 }
 

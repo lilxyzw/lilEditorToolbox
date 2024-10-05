@@ -300,3 +300,25 @@ msgstr "使うチャンネル"
 
 msgid "Default value"
 msgstr "チャンネルを埋める値"
+
+
+
+#: TransformResetter.cs
+
+msgid "Reset to prefab"
+msgstr "Prefabの状態にリセット"
+
+msgid "Reset to animator"
+msgstr "Animatorの状態にリセット"
+
+msgid "Copy from other object"
+msgstr "他オブジェクトからコピー"
+
+msgid "Copy from"
+msgstr "コピー元"
+
+msgid "All transforms"
+msgstr "全Transform"
+
+msgid "Humanoid transforms"
+msgstr "Humanoidのみ"

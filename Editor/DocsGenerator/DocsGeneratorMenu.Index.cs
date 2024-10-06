@@ -58,8 +58,8 @@ namespace jp.lilxyzw.editortoolbox
             sb.Replace("TO_SELECT", loc("to select"));
             sb.Replace("ENTER", loc("enter"));
             sb.Replace("TO_NAVIGATE", loc("to navigate"));
-            sb.Replace("UP", loc("up arrow"));
-            sb.Replace("DOWN", loc("down arrow"));
+            sb.Replace("UP_ARROW", loc("up arrow"));
+            sb.Replace("DOWN_ARROW", loc("down arrow"));
             sb.Replace("TO_CLOSE", loc("to close"));
             sb.Replace("ESCAPE", loc("escape"));
 

@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace jp.lilxyzw.editortoolbox
 {
+    [Tooltip("Displays the parent material if the material is a variant.")]
     internal class MaterialVariant : IProjectExtensionComponent
     {
         public int Priority => 0;

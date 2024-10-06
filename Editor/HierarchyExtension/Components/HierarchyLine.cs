@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace jp.lilxyzw.editortoolbox
 {
+    [Tooltip("Displays lines representing the parent-child relationships of objects in the Hierarchy.")]
     internal class HierarchyLine : IHierarchyExtensionComponent
     {
         public int Priority => -900;

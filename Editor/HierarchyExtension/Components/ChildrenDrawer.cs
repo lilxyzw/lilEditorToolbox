@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace jp.lilxyzw.editortoolbox
 {
+    [Tooltip("Displays the child components of an object.")]
     internal class ChildrenDrawer : IHierarchyExtensionComponent
     {
         private const int ICON_SIZE_CHILD = 8;

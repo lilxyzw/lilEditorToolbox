@@ -116,9 +116,9 @@ namespace jp.lilxyzw.editortoolbox
     [Serializable]
     internal class Package
     {
-        public string displayName;
-        public string name;
-        public string url;
-        public string repo;
+        public string displayName = "";
+        public string name = "";
+        public string url = "";
+        public string repo = "";
     }
 }

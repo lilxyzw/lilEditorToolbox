@@ -7,10 +7,18 @@ using Object = UnityEngine.Object;
 
 namespace jp.lilxyzw.editortoolbox
 {
+    [Docs(
+        "Extended Inspector",
+        "This allows you to treat the Inspector like a browser tab. This is an Inspector that is fixed to one object, so the display content does not change even if you select another object. This window is not opened from the menu bar, but from the + icon on the toolbar at the top of Unity. If you do not have the + icon, you can add it by turning on the `Add Inspector Tab Button` in the Toolbar Extensions of Preferences."
+    )]
     internal class TabInspector : EditorWindow
     {
         public List<Object> targets;
         public InspectorWindowWrap inspector;
+
+        [DocsField] private static readonly string[] L_NORMAL = {"Normal", "This is a regular Inspector."};
+        [DocsField] private static readonly string[] L_DEBUG = {"Debug", "Inspector for debugging. Normally, you do not need to use it."};
+        [DocsField] private static readonly string[] L_DEVELOPER = {"Developer", "This is a special Inspector that can only be seen in developer mode."};
 
         //[MenuItem("Assets/Open in new Inspector", false, 15)]
         internal static void Init()
@@ -36,18 +44,18 @@ namespace jp.lilxyzw.editortoolbox
             header.Add(objfield);
 
             // Mode Button
-            var buttonNormal = new Button{text = L10n.L("Normal")};
+            var buttonNormal = new Button{text = L10n.L(L_NORMAL[0]), tooltip = L10n.L(L_NORMAL[1])};
             buttonNormal.clicked += () => inspector.SetNormal();
             header.Add(buttonNormal);
-            var buttonDebug = new Button{text = L10n.L("Debug")};
+            var buttonDebug = new Button{text = L10n.L(L_DEBUG[0]), tooltip = L10n.L(L_DEBUG[1])};
             buttonDebug.clicked += () => inspector.SetDebug();
             header.Add(buttonDebug);
-            var buttonInternal = new Button{text = L10n.L("Developer")};
+            var buttonInternal = new Button{text = L10n.L(L_DEVELOPER[0]), tooltip = L10n.L(L_DEVELOPER[1])};
             buttonInternal.clicked += () => inspector.SetDebugInternal();
             header.Add(buttonInternal);
 
             // Close Button
-            var button = new Button{text = "☓", tooltip = "Close this tab."};
+            var button = new Button{text = "☓", tooltip = L10n.L("Close this tab.")};
             button.clicked += () => Close();
             header.Add(button);
 

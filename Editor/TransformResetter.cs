@@ -5,10 +5,25 @@ using UnityEngine;
 
 namespace jp.lilxyzw.editortoolbox
 {
+    [Docs(
+        "Transform Initialization/Copy Tool",
+        "You can restore the Transform of any object to its prefab state or copy it from another object. It is intended to be used when an avatar is stuck in a crouching position and cannot return to its original position."
+    )]
+    [DocsHowTo("Just set the crouching avatar and costume to `Editing target` and press the button. Generally, `Reset to prefab` is recommended, but if the reference is broken when unpacking the prefab, use `Reset to animator`. If you can't do that with a costume that is not set to Humanoid, set the original prefab to the copy source of `Copy from other object` and press the button to copy the state from the prefab.")]
+    [DocsMenuLocation(Common.MENU_HEAD + "Transform Resetter")]
     internal class TransformResetter : EditorWindow
     {
         [MenuItem(Common.MENU_HEAD + "Transform Resetter")]
         static void Init() => GetWindow(typeof(TransformResetter)).Show();
+
+        [DocsField] private static readonly string[] L_TARGET = {"Edit target", "This is the target for Transform editing."};
+        [DocsField] private static readonly string[] L_PREFAB = {"Reset to prefab", "Resets the prefab to its initial state. This is only available when the prefab has not been unpacked."};
+        [DocsField] private static readonly string[] L_ANIMATOR = {"Reset to animator", "Resets the Animator to its initial state. Use this if you have unpacked the Prefab."};
+        [DocsField] private static readonly string[] L_COPY = {"Copy from other object", "Copies the Transform from another selected object. Use this when neither of the above menus can be used."};
+
+        [DocsField] private static readonly string[] L_ALL = {"All transforms", "The process is performed on all Transforms."};
+        [DocsField] private static readonly string[] L_HUMANOID = {"Humanoid transforms", "The process is performed on humanoid bones."};
+        [DocsField] private static readonly string[] L_FROM = {"Copy from", "This is the source of the Transform copy. The object will be copied from this object to the one being edited."};
 
         private static readonly HumanBodyBones[] humanBodyBones = (Enum.GetValues(typeof(HumanBodyBones)) as HumanBodyBones[]).Where(h => h != HumanBodyBones.LastBone).ToArray();
         public GameObject target;
@@ -22,7 +37,7 @@ namespace jp.lilxyzw.editortoolbox
         void OnGUI()
         {
             EditorGUI.BeginChangeCheck();
-            target = L10n.ObjectField("Edit target", target, typeof(GameObject), true) as GameObject;
+            target = L10n.ObjectField(L_TARGET, target, typeof(GameObject), true) as GameObject;
             if(EditorGUI.EndChangeCheck())
             {
                 if(target)
@@ -50,10 +65,10 @@ namespace jp.lilxyzw.editortoolbox
             EditorGUILayout.Space();
             EditorGUI.BeginDisabledGroup(!isPrefab);
             EditorGUILayout.BeginVertical(EditorStyles.helpBox);
-            L10n.LabelField("Reset to prefab", EditorStyles.boldLabel);
-            if(L10n.Button("All transforms"))
+            L10n.LabelField(L_PREFAB, EditorStyles.boldLabel);
+            if(L10n.Button(L_ALL))
                 ResetAllTransformToPrefab(target, BoolToTarget(resetRotation, resetPosition, resetScale));
-            if(L10n.Button("Humanoid transforms"))
+            if(L10n.Button(L_HUMANOID))
                 ResetHumanoidTransformToPrefab(target, BoolToTarget(resetRotation, resetPosition, resetScale));
             EditorGUILayout.EndVertical();
             EditorGUI.EndDisabledGroup();
@@ -62,8 +77,8 @@ namespace jp.lilxyzw.editortoolbox
             EditorGUILayout.Space();
             EditorGUI.BeginDisabledGroup(!isHuman);
             EditorGUILayout.BeginVertical(EditorStyles.helpBox);
-            L10n.LabelField("Reset to animator", EditorStyles.boldLabel);
-            if(L10n.Button("Humanoid transforms"))
+            L10n.LabelField(L_ANIMATOR, EditorStyles.boldLabel);
+            if(L10n.Button(L_HUMANOID))
                 ResetHumanoidTransformToAvatar(target, BoolToTarget(resetRotation, resetPosition, resetScale));
             EditorGUILayout.EndVertical();
             EditorGUI.EndDisabledGroup();
@@ -71,11 +86,11 @@ namespace jp.lilxyzw.editortoolbox
             // Copy all transforms
             EditorGUILayout.Space();
             EditorGUILayout.BeginVertical(EditorStyles.helpBox);
-            L10n.LabelField("Copy from other object", EditorStyles.boldLabel);
+            L10n.LabelField(L_COPY, EditorStyles.boldLabel);
             EditorGUI.BeginChangeCheck();
-            prefab = L10n.ObjectField("Copy from", prefab, typeof(GameObject), true) as GameObject;
+            prefab = L10n.ObjectField(L_FROM, prefab, typeof(GameObject), true) as GameObject;
             EditorGUI.BeginDisabledGroup(!prefab);
-            if(L10n.Button("All transforms"))
+            if(L10n.Button(L_ALL))
                 CopyTransforms(target.GetComponent<Transform>(), prefab.GetComponent<Transform>(), BoolToTarget(resetRotation, resetPosition, resetScale));
             EditorGUILayout.EndVertical();
             EditorGUI.EndDisabledGroup();

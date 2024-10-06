@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace jp.lilxyzw.editortoolbox
 {
+    [Tooltip("Displays the Render Queue for materials.")]
     internal class MaterialQueue : IProjectExtensionComponent
     {
         public int Priority => 1;

@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace jp.lilxyzw.editortoolbox
 {
+    [Tooltip("Displays the layer and tag of an object.")]
     internal class LayerAndTag : IHierarchyExtensionComponent
     {
         private static GUIStyle m_styleMiniText;

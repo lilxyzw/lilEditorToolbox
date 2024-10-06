@@ -5,6 +5,7 @@ using UnityEngine.UIElements;
 
 namespace jp.lilxyzw.editortoolbox
 {
+    [Tooltip("Displays a button to add a tab to the Inspector that is locked on the selected object.")]
     internal class AddInspectorTabButton : IToolbarExtensionComponent
     {
         public int Priority => 0;

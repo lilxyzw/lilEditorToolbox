@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
@@ -30,7 +31,8 @@ namespace jp.lilxyzw.editortoolbox
             .SelectMany(a => a.GetCustomAttributes(typeof(ExportsHierarchyExtensionComponent), false))
             .SelectMany(export => ((ExportsHierarchyExtensionComponent)export).Types).ToArray();
 
-        internal static readonly (string key, string fullname)[] names =  types.Select(t => (Common.ToDisplayName(t.Name), t.FullName)).ToArray();
+        internal static readonly (string[] key, string fullname)[] names = types.Select(t => (new[]{Common.ToDisplayName(t.Name), t.GetCustomAttribute<TooltipAttribute>()?.tooltip}, t.FullName)).ToArray();
+        internal static string[][] GetNameAndTooltips() => names.Select(n => n.key).ToArray();
 
         private static void Resolve()
         {

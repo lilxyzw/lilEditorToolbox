@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -30,7 +31,8 @@ namespace jp.lilxyzw.editortoolbox
             .SelectMany(a => a.GetCustomAttributes(typeof(ExportsProjectExtensionComponent), false))
             .SelectMany(export => ((ExportsProjectExtensionComponent)export).Types).ToArray();
 
-        internal static readonly (string key, string fullname)[] names =  types.Select(t => (Common.ToDisplayName(t.Name), t.FullName)).ToArray();
+        internal static readonly (string[] key, string fullname)[] names = types.Select(t => (new[]{Common.ToDisplayName(t.Name), t.GetCustomAttribute<TooltipAttribute>()?.tooltip}, t.FullName)).ToArray();
+        internal static string[][] GetNameAndTooltips() => names.Select(n => n.key).ToArray();
 
         private static List<IProjectExtensionComponent> projectExtensionComponents;
         private static string guidEditing = "";

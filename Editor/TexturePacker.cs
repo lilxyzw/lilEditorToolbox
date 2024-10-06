@@ -6,6 +6,12 @@ using UnityEngine;
 
 namespace jp.lilxyzw.editortoolbox
 {
+    [Docs(
+        "Texture Channel Packing Tool",
+        "Stores multiple textures in the RGBA channels of a single texture. Intended for use with Standard Shader PBR materials."
+    )]
+    [DocsHowTo("Simply set a texture for each channel and output it. For example, if you have multiple PBR textures you want to use with the Standard shader, you can combine them into a single image by setting Metallic to R, Smoothness to A, and Occlusion to G, and then setting the `Channel to be used` for each to R and outputting them.")]
+    [DocsMenuLocation(Common.MENU_HEAD + "Texture Packer")]
     internal class TexturePacker : EditorWindow
     {
         public ChannelParam[] channelParams = {
@@ -38,46 +44,7 @@ namespace jp.lilxyzw.editortoolbox
             EditorGUILayout.EndHorizontal();
             if(EditorGUI.EndChangeCheck())
             {
-                material = new(Shader.Find("Hidden/_lil/TexturePacker"));
-                material.SetTexture("_TextureR", GetUncompressedTexture(channelParams[0].tex));
-                material.SetTexture("_TextureG", GetUncompressedTexture(channelParams[1].tex));
-                material.SetTexture("_TextureB", GetUncompressedTexture(channelParams[2].tex));
-                material.SetTexture("_TextureA", GetUncompressedTexture(channelParams[3].tex));
-                material.SetVector("_BlendR", ModeToVector(channelParams[0]));
-                material.SetVector("_BlendG", ModeToVector(channelParams[1]));
-                material.SetVector("_BlendB", ModeToVector(channelParams[2]));
-                material.SetVector("_BlendA", ModeToVector(channelParams[3]));
-                material.SetVector("_IgnoreTexture", new Vector4(
-                    channelParams[0].tex ? 0 : 1,
-                    channelParams[1].tex ? 0 : 1,
-                    channelParams[2].tex ? 0 : 1,
-                    channelParams[3].tex ? 0 : 1
-                ));
-                material.SetVector("_Invert", new Vector4(
-                    channelParams[0].mode == ChannelMode.OneMinusR || channelParams[0].mode == ChannelMode.OneMinusG || channelParams[0].mode == ChannelMode.OneMinusB || channelParams[0].mode == ChannelMode.OneMinusA?1:0,
-                    channelParams[1].mode == ChannelMode.OneMinusR || channelParams[1].mode == ChannelMode.OneMinusG || channelParams[1].mode == ChannelMode.OneMinusB || channelParams[1].mode == ChannelMode.OneMinusA?1:0,
-                    channelParams[2].mode == ChannelMode.OneMinusR || channelParams[2].mode == ChannelMode.OneMinusG || channelParams[2].mode == ChannelMode.OneMinusB || channelParams[2].mode == ChannelMode.OneMinusA?1:0,
-                    channelParams[3].mode == ChannelMode.OneMinusR || channelParams[3].mode == ChannelMode.OneMinusG || channelParams[3].mode == ChannelMode.OneMinusB || channelParams[3].mode == ChannelMode.OneMinusA?1:0
-                ));
-                material.SetFloat("_DefaultR", channelParams[0].def);
-                material.SetFloat("_DefaultG", channelParams[1].def);
-                material.SetFloat("_DefaultB", channelParams[2].def);
-                material.SetFloat("_DefaultA", channelParams[3].def);
-
-                int width = 32;
-                int height = 32;
-                if(channelParams[0].tex){width = Mathf.Max(width,channelParams[0].tex.width); height = Mathf.Max(height,channelParams[0].tex.height);}
-                if(channelParams[1].tex){width = Mathf.Max(width,channelParams[1].tex.width); height = Mathf.Max(height,channelParams[1].tex.height);}
-                if(channelParams[2].tex){width = Mathf.Max(width,channelParams[2].tex.width); height = Mathf.Max(height,channelParams[2].tex.height);}
-                if(channelParams[3].tex){width = Mathf.Max(width,channelParams[3].tex.width); height = Mathf.Max(height,channelParams[3].tex.height);}
-                var currentRT = RenderTexture.active;
-                var renderTexture = RenderTexture.GetTemporary(width, height);
-                RenderTexture.active = renderTexture;
-                Graphics.Blit(null, renderTexture, material);
-                packed = new Texture2D(width, height, TextureFormat.RGBA32, false, false);
-                packed.ReadPixels(new Rect(0, 0, width, height), 0, 0);
-                packed.Apply();
-                RenderTexture.active = currentRT;
+                Pack();
             }
 
             if(packed)
@@ -104,6 +71,50 @@ namespace jp.lilxyzw.editortoolbox
                     File.WriteAllBytes(path, packed.EncodeToPNG());
                 }
             }
+        }
+
+        private void Pack()
+        {
+            material = new(Shader.Find("Hidden/_lil/TexturePacker"));
+            material.SetTexture("_TextureR", GetUncompressedTexture(channelParams[0].tex));
+            material.SetTexture("_TextureG", GetUncompressedTexture(channelParams[1].tex));
+            material.SetTexture("_TextureB", GetUncompressedTexture(channelParams[2].tex));
+            material.SetTexture("_TextureA", GetUncompressedTexture(channelParams[3].tex));
+            material.SetVector("_BlendR", ModeToVector(channelParams[0]));
+            material.SetVector("_BlendG", ModeToVector(channelParams[1]));
+            material.SetVector("_BlendB", ModeToVector(channelParams[2]));
+            material.SetVector("_BlendA", ModeToVector(channelParams[3]));
+            material.SetVector("_IgnoreTexture", new Vector4(
+                channelParams[0].tex ? 0 : 1,
+                channelParams[1].tex ? 0 : 1,
+                channelParams[2].tex ? 0 : 1,
+                channelParams[3].tex ? 0 : 1
+            ));
+            material.SetVector("_Invert", new Vector4(
+                channelParams[0].mode == ChannelMode.OneMinusR || channelParams[0].mode == ChannelMode.OneMinusG || channelParams[0].mode == ChannelMode.OneMinusB || channelParams[0].mode == ChannelMode.OneMinusA?1:0,
+                channelParams[1].mode == ChannelMode.OneMinusR || channelParams[1].mode == ChannelMode.OneMinusG || channelParams[1].mode == ChannelMode.OneMinusB || channelParams[1].mode == ChannelMode.OneMinusA?1:0,
+                channelParams[2].mode == ChannelMode.OneMinusR || channelParams[2].mode == ChannelMode.OneMinusG || channelParams[2].mode == ChannelMode.OneMinusB || channelParams[2].mode == ChannelMode.OneMinusA?1:0,
+                channelParams[3].mode == ChannelMode.OneMinusR || channelParams[3].mode == ChannelMode.OneMinusG || channelParams[3].mode == ChannelMode.OneMinusB || channelParams[3].mode == ChannelMode.OneMinusA?1:0
+            ));
+            material.SetFloat("_DefaultR", channelParams[0].def);
+            material.SetFloat("_DefaultG", channelParams[1].def);
+            material.SetFloat("_DefaultB", channelParams[2].def);
+            material.SetFloat("_DefaultA", channelParams[3].def);
+
+            int width = 32;
+            int height = 32;
+            if(channelParams[0].tex){width = Mathf.Max(width,channelParams[0].tex.width); height = Mathf.Max(height,channelParams[0].tex.height);}
+            if(channelParams[1].tex){width = Mathf.Max(width,channelParams[1].tex.width); height = Mathf.Max(height,channelParams[1].tex.height);}
+            if(channelParams[2].tex){width = Mathf.Max(width,channelParams[2].tex.width); height = Mathf.Max(height,channelParams[2].tex.height);}
+            if(channelParams[3].tex){width = Mathf.Max(width,channelParams[3].tex.width); height = Mathf.Max(height,channelParams[3].tex.height);}
+            var currentRT = RenderTexture.active;
+            var renderTexture = RenderTexture.GetTemporary(width, height);
+            RenderTexture.active = renderTexture;
+            Graphics.Blit(null, renderTexture, material);
+            packed = new Texture2D(width, height, TextureFormat.RGBA32, false, false);
+            packed.ReadPixels(new Rect(0, 0, width, height), 0, 0);
+            packed.Apply();
+            RenderTexture.active = currentRT;
         }
 
         void OnDisable()

@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace jp.lilxyzw.editortoolbox
 {
+    [Tooltip("Alternates the background color of the Hierarchy.")]
     internal class AlternatingBackground : IHierarchyExtensionComponent
     {
         public int Priority => -1500;

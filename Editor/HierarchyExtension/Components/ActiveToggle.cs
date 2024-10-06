@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace jp.lilxyzw.editortoolbox
 {
+    [Tooltip("A checkbox that turns an object on and off.")]
     internal class ActiveToggle : IHierarchyExtensionComponent
     {
         private const int ICON_SIZE = 16;

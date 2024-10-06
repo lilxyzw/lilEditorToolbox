@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace jp.lilxyzw.editortoolbox
 {
+    [Tooltip("Displays the file extension.")]
     internal class ExtensionDrawer : IProjectExtensionComponent
     {
         public int Priority => 0;

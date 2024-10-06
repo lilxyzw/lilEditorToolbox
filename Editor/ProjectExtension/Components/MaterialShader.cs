@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace jp.lilxyzw.editortoolbox
 {
+    [Tooltip("Displays the material's shader.")]
     internal class MaterialShader : IProjectExtensionComponent
     {
         public int Priority => 2;

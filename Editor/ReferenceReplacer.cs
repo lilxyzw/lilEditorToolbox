@@ -6,6 +6,12 @@ using UnityEngine.SceneManagement;
 
 namespace jp.lilxyzw.editortoolbox
 {
+    [Docs(
+        "Batch replacement tool for all object references",
+        "Replace all object references in all objects at once. For example, you can replace the avatar's materials all at once, or even replace the textures within the materials at once."
+    )]
+    [DocsHowTo("Simply set the object you want to edit (such as an avatar) to `Edit target`, and set the objects before and after the modification to `From` and `To`! When you press the execute button, all references will be replaced and the edited results will be displayed.")]
+    [DocsMenuLocation(Common.MENU_HEAD + "Reference Replacer")]
     internal class ReferenceReplacer : EditorWindow
     {
         public Vector2 scrollPos;
@@ -16,12 +22,17 @@ namespace jp.lilxyzw.editortoolbox
         [MenuItem(Common.MENU_HEAD + "Reference Replacer")]
         static void Init() => GetWindow(typeof(ReferenceReplacer)).Show();
 
+        [DocsField] private static readonly string[] L_TARGET = {"Edit target", "This is the object to be edited."};
+        [DocsField] private static readonly string[] L_FROM = {"From", "The object before replacement."};
+        [DocsField] private static readonly string[] L_TO = {"To", "This is the object after replacement."};
+        [DocsField] private static readonly string[] L_MODIFIED = {"Modified Objects", "The objects that have been edited."};
+
         void OnGUI()
         {
-            target = L10n.ObjectField("Edit target", target, typeof(Object), true);
+            target = L10n.ObjectField(L_TARGET, target, typeof(Object), true);
             EditorGUILayout.Space();
-            from = L10n.ObjectField("From", from, typeof(Object), true);
-            to = L10n.ObjectField("To", to, typeof(Object), true);
+            from = L10n.ObjectField(L_FROM, from, typeof(Object), true);
+            to = L10n.ObjectField(L_TO, to, typeof(Object), true);
             EditorGUILayout.Space();
             if(L10n.Button("Run"))
             {
@@ -54,7 +65,7 @@ namespace jp.lilxyzw.editortoolbox
             if(modified.Count > 0)
             {
                 EditorGUILayout.Space();
-                L10n.LabelField("Modified Objects", EditorStyles.boldLabel);
+                L10n.LabelField(L_MODIFIED, EditorStyles.boldLabel);
                 EditorGUILayout.BeginVertical(EditorStyles.helpBox);
                 scrollPos = EditorGUILayout.BeginScrollView(scrollPos);
                 EditorGUI.BeginDisabledGroup(true);

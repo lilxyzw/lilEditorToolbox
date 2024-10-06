@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace jp.lilxyzw.editortoolbox
 {
+    [Tooltip("Displays Prefab information.")]
     internal class PrefabInfo : IProjectExtensionComponent
     {
         public int Priority => 0;

@@ -45,7 +45,8 @@ namespace jp.lilxyzw.editortoolbox
         }
 
         private static GUIContent G(string key) => G(key, null, "");
-        private static GUIContent G(string key, string tooltip) => G(key, null, tooltip);
+        private static GUIContent G(string[] key) => key.Length == 2 ? G(key[0], null, key[1]) : G(key[0], null, null);
+        internal static GUIContent G(string key, string tooltip) => G(key, null, tooltip); // From EditorToolboxSettings
         private static GUIContent G(string key, Texture image) => G(key, image, "");
 
         private static GUIContent G(string key, Texture image, string tooltip)
@@ -58,8 +59,8 @@ namespace jp.lilxyzw.editortoolbox
 
     internal class L10nHeaderAttribute : PropertyAttribute
     {
-        public readonly string key;
-        public L10nHeaderAttribute(string key) => this.key = key;
+        public readonly string[] key;
+        public L10nHeaderAttribute(params string[] key) => this.key = key;
     }
 
     [CustomPropertyDrawer(typeof(L10nHeaderAttribute))]
@@ -80,7 +81,6 @@ namespace jp.lilxyzw.editortoolbox
         public readonly string key;
         public readonly MessageType type;
         public string text => L10n.L(key);
-        public Texture icon;
         public L10nHelpBoxAttribute(string key, MessageType type = MessageType.None)
         {
             this.key = key;

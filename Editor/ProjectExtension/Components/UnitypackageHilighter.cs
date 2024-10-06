@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace jp.lilxyzw.editortoolbox
 {
+    [Tooltip("Highlight the assets you imported in each Unitypackage.")]
     internal class UnitypackageHilighter : IProjectExtensionComponent
     {
         public int Priority => -1400;

@@ -146,7 +146,7 @@ namespace jp.lilxyzw.editortoolbox
     [Serializable]
     internal class MenuReplace
     {
-        public string from;
-        public string to;
+        public string from = "";
+        public string to = "";
     }
 }

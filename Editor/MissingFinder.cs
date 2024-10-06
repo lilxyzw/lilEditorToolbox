@@ -4,6 +4,11 @@ using UnityEngine;
 
 namespace jp.lilxyzw.editortoolbox
 {
+    [Docs(
+        "Missing reference finder tool",
+        "You can find missing parts in any object. Use it to check if a reference has been broken due to missing prerequisite assets or file deletion."
+    )]
+    [DocsMenuLocation(Common.MENU_HEAD + "Missing Finder")]
     internal class MissingFinder : EditorWindow
     {
         [MenuItem(Common.MENU_HEAD + "Missing Finder")]
@@ -35,9 +40,12 @@ namespace jp.lilxyzw.editortoolbox
             {
                 EditorGUILayout.Space();
                 scrollPos = EditorGUILayout.BeginScrollView(scrollPos);
+                L10n.LabelField("Objects with Missing References", EditorStyles.boldLabel);
+                EditorGUILayout.BeginVertical(EditorStyles.helpBox);
                 GUI.enabled = false;
                 foreach(var obj in objects) EditorGUILayout.ObjectField(obj, typeof(Object), true);
                 GUI.enabled = true;
+                EditorGUILayout.EndVertical();
                 EditorGUILayout.EndScrollView();
             }
             else

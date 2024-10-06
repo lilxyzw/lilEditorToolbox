@@ -5,6 +5,11 @@ using UnityEngine;
 
 namespace jp.lilxyzw.editortoolbox
 {
+    [Docs(
+        "Tool to open Unity-related folders",
+        "You can open folders used by Unity with one click. You can easily open folders that you may want to check occasionally, such as the location of configuration files or the location of unity packages on the asset store."
+    )]
+    [DocsMenuLocation(Common.MENU_HEAD + "Folder Opener")]
     internal class FolderOpener : EditorWindow
     {
         public Vector2 scrollPos;

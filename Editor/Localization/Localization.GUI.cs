@@ -21,14 +21,26 @@ namespace jp.lilxyzw.editortoolbox
         public static void LabelField(string key, params GUILayoutOption[] options)
             => EditorGUILayout.LabelField(G(key), options);
 
+        public static void LabelField(string[] key, params GUILayoutOption[] options)
+            => EditorGUILayout.LabelField(G(key), options);
+
         public static void LabelField(string key, GUIStyle style, params GUILayoutOption[] options)
+            => EditorGUILayout.LabelField(G(key), style, options);
+
+        public static void LabelField(string[] key, GUIStyle style, params GUILayoutOption[] options)
             => EditorGUILayout.LabelField(G(key), style, options);
 
         public static void LabelField(Rect position, string key, GUIStyle style)
             => EditorGUI.LabelField(position, G(key), style);
 
+        public static void LabelField(Rect position, string[] key, GUIStyle style)
+            => EditorGUI.LabelField(position, G(key), style);
+
         // Button
         public static bool Button(string key, params GUILayoutOption[] options)
+            => GUILayout.Button(G(key), options);
+
+        public static bool Button(string[] key, params GUILayoutOption[] options)
             => GUILayout.Button(G(key), options);
 
         public static bool Button(Rect rect, string key)
@@ -54,7 +66,10 @@ namespace jp.lilxyzw.editortoolbox
         public static Object ObjectField(string key, Object obj, Type objType, bool allowSceneObjects, params GUILayoutOption[] options)
             => EditorGUILayout.ObjectField(G(key), obj, objType, allowSceneObjects, options);
 
+        public static Object ObjectField(string[] key, Object obj, Type objType, bool allowSceneObjects, params GUILayoutOption[] options)
+            => EditorGUILayout.ObjectField(G(key), obj, objType, allowSceneObjects, options);
+
         public static bool PropertyField(SerializedProperty property, params GUILayoutOption[] options)
-            => EditorGUILayout.PropertyField(property, G(property.displayName), options);
+            => EditorGUILayout.PropertyField(property, G(property.displayName, property.tooltip), options);
     }
 }

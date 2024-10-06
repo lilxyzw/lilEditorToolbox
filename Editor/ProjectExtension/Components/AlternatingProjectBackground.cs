@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace jp.lilxyzw.editortoolbox
 {
+    [Tooltip("Alternates the background color of the Project window.")]
     internal class AlternatingProjectBackground : IProjectExtensionComponent
     {
         public int Priority => -1500;

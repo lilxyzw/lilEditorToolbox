@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace jp.lilxyzw.editortoolbox
 {
+    [Tooltip("Shows the icon if the object is EditorOnly.")]
     internal class EditorOnlyLabel : IHierarchyExtensionComponent
     {
         public int Priority => -800;

@@ -68,7 +68,7 @@ export const ja_JP = defineConfig({
       }
     },
     lastUpdated: {
-      text: '上矢印DATE_AT',
+      text: '最終更新',
       formatOptions: {
         dateStyle: 'full',
         timeStyle: 'medium'

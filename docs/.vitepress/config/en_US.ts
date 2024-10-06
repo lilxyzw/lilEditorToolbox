@@ -68,7 +68,7 @@ export const en_US = defineConfig({
       }
     },
     lastUpdated: {
-      text: 'up arrowDATE_AT',
+      text: 'Updated at',
       formatOptions: {
         dateStyle: 'full',
         timeStyle: 'medium'

@@ -305,6 +305,12 @@ msgstr "背景色を交互にする"
 msgid "Alternates the background color of the Hierarchy."
 msgstr "Hierarchyの背景色を交互に変更します。"
 
+msgid "Object Marker Background"
+msgstr "ObjectMarkerの背景色を適用"
+
+msgid "Applies a background color to the ObjectMarker."
+msgstr "ObjectMarkerの背景色を適用します。"
+
 msgid "Children Drawer"
 msgstr "子のコンポーネント"
 
@@ -682,3 +688,35 @@ msgstr "Humanoidのみ"
 
 msgid "The process is performed on humanoid bones."
 msgstr "Humanoid（体）のボーンに対して処理を行います。"
+
+
+
+#: runtime/ObjectMarker.cs
+
+msgid "By attaching this component to a GameObject, you can change the background color of the hierarchy to highlight it."
+msgstr "このコンポーネントをGameObjectに付けるとヒエラルキーの背景色を変更し強調表示できます。"
+
+msgid "It is intended to be used to organize the hierarchy. For example, you can create a GameObject named `Summer`, add an ObjectMarker component, and place summer costumes under it, and similarly create `Autumn` and place autumn costumes under it, etc."
+msgstr "ヒエラルキーの整理のために使うことを想定しています。例えば`Summer`という名前のGameObjectを作成してObjectMarkerコンポーネントを付けてその下に夏の衣装を、同様に`Autumn`を作成してその下に秋の衣装を……というように整理できます。"
+
+msgid "Color"
+msgstr "色"
+
+msgid "Underline"
+msgstr "下線"
+
+msgid "The background color. You can set the color using the color picker."
+msgstr "背景の色です。カラーピッカーで色を設定できます。"
+
+msgid "Instead of painting the color over the entire background, it paints it as an underline."
+msgstr "背景全体に色を描画せず、下線として描画します。"
+
+
+
+#: runtime/SceneMSAA.cs
+
+msgid "If you add this component to the Main Camera, anti-aliasing will also be applied in the Scene view."
+msgstr "Main Cameraにこのコンポーネントを付けるとシーンビューでもアンチエイリアスが適用されるようになります。"
+
+msgid "Simply attach this component to the Main Camera. Anti-aliasing is always applied, allowing you to adjust materials in a way that is close to how they will actually appear."
+msgstr "Main Cameraにこのコンポーネントを付けるだけです。アンチエイリアスが常に適用されるので、実際の見え方に近い状態でマテリアルの調整を行えます。"

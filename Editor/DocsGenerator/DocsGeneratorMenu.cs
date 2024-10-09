@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using jp.lilxyzw.editortoolbox.runtime;
 using UnityEditor;
 using UnityEngine;
 
@@ -20,7 +21,8 @@ namespace jp.lilxyzw.editortoolbox
         private static void Generate()
         {
             currentLang = EditorToolboxSettings.instance.language;
-            types = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.GetCustomAttribute<DocsAttribute>() != null).ToArray();
+            var asms = new HashSet<Assembly>(){Assembly.GetExecutingAssembly(), Assembly.GetAssembly(typeof(EditorOnlyBehaviour))};
+            types = asms.SelectMany(a => a.GetTypes()).Where(t => t.GetCustomAttribute<DocsAttribute>() != null).ToArray();
             var langs = L10n.GetLanguages();
             queue.UnionWith(langs);
             EditorApplication.update += Next;
@@ -82,6 +84,10 @@ namespace jp.lilxyzw.editortoolbox
             else if(type.IsSubclassOf(typeof(EditorWindow)))
             {
                 return $"{root}/docs/EditorWindow/{type.Name}.md";
+            }
+            else if(type.IsSubclassOf(typeof(MonoBehaviour)))
+            {
+                return $"{root}/docs/Components/{type.Name}.md";
             }
             else
             {

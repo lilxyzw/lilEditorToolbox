@@ -1,8 +1,8 @@
 {
-    "name": "jp.lilxyzw.editortoolbox.runtime",
+    "name": "jp.lilxyzw.editortoolbox.vrchat",
     "rootNamespace": "",
     "references": [
-        "jp.lilxyzw.editortoolbox.docsgenerator",
+        "jp.lilxyzw.editortoolbox.runtime",
         "VRC.SDKBase"
     ],
     "includePlatforms": [],

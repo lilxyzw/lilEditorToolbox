@@ -4,7 +4,7 @@ using UnityEngine;
 namespace jp.lilxyzw.editortoolbox.runtime
 {
     [AddComponentMenu("/")]
-    internal class CoroutineHandler : MonoBehaviour
+    internal class CoroutineHandler : EditorOnlyBehaviour
     {
         private static CoroutineHandler m_Instance;
         private static CoroutineHandler Instance => m_Instance ? m_Instance : m_Instance = new GameObject("CoroutineHandler"){hideFlags = HideFlags.HideAndDontSave}.AddComponent<CoroutineHandler>();

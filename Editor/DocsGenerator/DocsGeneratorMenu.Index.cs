@@ -51,6 +51,21 @@ namespace jp.lilxyzw.editortoolbox
             sb.AppendLine($"        ]");
             sb.AppendLine($"      }},");
 
+            // Document - Components
+            sb.AppendLine($"          {{");
+            sb.AppendLine($"            text: '{loc("Components")}',");
+            sb.AppendLine($"            items: [");
+            foreach(var file in Directory.GetFiles(root+"/docs/Components", "*.md", SearchOption.TopDirectoryOnly))
+            {
+            if(file.EndsWith("index.md")) continue;
+            var title = File.ReadLines(file).First().Substring(2);
+            sb.AppendLine($"              {{ text: '{title}', link: langName + '/docs/Components/{Path.GetFileNameWithoutExtension(file)}' }},");
+            }
+            sb.AppendLine($"            ]");
+            sb.AppendLine($"          }},");
+            sb.AppendLine($"        ]");
+            sb.AppendLine($"      }},");
+
             var langFooter = File.ReadAllText("docs_base/lang_footer.ts");
             sb.Append(langFooter);
             sb.Replace("LANG", code);

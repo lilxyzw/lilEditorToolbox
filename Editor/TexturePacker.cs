@@ -15,10 +15,10 @@ namespace jp.lilxyzw.editortoolbox
     internal class TexturePacker : EditorWindow
     {
         public ChannelParam[] channelParams = {
-            new(){mode = ChannelMode.R, def = 0},
-            new(){mode = ChannelMode.G, def = 0},
-            new(){mode = ChannelMode.B, def = 0},
-            new(){mode = ChannelMode.A, def = 1}
+            new(){mode = ChannelMode.R, scale = new Vector2(1,1), def = 0},
+            new(){mode = ChannelMode.G, scale = new Vector2(1,1), def = 0},
+            new(){mode = ChannelMode.B, scale = new Vector2(1,1), def = 0},
+            new(){mode = ChannelMode.A, scale = new Vector2(1,1), def = 1}
         };
         private Material material;
         public Texture2D packed;
@@ -76,14 +76,18 @@ namespace jp.lilxyzw.editortoolbox
         private void Pack()
         {
             material = new(Shader.Find("Hidden/_lil/TexturePacker"));
-            material.SetTexture("_TextureR", GetUncompressedTexture(channelParams[0].tex));
-            material.SetTexture("_TextureG", GetUncompressedTexture(channelParams[1].tex));
-            material.SetTexture("_TextureB", GetUncompressedTexture(channelParams[2].tex));
-            material.SetTexture("_TextureA", GetUncompressedTexture(channelParams[3].tex));
-            material.SetVector("_BlendR", ModeToVector(channelParams[0]));
-            material.SetVector("_BlendG", ModeToVector(channelParams[1]));
-            material.SetVector("_BlendB", ModeToVector(channelParams[2]));
-            material.SetVector("_BlendA", ModeToVector(channelParams[3]));
+            void SetChannel(string channel, ChannelParam param)
+            {
+                material.SetTexture("_Texture"+channel, GetUncompressedTexture(param.tex));
+                material.SetTextureScale("_Texture"+channel, param.scale);
+                material.SetTextureOffset("_Texture"+channel, param.offset);
+                material.SetVector("_Blend"+channel, ModeToVector(param));
+                material.SetFloat("_Default"+channel, param.def);
+            }
+            SetChannel("R", channelParams[0]);
+            SetChannel("G", channelParams[1]);
+            SetChannel("B", channelParams[2]);
+            SetChannel("A", channelParams[3]);
             material.SetVector("_IgnoreTexture", new Vector4(
                 channelParams[0].tex ? 0 : 1,
                 channelParams[1].tex ? 0 : 1,
@@ -96,10 +100,6 @@ namespace jp.lilxyzw.editortoolbox
                 channelParams[2].mode == ChannelMode.OneMinusR || channelParams[2].mode == ChannelMode.OneMinusG || channelParams[2].mode == ChannelMode.OneMinusB || channelParams[2].mode == ChannelMode.OneMinusA?1:0,
                 channelParams[3].mode == ChannelMode.OneMinusR || channelParams[3].mode == ChannelMode.OneMinusG || channelParams[3].mode == ChannelMode.OneMinusB || channelParams[3].mode == ChannelMode.OneMinusA?1:0
             ));
-            material.SetFloat("_DefaultR", channelParams[0].def);
-            material.SetFloat("_DefaultG", channelParams[1].def);
-            material.SetFloat("_DefaultB", channelParams[2].def);
-            material.SetFloat("_DefaultA", channelParams[3].def);
 
             int width = 32;
             int height = 32;
@@ -107,6 +107,7 @@ namespace jp.lilxyzw.editortoolbox
             if(channelParams[1].tex){width = Mathf.Max(width,channelParams[1].tex.width); height = Mathf.Max(height,channelParams[1].tex.height);}
             if(channelParams[2].tex){width = Mathf.Max(width,channelParams[2].tex.width); height = Mathf.Max(height,channelParams[2].tex.height);}
             if(channelParams[3].tex){width = Mathf.Max(width,channelParams[3].tex.width); height = Mathf.Max(height,channelParams[3].tex.height);}
+            material.SetVector("_TextureSize", new Vector4(width, height, 0, 0));
             var currentRT = RenderTexture.active;
             var renderTexture = RenderTexture.GetTemporary(width, height);
             RenderTexture.active = renderTexture;
@@ -147,6 +148,8 @@ namespace jp.lilxyzw.editortoolbox
             {
                 param.mode = (ChannelMode)L10n.EnumPopup("Channel to use", param.mode);
                 if(param.mode == ChannelMode.Custom) param.blend = EditorGUILayout.Vector4Field("", param.blend);
+                param.scale = L10n.Vector2Field("Scale", param.scale);
+                param.offset = L10n.Vector2Field("Offset", param.offset);
             }
             else
             {
@@ -177,6 +180,8 @@ namespace jp.lilxyzw.editortoolbox
         internal class ChannelParam
         {
             public Texture2D tex;
+            public Vector2 scale;
+            public Vector2 offset;
             public ChannelMode mode;
             public Vector4 blend;
             public float def = 0;

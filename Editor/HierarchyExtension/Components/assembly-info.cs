@@ -3,6 +3,7 @@ using jp.lilxyzw.editortoolbox;
     typeof(HierarchySpacer),
     typeof(ActiveToggle),
     typeof(AlternatingBackground),
+    typeof(ObjectMarkerBackground),
     typeof(ChildrenDrawer),
     typeof(ComponentsDrawer),
     typeof(EditorOnlyLabel),

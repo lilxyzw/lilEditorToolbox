@@ -2,7 +2,8 @@
     "name": "jp.lilxyzw.editortoolbox",
     "rootNamespace": "jp.lilxyzw.editortoolbox",
     "references": [
-        "jp.lilxyzw.editortoolbox.runtime"
+        "jp.lilxyzw.editortoolbox.runtime",
+        "jp.lilxyzw.editortoolbox.docsgenerator"
     ],
     "includePlatforms": [
         "Editor"

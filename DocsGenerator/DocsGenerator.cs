@@ -4,6 +4,10 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
+using System.Runtime.CompilerServices;
+[assembly:InternalsVisibleTo("jp.lilxyzw.editortoolbox")]
+[assembly:InternalsVisibleTo("jp.lilxyzw.editortoolbox.runtime")]
+
 namespace jp.lilxyzw.editortoolbox
 {
     internal static class DocsGenerator

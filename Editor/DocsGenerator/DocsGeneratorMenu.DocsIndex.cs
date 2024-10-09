@@ -43,6 +43,18 @@ namespace jp.lilxyzw.editortoolbox
             sb.AppendLine($"        </ul>");
             sb.AppendLine($"    </li>");
 
+            // Components
+            sb.AppendLine($"    <li><p>{loc("Components")}</p>");
+            sb.AppendLine($"        <ul>");
+            foreach(var file in Directory.GetFiles(root+"/docs/Components", "*.md", SearchOption.TopDirectoryOnly))
+            {
+            if(file.EndsWith("index.md")) continue;
+            var title = File.ReadLines(file).First().Substring(2);
+            sb.AppendLine($"            <li><a href=\"./Components/{Path.GetFileNameWithoutExtension(file)}\">{title}</a></li>");
+            }
+            sb.AppendLine($"        </ul>");
+            sb.AppendLine($"    </li>");
+
             sb.AppendLine($"    </ul>");
             sb.AppendLine($"</div>");
 

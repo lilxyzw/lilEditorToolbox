@@ -60,6 +60,9 @@ namespace jp.lilxyzw.editortoolbox
         public static float FloatField(string key, float value, params GUILayoutOption[] options)
             => EditorGUILayout.FloatField(G(key), value, options);
 
+        public static Vector2 Vector2Field(string key, Vector2 value, params GUILayoutOption[] options)
+            => EditorGUILayout.Vector2Field(G(key), value, options);
+
         public static Enum EnumPopup(string key, Enum selected, params GUILayoutOption[] options)
             => EditorGUILayout.EnumPopup(G(key), selected, options);
 

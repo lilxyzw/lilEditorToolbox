@@ -44,6 +44,7 @@ You can display objects, components, tags, layers, etc. on the Hierarchy. You ca
 |Hierarchy Spacer|Add margins so as not to interfere with other Hierarchy extensions.|
 |Active Toggle|A checkbox that turns an object on and off.|
 |Alternating Background|Alternates the background color of the Hierarchy.|
+|Object Marker Background|Applies a background color to the ObjectMarker.|
 |Children Drawer|Displays the child components of an object.|
 |Components Drawer|Displays the object's components. You can turn components on or off by clicking their icons.|
 |Editor Only Label|Shows the icon if the object is EditorOnly.|

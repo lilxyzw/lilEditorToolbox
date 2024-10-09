@@ -20,5 +20,11 @@ lilEditorToolboxのドキュメントページです。
             <li><a href="./EditorWindow/TransformResetter">Transform初期化・コピーツール</a></li>
         </ul>
     </li>
+    <li><p>Components</p>
+        <ul>
+            <li><a href="./Components/ObjectMarker">ObjectMarker</a></li>
+            <li><a href="./Components/SceneMSAA">Scene MSAA</a></li>
+        </ul>
+    </li>
     </ul>
 </div>

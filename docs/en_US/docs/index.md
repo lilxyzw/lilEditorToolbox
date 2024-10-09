@@ -20,5 +20,11 @@ This is the documentation page for lilEditorToolbox.
             <li><a href="./EditorWindow/TransformResetter">Transform Initialization/Copy Tool</a></li>
         </ul>
     </li>
+    <li><p>Components</p>
+        <ul>
+            <li><a href="./Components/ObjectMarker">ObjectMarker</a></li>
+            <li><a href="./Components/SceneMSAA">Scene MSAA</a></li>
+        </ul>
+    </li>
     </ul>
 </div>

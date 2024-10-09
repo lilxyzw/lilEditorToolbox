@@ -48,8 +48,6 @@ namespace jp.lilxyzw.editortoolbox
             }
             sb.AppendLine($"            ]");
             sb.AppendLine($"          }},");
-            sb.AppendLine($"        ]");
-            sb.AppendLine($"      }},");
 
             // Document - Components
             sb.AppendLine($"          {{");
@@ -63,6 +61,7 @@ namespace jp.lilxyzw.editortoolbox
             }
             sb.AppendLine($"            ]");
             sb.AppendLine($"          }},");
+
             sb.AppendLine($"        ]");
             sb.AppendLine($"      }},");
 

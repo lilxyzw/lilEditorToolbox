@@ -3,7 +3,7 @@ using UnityEngine;
 namespace jp.lilxyzw.editortoolbox.runtime
 {
     [Docs(
-        "Scene MSAA",
+        "SceneMSAA",
         "If you add this component to the Main Camera, anti-aliasing will also be applied in the Scene view."
     )]
     [DocsHowTo("Simply attach this component to the Main Camera. Anti-aliasing is always applied, allowing you to adjust materials in a way that is close to how they will actually appear.")]

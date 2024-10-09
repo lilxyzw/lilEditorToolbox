@@ -45,63 +45,64 @@ namespace jp.lilxyzw.editortoolbox
 
                 // 各プロパティの表
                 var fields = type.GetFields(DEFAULT_FLAG);
-                if(fields.Length == 0) continue;
-
-                bool isFirst = true;
-                bool isFirstDocsField = true;
-                foreach(var field in fields)
+                if(fields.Length != 0)
                 {
-                    var header = funcHeader(field);
-
-                    if(!string.IsNullOrEmpty(header.Item1))
+                    bool isFirst = true;
+                    bool isFirstDocsField = true;
+                    void AddProperty(string name, string tooltip)
                     {
-                        // ヘッダーの場合はヘッダーと表の先頭を作成
-                        if(!isFirst) sb.AppendLine();
-                        sb.Header(2, header.Item1, localize);
-                        if(!string.IsNullOrEmpty(header.Item2)) sb.Text(header.Item2, localize);
-                        sb.TableHeader(localize);
                         isFirst = false;
-                    }
-
-                    if(field.IsStatic && field.FieldType == typeof(string[]) && field.GetCustomAttribute<DocsFieldAttribute>() != null)
-                    {
-                        // [DocsField]かつstring[]型の場合は値から取得
                         if(isFirstDocsField)
                         {
                             sb.Header(2, "Property", localize);
                             sb.TableHeader(localize);
                             isFirstDocsField = false;
                         }
-                        if(field.GetValue(null) is not string[] value || value.Length < 2)
-                        {
-                            throw new Exception($"{type.FullName}.{field.Name} has DocsFieldAttribute, but string array is null or shorter than 2.");
-                        }
-                        sb.AppendLine($"|{localize(value[0])}|{localize(value[1])}|");
-                        isFirst = false;
+                        sb.AppendLine($"|{localize(name)}|{localize(tooltip)}|");
                     }
-                    else if(field.GetCustomAttribute<DocsGetStringsAttribute>()?.func is Func<string[][]> getstrings)
-                    {
-                        // [DocsGetStrings]の場合はそこから取得
-                        var strings = getstrings();
-                        foreach(var ss in strings)
-                        {
-                            sb.AppendLine($"|{localize(ss[0])}|{localize(ss[1])}|");
-                        }
-                        isFirst = false;
-                    }
-                    else if(funcNeedToDraw(field))
-                    {
-                        // その他はユーザー定義の方法で取得
-                        var tooltip = funcTooltip(field);
-                        if(!string.IsNullOrEmpty(tooltip))
-                        {
-                            sb.AppendLine($"|{localize(field.Name.ToDisplayName())}|{localize(tooltip)}|");
-                            isFirst = false;
-                        }
-                    }
-                }
 
-                if(!isFirst) sb.AppendLine();
+                    foreach(var field in fields)
+                    {
+                        var header = funcHeader(field);
+
+                        if(!string.IsNullOrEmpty(header.Item1))
+                        {
+                            // ヘッダーの場合はヘッダーと表の先頭を作成
+                            if(!isFirst) sb.AppendLine();
+                            sb.Header(2, header.Item1, localize);
+                            if(!string.IsNullOrEmpty(header.Item2)) sb.Text(header.Item2, localize);
+                            sb.TableHeader(localize);
+                            isFirst = false;
+                            isFirstDocsField = false;
+                        }
+
+                        if(field.IsStatic && field.FieldType == typeof(string[]) && field.GetCustomAttribute<DocsFieldAttribute>() != null)
+                        {
+                            // [DocsField]かつstring[]型の場合は値から取得
+                            if(field.GetValue(null) is not string[] value || value.Length < 2)
+                            {
+                                throw new Exception($"{type.FullName}.{field.Name} has DocsFieldAttribute, but string array is null or shorter than 2.");
+                            }
+                            AddProperty(value[0], value[1]);
+                        }
+                        else if(field.GetCustomAttribute<DocsGetStringsAttribute>()?.func is Func<string[][]> getstrings)
+                        {
+                            // [DocsGetStrings]の場合はそこから取得
+                            var strings = getstrings();
+                            foreach(var ss in strings)
+                                AddProperty(ss[0], ss[1]);
+                        }
+                        else if(funcNeedToDraw(field))
+                        {
+                            // その他はユーザー定義の方法で取得
+                            var tooltip = funcTooltip(field);
+                            if(!string.IsNullOrEmpty(tooltip))
+                                AddProperty(field.Name.ToDisplayName(), tooltip);
+                        }
+                    }
+
+                    if(!isFirst) sb.AppendLine();
+                }
 
                 var path = funcPath(type);
                 var directory = Path.GetDirectoryName(path);

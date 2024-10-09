@@ -23,7 +23,7 @@ lilEditorToolboxのドキュメントページです。
     <li><p>Components</p>
         <ul>
             <li><a href="./Components/ObjectMarker">ObjectMarker</a></li>
-            <li><a href="./Components/SceneMSAA">Scene MSAA</a></li>
+            <li><a href="./Components/SceneMSAA">SceneMSAA</a></li>
         </ul>
     </li>
     </ul>

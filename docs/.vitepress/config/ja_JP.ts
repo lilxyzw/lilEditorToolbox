@@ -38,7 +38,7 @@ export const ja_JP = defineConfig({
             text: 'Components',
             items: [
               { text: 'ObjectMarker', link: langName + '/docs/Components/ObjectMarker' },
-              { text: 'Scene MSAA', link: langName + '/docs/Components/SceneMSAA' },
+              { text: 'SceneMSAA', link: langName + '/docs/Components/SceneMSAA' },
             ]
           },
         ]

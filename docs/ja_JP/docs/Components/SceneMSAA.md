@@ -1,4 +1,4 @@
-﻿# Scene MSAA
+﻿# SceneMSAA
 
 Main Cameraにこのコンポーネントを付けるとシーンビューでもアンチエイリアスが適用されるようになります。
 

@@ -1,4 +1,4 @@
-﻿# Scene MSAA
+﻿# SceneMSAA
 
 If you add this component to the Main Camera, anti-aliasing will also be applied in the Scene view.
 

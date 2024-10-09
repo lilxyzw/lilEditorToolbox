@@ -34,8 +34,6 @@ export const ja_JP = defineConfig({
               { text: 'Transform初期化・コピーツール', link: langName + '/docs/EditorWindow/TransformResetter' },
             ]
           },
-        ]
-      },
           {
             text: 'Components',
             items: [

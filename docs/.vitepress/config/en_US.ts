@@ -34,8 +34,6 @@ export const en_US = defineConfig({
               { text: 'Transform Initialization/Copy Tool', link: langName + '/docs/EditorWindow/TransformResetter' },
             ]
           },
-        ]
-      },
           {
             text: 'Components',
             items: [

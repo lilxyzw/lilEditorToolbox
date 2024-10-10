@@ -5,7 +5,9 @@
         "jp.lilxyzw.editortoolbox.runtime",
         "VRC.SDKBase"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

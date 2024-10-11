@@ -50,6 +50,9 @@ namespace jp.lilxyzw.editortoolbox
             => GUILayout.Button(G(key), GUILayout.MaxWidth(GetTextWidth(key)+16));
 
         // Toggle
+        public static bool Toggle(string key, bool value, params GUILayoutOption[] options)
+            => GUILayout.Toolbar(value ? 0 : -1, new[]{G(key)}, options) != -1;
+
         public static bool ToggleLeft(string key, bool value, params GUILayoutOption[] options)
             => EditorGUILayout.ToggleLeft(G(key), value, options);
 

@@ -691,6 +691,49 @@ msgstr "Humanoid（体）のボーンに対して処理を行います。"
 
 
 
+#: runtime/CameraMover.cs
+
+msgid "By attaching this component to a camera, you can control the camera with WASDQE."
+msgstr "このコンポーネントをカメラに付けると、WASDQEでカメラを操作することができます。"
+
+msgid "Just attach the component to the camera object and press the `Operate` button. You can end the interaction by clicking it again or pressing the escape key."
+msgstr "カメラオブジェクトにコンポーネントを付けて、`操作`ボタンを押すだけです。操作はもう一度クリックするかエスケープキーを押すと終了できます。"
+
+msgid "The moving speed of the camera."
+msgstr "カメラの移動速度です。"
+
+msgid "The amount the camera rotates when you move the mouse."
+msgstr "マウスを動かしたときのカメラの回転量です。"
+
+msgid "W: Front"
+msgstr "W: 前"
+
+msgid "A: Left"
+msgstr "A: 左"
+
+msgid "S: Back"
+msgstr "S: 後"
+
+msgid "D: Right"
+msgstr "D: 右"
+
+msgid "Q: Up"
+msgstr "Q: 上"
+
+msgid "E: Down"
+msgstr "E: 下"
+
+msgid "Esc: End"
+msgstr "Esc: 操作終了"
+
+msgid "Wheel: Change Move Speed"
+msgstr "マウスホイール: 移動速度の変更"
+
+msgid "Operate"
+msgstr "操作"
+
+
+
 #: runtime/ObjectMarker.cs
 
 msgid "By attaching this component to a GameObject, you can change the background color of the hierarchy to highlight it."

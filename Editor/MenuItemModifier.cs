@@ -144,7 +144,7 @@ namespace jp.lilxyzw.editortoolbox
     }
 
     [Serializable]
-    internal class MenuReplace
+    internal class MenuReplace : DirectElements
     {
         public string from = "";
         public string to = "";

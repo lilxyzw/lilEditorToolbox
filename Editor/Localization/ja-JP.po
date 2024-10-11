@@ -154,6 +154,22 @@ msgstr "インポート画面を表示"
 
 
 
+#: ProjectExtension/Components/IconOverlay.cs
+
+msgid "Target"
+msgstr "ターゲット"
+
+msgid "Icon"
+msgstr "アイコン"
+
+msgid "Clip Bottom"
+msgstr "下部をクリップ"
+
+msgid "Clip Top"
+msgstr "上部をクリップ"
+
+
+
 #: ToolbarExtension/Components/LockReloadAssembliesButton.cs
 
 msgid "Assemblies Locked"
@@ -344,6 +360,12 @@ msgstr "オブジェクトのLayerとTagを表示します。"
 
 
 #: EditorToolboxSettings.cs/ProjectExtension
+
+msgid "Icon Overlay"
+msgstr "アイコンオーバーレイ"
+
+msgid "Overlay any image on the icon."
+msgstr "アセットのアイコンに任意の画像をオーバーレイ表示します。"
 
 msgid "Alternating Project Background"
 msgstr "背景色を交互にする"

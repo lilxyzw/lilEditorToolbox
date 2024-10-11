@@ -77,5 +77,8 @@ namespace jp.lilxyzw.editortoolbox
 
         public static bool PropertyField(SerializedProperty property, params GUILayoutOption[] options)
             => EditorGUILayout.PropertyField(property, G(property.displayName, property.tooltip), options);
+
+        public static bool PropertyField(Rect position, SerializedProperty property)
+            => EditorGUI.PropertyField(position, property, G(property.displayName, property.tooltip));
     }
 }

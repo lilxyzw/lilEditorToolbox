@@ -35,4 +35,6 @@ namespace jp.lilxyzw.editortoolbox
             so.CopyFromSerializedProperty(prop);
         }
     }
+
+    internal abstract class DirectElements{}
 }

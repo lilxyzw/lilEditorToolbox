@@ -450,6 +450,16 @@ msgstr "Missing参照を含むオブジェクト"
 
 
 
+#: PlayModeSaver.cs
+
+msgid "Save changes in PlayMode"
+msgstr "PlayModeでの変更を保存"
+
+msgid "Values changed in PlayMode can be maintained even after exiting PlayMode. Click the hamburger menu in the upper right corner of each component and select `Save changes in PlayMode` to save the changes to that component."
+msgstr "PlayModeでの変更した値をPlayMode終了後も維持できます。各コンポーネント右上のハンバーガーメニューをクリックし`Save changes in PlayMode`を選択するとそのコンポーネントの変更点を保存します。"
+
+
+
 #: ReferenceReplacer.cs
 
 msgid "Batch replacement tool for all object references"

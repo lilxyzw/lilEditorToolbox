@@ -25,19 +25,7 @@ namespace jp.lilxyzw.editortoolbox
             if(!target) return;
 
             if(L10n.Button("Refresh")) json = EditorJsonUtility.ToJson(target, true);
-            if(L10n.Button("Apply Modification"))
-            {
-                var clone = Instantiate(target);
-                EditorJsonUtility.FromJsonOverwrite(json, clone);
-                using var so = new SerializedObject(target);
-                using var soClone = new SerializedObject(clone);
-                using var iter = soClone.GetIterator();
-                iter.Next(true);
-                so.CopyFromSerializedProperty(iter);
-                while(iter.Next(false))
-                    so.CopyFromSerializedProperty(iter);
-                so.ApplyModifiedProperties();
-            }
+            if(L10n.Button("Apply Modification")) ObjectUtils.FromJsonOverwrite(json, target);
 
             scrollPos = EditorGUILayout.BeginScrollView(scrollPos);
             json = EditorGUILayout.TextArea(json);

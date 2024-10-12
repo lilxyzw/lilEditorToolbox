@@ -91,7 +91,12 @@ namespace jp.lilxyzw.editortoolbox
                 }
             }
 
-            camera.Render();
+            var cameraRect = new Rect(0f, 0f, width, heightO);
+            var currentType = Event.current.type;
+            Event.current.type = EventType.Repaint;
+            if(captureTarget) Handles.ClearCamera(cameraRect, camera);
+            Handles.DrawCamera(cameraRect, camera, sceneView.cameraMode.drawMode, false);
+            Event.current.type = currentType;
 
             var renderTexture2 = RenderTexture.GetTemporary(width, heightO, 24, RenderTextureFormat.ARGBFloat, RenderTextureReadWrite.Default);
             var material = new Material(Shader.Find("Hidden/_lil/FixColor"));

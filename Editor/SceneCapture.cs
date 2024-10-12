@@ -94,7 +94,10 @@ namespace jp.lilxyzw.editortoolbox
             camera.Render();
 
             var renderTexture2 = RenderTexture.GetTemporary(width, heightO, 24, RenderTextureFormat.ARGBFloat, RenderTextureReadWrite.Default);
-            Graphics.Blit(renderTexture, renderTexture2, new Material(Shader.Find("Hidden/_lil/FixColor")));
+            var material = new Material(Shader.Find("Hidden/_lil/FixColor"));
+            material.SetTexture("_MainTex", renderTexture);
+            material.SetFloat("_RemoveAlpha", captureTarget ? 0 : 1);
+            Graphics.Blit(null, renderTexture2, material);
 
             var tex = new Texture2D(width, heightO, TextureFormat.RGBA32, false, false);
             tex.ReadPixels(new Rect(0, 0, width, heightO), 0, 0);

@@ -6,6 +6,7 @@ This is the documentation page for lilEditorToolbox.
     <ul>
     <li><a href="./Settings">Settings</a></li>
     <li><a href="./Grimoire">Missing Asset Identification Tool</a></li>
+    <li><a href="./PlayModeSaver">Save changes in PlayMode</a></li>
     <li><a href="./SceneExtension">Scene View Extensions</a></li>
     <li><p>EditorWindow</p>
         <ul>
@@ -22,6 +23,7 @@ This is the documentation page for lilEditorToolbox.
     </li>
     <li><p>Components</p>
         <ul>
+            <li><a href="./Components/CameraMover">CameraMover</a></li>
             <li><a href="./Components/ObjectMarker">ObjectMarker</a></li>
             <li><a href="./Components/SceneMSAA">SceneMSAA</a></li>
         </ul>

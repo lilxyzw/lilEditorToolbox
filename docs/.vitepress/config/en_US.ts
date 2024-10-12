@@ -19,6 +19,7 @@ export const en_US = defineConfig({
         items: [
           { text: 'Settings', link: langName + '/docs/Settings' },
           { text: 'Missing Asset Identification Tool', link: langName + '/docs/Grimoire' },
+          { text: 'Save changes in PlayMode', link: langName + '/docs/PlayModeSaver' },
           { text: 'Scene View Extensions', link: langName + '/docs/SceneExtension' },
           {
             text: 'EditorWindow',
@@ -37,6 +38,7 @@ export const en_US = defineConfig({
           {
             text: 'Components',
             items: [
+              { text: 'CameraMover', link: langName + '/docs/Components/CameraMover' },
               { text: 'ObjectMarker', link: langName + '/docs/Components/ObjectMarker' },
               { text: 'SceneMSAA', link: langName + '/docs/Components/SceneMSAA' },
             ]

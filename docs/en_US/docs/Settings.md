@@ -57,6 +57,7 @@ You can display extensions and prefab information on the project. You can also a
 
 |Name|Description|
 |-|-|
+|Icon Overlay|Overlay any image on the icon.|
 |Alternating Project Background|Alternates the background color of the Project window.|
 |Unitypackage Hilighter|Highlight the assets you imported in each Unitypackage.|
 |Extension Drawer|Displays the file extension.|

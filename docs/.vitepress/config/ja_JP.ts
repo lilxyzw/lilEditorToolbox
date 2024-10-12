@@ -19,6 +19,7 @@ export const ja_JP = defineConfig({
         items: [
           { text: '設定', link: langName + '/docs/Settings' },
           { text: '不足アセット特定ツール', link: langName + '/docs/Grimoire' },
+          { text: 'PlayModeでの変更を保存', link: langName + '/docs/PlayModeSaver' },
           { text: 'Scene View拡張', link: langName + '/docs/SceneExtension' },
           {
             text: 'EditorWindow',
@@ -37,6 +38,7 @@ export const ja_JP = defineConfig({
           {
             text: 'Components',
             items: [
+              { text: 'CameraMover', link: langName + '/docs/Components/CameraMover' },
               { text: 'ObjectMarker', link: langName + '/docs/Components/ObjectMarker' },
               { text: 'SceneMSAA', link: langName + '/docs/Components/SceneMSAA' },
             ]

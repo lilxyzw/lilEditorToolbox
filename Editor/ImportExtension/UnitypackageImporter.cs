@@ -26,7 +26,11 @@ namespace jp.lilxyzw.editortoolbox
 
         private static void AddToList(string name, List<string> guids)
         {
-            instance.importedAssets.Add(new UnitypackageAssets{name = name, guids = guids});
+            var first = instance.importedAssets.FirstOrDefault(i => i.name == name);
+            if(first == null)
+                instance.importedAssets.Add(new UnitypackageAssets{name = name, guids = guids});
+            else
+                first.guids = first.guids.Union(guids).Distinct().ToList();
             instance.Save(true);
         }
 
@@ -51,8 +55,7 @@ namespace jp.lilxyzw.editortoolbox
             var items = m_ImportPackageItems.Select(o => new ImportPackageItemWrap(o)).ToArray();
 
             var packageName = $"{name}.unitypackage";
-            if(!instance.importedAssets.Any(i => i.name == packageName))
-                AddToList(packageName, items.Select(i => i.guid).ToList());
+            AddToList(packageName, items.Select(i => i.guid).ToList());
 
             // Packages配下の上書き防止
             if(EditorToolboxSettings.instance.cancelUnitypackageOverwriteInPackages)

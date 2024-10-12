@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
@@ -11,11 +12,51 @@ namespace jp.lilxyzw.editortoolbox
         public int Priority => -1400;
 
         private static HashSet<string> guids = new();
+        private static Dictionary<string, HashSet<string>> folderItems = new();
 
         public void OnGUI(ref Rect currentRect, string guid, string path, string name, string extension, Rect fullRect)
         {
             if(guids.Contains(guid))
                 EditorGUI.DrawRect(fullRect, EditorToolboxSettings.instance.backgroundHilightColor);
+            
+            else if(Directory.Exists(path) && GetItems(path).Any(p => guids.Contains(p)))
+            {
+                if(ProjectExtension.isIconGUI)
+                {
+                    var rect = fullRect;
+                    rect.xMax = rect.xMin+6;
+                    EditorGUI.DrawRect(rect, EditorToolboxSettings.instance.backgroundHilightColor);
+
+                    rect = fullRect;
+                    rect.xMin = rect.xMax-6;
+                    EditorGUI.DrawRect(rect, EditorToolboxSettings.instance.backgroundHilightColor);
+                }
+                else
+                {
+                    var rect = fullRect;
+                    rect.xMin = 0;
+                    rect.xMax = 6;
+                    EditorGUI.DrawRect(rect, EditorToolboxSettings.instance.backgroundHilightColor);
+                }
+            }
+        }
+
+        private static HashSet<string> GetItems(string path)
+        {
+            if(folderItems.TryGetValue(path, out var items)) return items;
+            var current = Directory.GetCurrentDirectory();
+            return folderItems[path] = Directory.GetFiles(path, "*", SearchOption.AllDirectories)
+                .Where(p => !p.EndsWith(".meta"))
+                .Union(Directory.GetDirectories(path, "*", SearchOption.AllDirectories))
+                .Select(p => AssetDatabase.AssetPathToGUID(Path.GetRelativePath(current, p)))
+                .Where(p => !string.IsNullOrEmpty(p))
+                .ToHashSet();
+        }
+
+        private class FolderResetter : AssetPostprocessor
+        {
+            static void OnPostprocessAllAssets(string[] a, string[] b, string[] c, string[] d)
+                => folderItems.Clear();
         }
 
         private class UnitypackageHilighterData : ScriptableSingleton<UnitypackageHilighterData>

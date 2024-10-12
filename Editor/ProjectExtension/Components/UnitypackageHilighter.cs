@@ -116,6 +116,7 @@ namespace jp.lilxyzw.editortoolbox
                         L10n.Button(rect, "Remove");
                         if(EditorGUI.EndChangeCheck())
                         {
+                            if(n == UnitypackageHilighterData.instance.target) guids.Clear();
                             UnitypackageImporter.instance.importedAssets.RemoveAt(i);
                             UnitypackageImporter.instance.Save();
                             UpdateButton();

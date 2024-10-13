@@ -80,7 +80,6 @@ namespace jp.lilxyzw.editortoolbox
             public Vector2 offset = Vector2.zero;
         }
 
-        [CustomEditor(typeof(IconOverlayData))]
         private class IconOverlayEditor : EditorWindow
         {
             [MenuItem(Common.MENU_HEAD + "Icon Overlay Editor")]

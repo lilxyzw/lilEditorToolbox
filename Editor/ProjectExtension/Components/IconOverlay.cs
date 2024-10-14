@@ -14,9 +14,12 @@ namespace jp.lilxyzw.editortoolbox
 
         public void OnGUI(ref Rect currentRect, string guid, string path, string name, string extension, Rect fullRect)
         {
-            if(!ProjectExtension.isIconGUI || !IconOverlayData.Dic.TryGetValue(guid, out var icon) || !icon) return;
+            if(!IconOverlayData.Dic.TryGetValue(guid, out var icon) || !icon) return;
             var rect = fullRect;
-            rect.height = rect.width;
+            var size = Mathf.Min(rect.width, rect.height);
+            rect.width = size;
+            rect.height = size;
+            if(!ProjectExtension.isIconGUI) rect.x += 4;
 
             var color = GUI.color;
             GUI.color = Color.clear;

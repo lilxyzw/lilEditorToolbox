@@ -36,9 +36,9 @@ namespace jp.lilxyzw.editortoolbox
 
         private static Dictionary<string, Texture2D> InitDic()
         {
-            return instance.items.Where(i => i.target && i.icon).ToDictionary(
-                i => AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(i.target)),
-                i => GetClipIcon(i));
+            return instance.items.Where(i => i.target && i.icon).GroupBy(i => i.target).ToDictionary(
+                g => AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(g.Key)),
+                g => GetClipIcon(g.First()));
         }
 
         private static Texture2D GetClipIcon(IconOverlayItem item)

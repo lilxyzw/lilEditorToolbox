@@ -1,33 +1,32 @@
 using System;
-using System.Reflection;
 using UnityEditor;
 
 namespace jp.lilxyzw.editortoolbox
 {
-    internal class ImportPackageItemWrap
+    internal class ImportPackageItemWrap : WrapBase
     {
-        private static readonly Type TYPE = typeof(Editor).Assembly.GetType("UnityEditor.ImportPackageItem");
-        private static readonly FieldInfo FI_existingAssetPath = TYPE.GetField("existingAssetPath", BindingFlags.Public | BindingFlags.Instance);
-        private static readonly FieldInfo FI_destinationAssetPath = TYPE.GetField("destinationAssetPath", BindingFlags.Public | BindingFlags.Instance);
-        private static readonly FieldInfo FI_isFolder = TYPE.GetField("isFolder", BindingFlags.Public | BindingFlags.Instance);
-        private static readonly FieldInfo FI_assetChanged = TYPE.GetField("assetChanged", BindingFlags.Public | BindingFlags.Instance);
-        private static readonly FieldInfo FI_guid = TYPE.GetField("guid", BindingFlags.Public | BindingFlags.Instance);
+        internal static readonly Type type = typeof(Editor).Assembly.GetType("UnityEditor.ImportPackageItem");
+        private static readonly (Delegate g, Delegate s) FI_existingAssetPath = GetFieldIns(type, "existingAssetPath", typeof(string));
+        private static readonly (Delegate g, Delegate s) FI_destinationAssetPath = GetFieldIns(type, "destinationAssetPath", typeof(string));
+        private static readonly (Delegate g, Delegate s) FI_isFolder = GetFieldIns(type, "isFolder", typeof(bool));
+        private static readonly (Delegate g, Delegate s) FI_assetChanged = GetFieldIns(type, "assetChanged", typeof(bool));
+        private static readonly (Delegate g, Delegate s) FI_guid = GetFieldIns(type, "guid", typeof(string));
 
         public object instance;
         public ImportPackageItemWrap(object i) => instance = i;
 
-        public string existingAssetPath => FI_existingAssetPath.GetValue(instance) as string;
-        public bool isFolder => (bool)FI_isFolder.GetValue(instance);
-        public string guid => FI_guid.GetValue(instance) as string;
+        public string existingAssetPath => FI_existingAssetPath.g.DynamicInvoke(instance) as string;
+        public bool isFolder => (bool)FI_isFolder.g.DynamicInvoke(instance);
+        public string guid => FI_guid.g.DynamicInvoke(instance) as string;
         public string destinationAssetPath
         {
-            get => FI_destinationAssetPath.GetValue(instance) as string;
-            set => FI_destinationAssetPath.SetValue(instance, value);
+            get => FI_destinationAssetPath.g.DynamicInvoke(instance) as string;
+            set => FI_destinationAssetPath.s.DynamicInvoke(instance, value);
         }
         public bool assetChanged
         {
-            get => (bool)FI_assetChanged.GetValue(instance);
-            set => FI_assetChanged.SetValue(instance, value);
+            get => (bool)FI_assetChanged.g.DynamicInvoke(instance);
+            set => FI_assetChanged.s.DynamicInvoke(instance, value);
         }
 
     }

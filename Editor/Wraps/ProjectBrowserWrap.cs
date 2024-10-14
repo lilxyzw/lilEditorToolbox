@@ -1,17 +1,16 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using UnityEditor;
 
 namespace jp.lilxyzw.editortoolbox
 {
-    internal class ProjectBrowserWrap
+    internal class ProjectBrowserWrap : WrapBase
     {
         public static readonly Type type = typeof(Editor).Assembly.GetType("UnityEditor.ProjectBrowser");
-        private static readonly FieldInfo FI_s_LastInteractedProjectBrowser = type.GetField("s_LastInteractedProjectBrowser", BindingFlags.Static | BindingFlags.Public);
-        private static readonly FieldInfo FI_m_LastFolders = type.GetField("m_LastFolders", BindingFlags.NonPublic | BindingFlags.Instance);
-        private static readonly MethodInfo MI_GetAllProjectBrowsers = type.GetMethod("GetAllProjectBrowsers", BindingFlags.Public | BindingFlags.Static);
+        private static readonly (Func<object> g, Delegate s) FI_s_LastInteractedProjectBrowser = GetField(type, "s_LastInteractedProjectBrowser", type);
+        private static readonly (Delegate g, Delegate s) FI_m_LastFolders = GetFieldIns(type, "m_LastFolders", typeof(string[]));
+        private static readonly Func<object> MI_GetAllProjectBrowsers = GetFunc<object>(type, "GetAllProjectBrowsers");
 
         private static Type T_List_ProjectBrowser = typeof(List<>).MakeGenericType(type);
         private static readonly PropertyInfo PI_Count = T_List_ProjectBrowser.GetProperty("Count");
@@ -20,10 +19,10 @@ namespace jp.lilxyzw.editortoolbox
         public EditorWindow w;
         public ProjectBrowserWrap(object instance) => w = instance as EditorWindow;
 
-        public static ProjectBrowserWrap s_LastInteractedProjectBrowser => new(FI_s_LastInteractedProjectBrowser.GetValue(null));
+        public static ProjectBrowserWrap s_LastInteractedProjectBrowser => new(FI_s_LastInteractedProjectBrowser.g());
         public static List<ProjectBrowserWrap> GetAllProjectBrowsers()
         {
-            var list = MI_GetAllProjectBrowsers.Invoke(null,null);
+            var list = MI_GetAllProjectBrowsers();
             var count = (int)PI_Count.GetValue(list, null);
 
             var res = new List<ProjectBrowserWrap>();
@@ -34,6 +33,6 @@ namespace jp.lilxyzw.editortoolbox
             return res;
         }
 
-        public string[] m_LastFolders => FI_m_LastFolders.GetValue(w) as string[];
+        public string[] m_LastFolders => FI_m_LastFolders.g.DynamicInvoke(w) as string[];
     }
 }

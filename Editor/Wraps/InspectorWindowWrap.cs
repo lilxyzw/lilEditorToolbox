@@ -6,7 +6,7 @@ using Object = UnityEngine.Object;
 
 namespace jp.lilxyzw.editortoolbox
 {
-    internal class InspectorWindowWrap
+    internal class InspectorWindowWrap : WrapBase
     {
         public static readonly Type type = typeof(Editor).Assembly.GetType("UnityEditor.InspectorWindow");
         private static readonly Type T_PropertyEditor = typeof(Editor).Assembly.GetType("UnityEditor.PropertyEditor");

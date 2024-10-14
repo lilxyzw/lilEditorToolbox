@@ -23,14 +23,12 @@ namespace jp.lilxyzw.editortoolbox
         //[MenuItem("Assets/Open in new Inspector", false, 15)]
         internal static void Init()
         {
-            if(Selection.activeObject)
-            {
-                var window = CreateWindow<TabInspector>(Selection.activeObject.name, new[]{InspectorWindowWrap.type});
-                window.titleContent.image = AssetPreview.GetMiniThumbnail(Selection.activeObject);
-            }
+            if(!Selection.activeObject) return;
+            var window = CreateWindow<TabInspector>(Selection.activeObject.name, new[]{InspectorWindowWrap.type});
+            window.titleContent.image = AssetPreview.GetMiniThumbnail(Selection.activeObject);
         }
 
-        public void CreateGUI()
+        private void CreateGUI()
         {
             rootVisualElement.Clear();
             targets ??= Selection.objects.ToList();
@@ -67,5 +65,7 @@ namespace jp.lilxyzw.editortoolbox
             rootVisualElement.Add(header);
             rootVisualElement.Add(inspector.w.rootVisualElement);
         }
+
+        private void Update() => inspector.Update();
     }
 }

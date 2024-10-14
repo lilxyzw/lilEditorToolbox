@@ -14,6 +14,7 @@ namespace jp.lilxyzw.editortoolbox
         private static readonly MethodInfo MI_SetNormal = T_PropertyEditor.GetMethod("SetNormal", BindingFlags.NonPublic | BindingFlags.Instance);
         private static readonly MethodInfo MI_SetDebug = T_PropertyEditor.GetMethod("SetDebug", BindingFlags.NonPublic | BindingFlags.Instance);
         private static readonly MethodInfo MI_SetDebugInternal = T_PropertyEditor.GetMethod("SetDebugInternal", BindingFlags.NonPublic | BindingFlags.Instance);
+        private static readonly MethodInfo MI_Update = T_PropertyEditor.GetMethod("Update", BindingFlags.NonPublic | BindingFlags.Instance);
 
         public EditorWindow w;
         public InspectorWindowWrap(object instance) => w = instance as EditorWindow;
@@ -21,5 +22,6 @@ namespace jp.lilxyzw.editortoolbox
         public void SetDebug() => MI_SetDebug.Invoke(w, null);
         public void SetDebugInternal() => MI_SetDebugInternal.Invoke(w, null);
         public void SetObjectsLocked(List<Object> objs) => MI_SetObjectsLocked.Invoke(w, new object[]{objs});
+        public void Update() => MI_Update.Invoke(w, null);
     }
 }

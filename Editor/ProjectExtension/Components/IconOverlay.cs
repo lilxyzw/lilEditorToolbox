@@ -82,11 +82,14 @@ namespace jp.lilxyzw.editortoolbox
 
         private class IconOverlayEditor : EditorWindow
         {
+            public Vector2 scrollPos;
+
             [MenuItem(Common.MENU_HEAD + "Icon Overlay Editor")]
             static void Init() => GetWindow(typeof(IconOverlayEditor)).Show();
 
             void OnGUI()
             {
+                scrollPos = EditorGUILayout.BeginScrollView(scrollPos);
                 var wide = EditorGUIUtility.wideMode;
                 EditorGUIUtility.wideMode = true;
                 using var serializedObject = new SerializedObject(instance);
@@ -108,6 +111,7 @@ namespace jp.lilxyzw.editortoolbox
                     EditorApplication.RepaintProjectWindow();
                 }
                 EditorGUIUtility.wideMode = wide;
+                EditorGUILayout.EndScrollView();
             }
         }
     }

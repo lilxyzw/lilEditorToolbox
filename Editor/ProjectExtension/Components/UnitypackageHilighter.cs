@@ -137,9 +137,11 @@ namespace jp.lilxyzw.editortoolbox
             {
                 internal static void Init() => GetWindow(typeof(UnitypackageLogEditor)).Show();
                 internal static List<string> namesLocal;
+                public Vector2 scrollPos;
 
                 void OnGUI()
                 {
+                    scrollPos = EditorGUILayout.BeginScrollView(scrollPos);
                     if(namesLocal == null || namesLocal.Count != (Names.Count-1))
                         namesLocal = Names.Where(n => n != "None").ToList();
 
@@ -164,6 +166,7 @@ namespace jp.lilxyzw.editortoolbox
                         }
                         i++;
                     }
+                    EditorGUILayout.EndScrollView();
                 }
             }
         }

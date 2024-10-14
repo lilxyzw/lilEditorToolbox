@@ -44,6 +44,7 @@ namespace jp.lilxyzw.editortoolbox
         private static void ReplaceMenuItems(MenuReplace[] replaces)
         {
             MenuWrap.RebuildAllMenus();
+            WindowLayoutWrap.UpdateWindowLayoutMenu();
             isChanged = false;
             if(!EditorToolboxSettings.instance.enableMenuDirectoryReplaces) return;
 

@@ -13,12 +13,17 @@ namespace jp.lilxyzw.editortoolbox
     internal class UnitypackageImporter : ScriptableSingleton<UnitypackageImporter>
     {
         public List<UnitypackageAssets> importedAssets = new();
+        private static string lastProjectPath = "";
 
         [InitializeOnLoadMethod]
         internal static void Init()
         {
             AssetDatabase.importPackageStarted -= OnImportPackageStarted;
             AssetDatabase.importPackageStarted += OnImportPackageStarted;
+            DragAndDrop.AddDropHandler((_,path,_) => {
+                lastProjectPath = path;
+                return DragAndDropVisualMode.None;
+            });
             if(instance.importedAssets.Count == 0) AddToList("None", new());
         }
 
@@ -37,17 +42,10 @@ namespace jp.lilxyzw.editortoolbox
         private static void OnImportPackageStarted(string name)
         {
             if(DragAndDrop.paths.Length == 0) return;
-            var folder = ProjectWindowPath();
-            runtime.CoroutineHandler.StartStaticCoroutine(ClosePackageImportWindow(name, folder));
+            runtime.CoroutineHandler.StartStaticCoroutine(ProcessPackageImportWindow(name));
         }
 
-        private static string ProjectWindowPath()
-        {
-            var folders = ProjectBrowserWrap.s_LastInteractedProjectBrowser.m_LastFolders;
-            return folders.Length == 1 ? folders[0] : "Assets/";
-        }
-
-        private static IEnumerator ClosePackageImportWindow(string name, string folder)
+        private static IEnumerator ProcessPackageImportWindow(string name)
         {
             while(!PackageImportWrap.HasOpenInstances()) yield return null;
             var window = new PackageImportWrap(EditorWindow.GetWindow(PackageImportWrap.type));
@@ -71,7 +69,8 @@ namespace jp.lilxyzw.editortoolbox
             // 既存アセットの場所を表示
             if(window.ShowTreeGUI(m_ImportPackageItems))
             {
-                if(string.IsNullOrEmpty(folder) || !folder.StartsWith("Assets/")) yield break;
+                if(string.IsNullOrEmpty(lastProjectPath) || !lastProjectPath.StartsWith("Assets/")) yield break;
+                var path = lastProjectPath;
                 var origins = new Dictionary<object, string>();
                 var root = new VisualElement();
                 root.style.marginLeft = 6;
@@ -88,9 +87,9 @@ namespace jp.lilxyzw.editortoolbox
                         {
                             if(!string.IsNullOrEmpty(item.existingAssetPath) || !item.destinationAssetPath.StartsWith("Assets/")) continue;
                             origins[item] = item.destinationAssetPath;
-                            item.destinationAssetPath = folder + item.destinationAssetPath.Substring("Assets".Length);
+                            item.destinationAssetPath = path + item.destinationAssetPath.Substring("Assets".Length);
                         }
-                        button.text = folder+"/";
+                        button.text = path+"/";
                         button.style.width = Common.GetTextWidth(button.text) + 16;
                     }
                     else

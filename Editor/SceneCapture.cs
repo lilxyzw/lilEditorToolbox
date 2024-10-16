@@ -94,7 +94,7 @@ namespace jp.lilxyzw.editortoolbox
             var cameraRect = new Rect(0f, 0f, width, heightO);
             var currentType = Event.current.type;
             Event.current.type = EventType.Repaint;
-            if(captureTarget) Handles.ClearCamera(cameraRect, camera);
+            if(!captureTarget) Handles.ClearCamera(cameraRect, camera);
             Handles.DrawCamera(cameraRect, camera, sceneView.cameraMode.drawMode, false);
             Event.current.type = currentType;
 

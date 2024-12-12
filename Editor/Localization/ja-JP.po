@@ -570,11 +570,17 @@ msgstr "完了しました。"
 msgid "Scene View Extensions"
 msgstr "Scene View拡張"
 
-msgid "A camera mode (Vertex Attribute) has been added to check the vertex data of the model."
-msgstr "モデルの頂点データを確認するカメラモード（Vertex Attribute）を追加しています。"
+msgid "A button to turn on anti-aliasing in the scene view and a camera mode (Vertex Attribute) has been added to check the vertex data of the model."
+msgstr "シーンビューのアンチエイリアスをオンにするMSAAボタンや、モデルの頂点データを確認するカメラモード（Vertex Attribute）を追加しています。"
 
 msgid "> Some functions do not work in the Metal environment because the camera mode extension uses a geometry shader."
 msgstr "> カメラモード拡張でジオメトリシェーダーを使用しているため`Metal`環境では一部機能が動作しません。"
+
+msgid "Click the MSAA button on the toolbar above the Scene View to toggle anti-aliasing on and off. Anti-aliasing is always applied, allowing you to adjust materials in a way that is close to how they will actually appear."
+msgstr "Scene Viewの上のツールバーにあるMSAAボタンをクリックするとアンチエイリアスのオンオフが切り替わります。アンチエイリアスが常に適用されるので、実際の見え方に近い状態でマテリアルの調整を行えます。"
+
+msgid "## Camera Modes"
+msgstr "## カメラモード"
 
 msgid "This extension function will be enabled when you click the camera mode change button (which switches to Wireframe display, etc.) on the toolbar above the Scene View and select Vertex Attribute. A popup will appear in the upper left of the Scene View that allows you to switch the vertex data to be displayed, so you can change this to check the desired data."
 msgstr "Scene Viewの上のツールバーにあるカメラモード変更ボタン（Wireframe表示などに切り替えられるボタン）をクリックしてVertex Attributeを選択するとこの拡張機能が有効になります。Scene View左上に表示対象の頂点データを切り替えるポップアップが表示されるので、ここを変更して任意のデータを確認できます。"
@@ -790,8 +796,5 @@ msgstr "背景全体に色を描画せず、下線として描画します。"
 
 #: runtime/SceneMSAA.cs
 
-msgid "If you add this component to the Main Camera, anti-aliasing will also be applied in the Scene view."
-msgstr "Main Cameraにこのコンポーネントを付けるとシーンビューでもアンチエイリアスが適用されるようになります。"
-
-msgid "Simply attach this component to the Main Camera. Anti-aliasing is always applied, allowing you to adjust materials in a way that is close to how they will actually appear."
-msgstr "Main Cameraにこのコンポーネントを付けるだけです。アンチエイリアスが常に適用されるので、実際の見え方に近い状態でマテリアルの調整を行えます。"
+msgid "Merged into [Scene View Extension](../SceneExtension)."
+msgstr "[Scene View拡張](../SceneExtension)に統合されました。"

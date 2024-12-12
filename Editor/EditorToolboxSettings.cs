@@ -61,6 +61,8 @@ namespace jp.lilxyzw.editortoolbox
         [Tooltip("When this check box is selected, changing and deleting the menu hierarchy is enabled.")] [ToggleLeft] public bool enableMenuDirectoryReplaces = false;
         [Tooltip("Add the menu to be changed here. If To is empty, the menu will be deleted, if it is not empty, it will be moved to that hierarchy.")] public MenuReplace[] menuDirectoryReplaces = new MenuReplace[]{};
 
+        [HideInInspector] public bool enableMSAA = false;
+
         internal readonly Color backgroundColor = new Color(0.5f,0.5f,0.5f,0.05f);
         internal readonly Color lineColor = new Color(0.5f,0.5f,0.5f,0.33f);
         internal readonly Color backgroundHilightColor = new Color(1.0f,0.95f,0.5f,0.2f);

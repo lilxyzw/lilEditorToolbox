@@ -10,5 +10,16 @@ namespace jp.lilxyzw.editortoolbox.runtime
     [HelpURL(ConstantValues.URL_DOCS_COMPONENT + nameof(SceneMSAA))]
     internal class SceneMSAA : EditorOnlyBehaviour
     {
+        #if UNITY_EDITOR
+        void OnValidate()
+        {
+            void DestroySelf()
+            {
+                DestroyImmediate(this);
+                UnityEditor.EditorApplication.update -= DestroySelf;
+            }
+            UnityEditor.EditorApplication.update += DestroySelf;
+        }
+        #endif
     }
 }

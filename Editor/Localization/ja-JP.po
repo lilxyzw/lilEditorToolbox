@@ -233,6 +233,12 @@ msgstr "unitypackageインポート時にPackages配下のアセットの上書�
 msgid "Prevents unitypackage from overwriting assets under Packages."
 msgstr "unitypackageでPackages配下のアセットの上書きするのを防止します。"
 
+msgid "Do Not Add Variant To The End Of Prefab Name"
+msgstr "Prefab名の末尾に\"Variant\"を追加しない"
+
+msgid "Do not add \"Variant\" to the end of the name when creating a Prefab Variant."
+msgstr "Prefab Variant作成時に名前の末尾に\"Variant\"を追加しないようにします。"
+
 msgid "Turn Off Crunch Compression"
 msgstr "Crunch Compressionを自動オフ"
 

@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using UnityEditor;
@@ -12,7 +14,9 @@ namespace jp.lilxyzw.editortoolbox
         private static string[] platforms;
         private static string[] Platforms => platforms ??= typeof(NamedBuildTarget).GetField("k_ValidNames", BindingFlags.Static | BindingFlags.NonPublic).GetValue(null) as string[];
         private static bool isImportingPackage = false;
+        private static readonly Dictionary<string,string> filesToRename = new();
         private bool IsFirstTime => assetImporter.importSettingsMissing || isImportingPackage;
+        private const string NAME_PREFAB_VARIANT = " Variant.prefab";
 
         [InitializeOnLoadMethod]
         private static void Init()
@@ -27,6 +31,18 @@ namespace jp.lilxyzw.editortoolbox
         {
             if(assetImporter is TextureImporter) OnPreprocessTextureInternal();
             if(assetImporter is ModelImporter) OnPreprocessModelInternal();
+            if(assetPath.EndsWith(NAME_PREFAB_VARIANT) && assetImporter.importSettingsMissing && EditorToolboxSettings.instance.doNotAddVariantToTheEndOfPrefabName)
+            {
+                var newPath = assetPath.Substring(0, assetPath.Length - NAME_PREFAB_VARIANT.Length);
+                if(!File.Exists(newPath)) filesToRename.TryAdd(assetPath, newPath);
+            }
+        }
+
+        private static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths, bool didDomainReload)
+        {
+            if(filesToRename.Count == 0) return;
+            foreach(var kv in filesToRename) AssetDatabase.RenameAsset(kv.Key, Path.GetFileNameWithoutExtension(kv.Value));
+            filesToRename.Clear();
         }
 
         private void OnPreprocessTextureInternal()

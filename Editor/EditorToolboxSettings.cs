@@ -47,6 +47,8 @@ namespace jp.lilxyzw.editortoolbox
         public int hierarchySpacerWidth = 0;
         [Tooltip("This is the timing to insert margins so as not to interfere with other Hierarchy extensions.")]
         public int hierarchySpacerPriority = 0;
+        [Tooltip("This is the mouse button that the hierarchy window extension that supports this property will respond to. If you make many erroneous operations, please change the button.")]
+        public MouseButton hierarchyMouseButton = MouseButton.Left;
         [DocsGetStrings(typeof(HierarchyExtension), "GetNameAndTooltips")]
         public string[] hierarchyComponents = new string[]{};
 
@@ -70,6 +72,15 @@ namespace jp.lilxyzw.editortoolbox
         internal readonly Color backgroundHilightColor = new Color(1.0f,0.95f,0.5f,0.2f);
 
         internal void Save() => Save(true);
+    }
+
+    [Flags]
+    internal enum MouseButton
+    {
+        None = 0,
+        Left = 1 << 0,
+        Right = 1 << 1,
+        Middle = 1 << 2,
     }
 
     [CustomEditor(typeof(EditorToolboxSettings))]

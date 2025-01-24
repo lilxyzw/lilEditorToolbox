@@ -43,7 +43,7 @@ namespace jp.lilxyzw.editortoolbox
                     else          GUI.Box(currentRect, HierarchyExtension.MissingScriptIcon(), GUIStyle.none);
                     GUI.enabled = true;
 
-                    if((component is Renderer || component is Behaviour || component is Collider) && GUI.Button(currentRect, Texture2D.blackTexture, GUIStyle.none))
+                    if((component is Renderer || component is Behaviour || component is Collider) && CheckMouseDown(currentRect))
                     {
                         using var so = new SerializedObject(component);
                         using var m_Enabled = so.FindProperty("m_Enabled");
@@ -62,6 +62,25 @@ namespace jp.lilxyzw.editortoolbox
 
                 currentRect.x = xmin - 8;
             }
+        }
+
+        private bool CheckMouseDown(Rect rect)
+        {
+            var e = Event.current;
+            if(!rect.Contains(e.mousePosition) || EditorToolboxSettings.instance.hierarchyMouseButton == MouseButton.None) return false;
+            EditorGUI.DrawRect(rect, new Color(1,1,1,0.5f));
+            if(e.type != EventType.MouseDown) return false;
+
+            if(
+                EditorToolboxSettings.instance.hierarchyMouseButton.HasFlag(MouseButton.Left) && e.button == 0 ||
+                EditorToolboxSettings.instance.hierarchyMouseButton.HasFlag(MouseButton.Right) && e.button == 1 ||
+                EditorToolboxSettings.instance.hierarchyMouseButton.HasFlag(MouseButton.Middle) && e.button == 2
+            )
+            {
+                e.Use();
+                return true;
+            }
+            return false;
         }
     }
 }

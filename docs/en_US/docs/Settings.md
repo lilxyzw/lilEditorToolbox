@@ -16,6 +16,7 @@ Settings related to lilEditorToolbox. You can open it from `Edit/Preference/lilE
 |-|-|
 |Drag And Drop Overwrite|When importing assets via D&D, if there is a file with the same name at the same level, it will be overwritten by the import.|
 |Cancel Unitypackage Overwrite In Packages|Prevents unitypackage from overwriting assets under Packages.|
+|Do Not Add Variant To The End Of Prefab Name|Do not add "Variant" to the end of the name when creating a Prefab Variant.|
 
 ## Texture Import
 
@@ -41,6 +42,7 @@ You can display objects, components, tags, layers, etc. on the Hierarchy. You ca
 |-|-|
 |Hierarchy Spacer Width|The width of the margin to avoid interfering with other Hierarchy extensions.|
 |Hierarchy Spacer Priority|This is the timing to insert margins so as not to interfere with other Hierarchy extensions.|
+|Hierarchy Mouse Button|This is the mouse button that the hierarchy window extension that supports this property will respond to. If you make many erroneous operations, please change the button.|
 |Hierarchy Spacer|Add margins so as not to interfere with other Hierarchy extensions.|
 |Active Toggle|A checkbox that turns an object on and off.|
 |Alternating Background|Alternates the background color of the Hierarchy.|

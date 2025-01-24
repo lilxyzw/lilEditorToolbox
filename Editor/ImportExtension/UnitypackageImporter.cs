@@ -8,8 +8,8 @@ using UnityEngine.UIElements;
 
 namespace jp.lilxyzw.editortoolbox
 {
-    // ディレクトリが空だとUnityのバグでエラーになるので Assets/../ は必須
-    [FilePath("Assets/../jp.lilxyzw.editortoolbox.UnitypackageImporter.asset", FilePathAttribute.Location.ProjectFolder)]
+    // ディレクトリが空だとUnityのバグでエラーになるので ./ は必須
+    [FilePath("./jp.lilxyzw.editortoolbox.UnitypackageImporter.asset", FilePathAttribute.Location.ProjectFolder)]
     internal class UnitypackageImporter : ScriptableSingleton<UnitypackageImporter>
     {
         public List<UnitypackageAssets> importedAssets = new();

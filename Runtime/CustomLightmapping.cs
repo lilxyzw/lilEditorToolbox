@@ -22,6 +22,7 @@ namespace jp.lilxyzw.editortoolbox.runtime
         [Tooltip("Multiplier for the light range. Does not affect directional lights. This option applies to non-directional lights, as it is intended to be used to adjust darkened scenes by changing the type of attenuation.")]
         public float rangeMultiplier = 1.0f;
 
+        #if UNITY_EDITOR
         void RequestLights(Light[] requests, Unity.Collections.NativeArray<LightDataGI> lightsOutput)
         {
             var dir = new DirectionalLight();
@@ -56,13 +57,27 @@ namespace jp.lilxyzw.editortoolbox.runtime
             }
         }
 
-        void OnEnable()
+        void SetLightsDirty()
         {
-            Lightmapping.SetDelegate(RequestLights);
             foreach(var l in FindObjectsByType<Light>(FindObjectsSortMode.None))
                 UnityEditor.Experimental.Lightmapping.SetLightDirty(l);
         }
-        void OnValidate() => OnEnable();
-        void OnDisable() => Lightmapping.ResetDelegate();
+
+        void SetCustomLightmapping()
+        {
+            Lightmapping.SetDelegate(RequestLights);
+            SetLightsDirty();
+        }
+
+        void ResetCustomLightmapping()
+        {
+            Lightmapping.ResetDelegate();
+            SetLightsDirty();
+        }
+
+        void OnEnable() => SetCustomLightmapping();
+        void OnValidate() => SetCustomLightmapping();
+        void OnDisable() => ResetCustomLightmapping();
+        #endif
     }
 }

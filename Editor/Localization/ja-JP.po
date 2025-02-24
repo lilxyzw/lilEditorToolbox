@@ -784,6 +784,34 @@ msgstr "操作"
 
 
 
+#: runtime/CustomFalloff.cs
+
+msgid "By attaching this component to any object, you can customize its behavior during light mapping."
+msgstr "このコンポーネントを任意のオブジェクトにつけることでライトマッピング時の動作をカスタマイズできます。"
+
+msgid "You can use it just by attaching this component to any object in the scene. Some settings cannot be changed from Unity's UI, so you need to use this component."
+msgstr "シーン内の任意のオブジェクトにこのコンポーネントを付けるだけで使用できます。一部設定はUnityのUIからは変更できないため、このコンポーネントを使用する必要があります。"
+
+msgid "Falloff Type"
+msgstr "減衰の種類"
+
+msgid "The type of light attenuation. InverseSquared is a darker but physically correct attenuation than the default. InverseSquaredNoRangeAttenuation is also physically correct but ignores the range parameter. Linear is a non-physically correct linear attenuation, Legacy is the quadratic attenuation that Unity uses by default."
+msgstr "ライトの減衰の種類です。InverseSquaredはデフォルトより暗くなりますが、物理的に正しい減衰です。InverseSquaredNoRangeAttenuationも物理的に正しいですが、こちらは範囲パラメーターを無視します。Linearは物理的に正しくない直線的な減衰、LegacyはUnityがデフォルトで使用する二次関数的な減衰です。"
+
+msgid "Intensity Multiplier"
+msgstr "強度の倍率"
+
+msgid "Multiplier for the light intensity. Does not affect directional lights. This option applies to non-directional lights, as it is intended to be used to adjust darkened scenes by changing the type of attenuation."
+msgstr "ライト強度の倍率です。このオプションは減衰の種類を変更して暗くなったシーンを調整するために使用することを想定しているため、ディレクショナルライト以外に適用されます。"
+
+msgid "Range Multiplier"
+msgstr "範囲の倍率"
+
+msgid "Multiplier for the light range. Does not affect directional lights. This option applies to non-directional lights, as it is intended to be used to adjust darkened scenes by changing the type of attenuation."
+msgstr "ライト範囲の倍率です。このオプションは減衰の種類を変更して暗くなったシーンを調整するために使用することを想定しているため、ディレクショナルライト以外に適用されます。"
+
+
+
 #: runtime/ObjectMarker.cs
 
 msgid "By attaching this component to a GameObject, you can change the background color of the hierarchy to highlight it."

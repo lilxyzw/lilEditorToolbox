@@ -10,7 +10,7 @@ namespace jp.lilxyzw.editortoolbox
 
         public void OnGUI(ref Rect currentRect, string guid, string path, string name, string extension, Rect fullRect)
         {
-            if(ProjectExtension.isIconGUI || extension != ".prefab" || ProjectExtension.GUIDToObject(guid) is not Object prefab) return;
+            if(ProjectExtension.isIconGUI || extension != ".prefab" || ProjectExtension.GUIDToObject(guid) is not Object prefab || !prefab) return;
 
             var type = PrefabUtility.GetPrefabAssetType(prefab);
             var label = type.ToString();

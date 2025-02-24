@@ -33,7 +33,7 @@ namespace jp.lilxyzw.editortoolbox
             if(assetImporter is ModelImporter) OnPreprocessModelInternal();
             if(assetPath.EndsWith(NAME_PREFAB_VARIANT) && assetImporter.importSettingsMissing && EditorToolboxSettings.instance.doNotAddVariantToTheEndOfPrefabName)
             {
-                var newPath = assetPath.Substring(0, assetPath.Length - NAME_PREFAB_VARIANT.Length);
+                var newPath = assetPath.Substring(0, assetPath.Length - NAME_PREFAB_VARIANT.Length) + ".prefab";
                 if(!File.Exists(newPath)) filesToRename.TryAdd(assetPath, newPath);
             }
         }
@@ -41,7 +41,7 @@ namespace jp.lilxyzw.editortoolbox
         private static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths, bool didDomainReload)
         {
             if(filesToRename.Count == 0) return;
-            foreach(var kv in filesToRename) AssetDatabase.RenameAsset(kv.Key, Path.GetFileNameWithoutExtension(kv.Value));
+            foreach(var kv in filesToRename) AssetDatabase.RenameAsset(kv.Key, Path.GetFileName(kv.Value));
             filesToRename.Clear();
         }
 

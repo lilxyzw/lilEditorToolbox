@@ -7,7 +7,7 @@ hero:
   tagline: "This package contains various useful editor extensions."
   image:
     src: /images/logo.svg
-    alt: lilycalInventory Logo
+    alt: lilEditorToolbox Logo
   actions:
     - theme: brand
       text: Add to VCC

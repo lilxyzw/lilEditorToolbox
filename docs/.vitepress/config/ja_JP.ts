@@ -4,7 +4,7 @@ const langName = '/ja_JP';
 
 export const ja_JP = defineConfig({
   lang: 'ja_JP',
-  description: "This package contains various useful editor extensions.",
+  description: "様々な便利系エディタ拡張が入ったパッケージです。",
   themeConfig: {
     logo: '/images/logo.svg',
     nav: [
@@ -39,6 +39,7 @@ export const ja_JP = defineConfig({
             text: 'Components',
             items: [
               { text: 'CameraMover', link: langName + '/docs/Components/CameraMover' },
+              { text: 'CustomLightmapping', link: langName + '/docs/Components/CustomLightmapping' },
               { text: 'ObjectMarker', link: langName + '/docs/Components/ObjectMarker' },
               { text: 'SceneMSAA', link: langName + '/docs/Components/SceneMSAA' },
             ]

@@ -39,6 +39,7 @@ export const en_US = defineConfig({
             text: 'Components',
             items: [
               { text: 'CameraMover', link: langName + '/docs/Components/CameraMover' },
+              { text: 'CustomLightmapping', link: langName + '/docs/Components/CustomLightmapping' },
               { text: 'ObjectMarker', link: langName + '/docs/Components/ObjectMarker' },
               { text: 'SceneMSAA', link: langName + '/docs/Components/SceneMSAA' },
             ]

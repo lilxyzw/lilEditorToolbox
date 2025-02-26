@@ -24,6 +24,7 @@ This is the documentation page for lilEditorToolbox.
     <li><p>Components</p>
         <ul>
             <li><a href="./Components/CameraMover">CameraMover</a></li>
+            <li><a href="./Components/CustomLightmapping">CustomLightmapping</a></li>
             <li><a href="./Components/ObjectMarker">ObjectMarker</a></li>
             <li><a href="./Components/SceneMSAA">SceneMSAA</a></li>
         </ul>

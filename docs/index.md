@@ -7,7 +7,7 @@ hero:
   tagline: "様々な便利系エディタ拡張が入ったパッケージです。"
   image:
     src: /images/logo.svg
-    alt: lilycalInventory Logo
+    alt: lilEditorToolbox Logo
   actions:
     - theme: brand
       text: VCCに追加

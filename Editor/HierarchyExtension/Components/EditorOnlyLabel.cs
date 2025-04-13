@@ -7,16 +7,21 @@ namespace jp.lilxyzw.editortoolbox
     internal class EditorOnlyLabel : IHierarchyExtensionComponent
     {
         public int Priority => -800;
-        private static GUIStyle m_EOIcon;
-        private static GUIStyle EOIcon => m_EOIcon != null ? m_EOIcon : m_EOIcon = new GUIStyle(EditorStyles.miniLabel){fontStyle = FontStyle.Bold};
 
         public void OnGUI(ref Rect currentRect, GameObject gameObject, int instanceID, Rect fullRect)
         {
-            if(IsEditorOnly(gameObject.transform))
+            var rectEO = fullRect;
+            rectEO.x = 36;
+            rectEO.width = rectEO.height;
+
+            EditorGUI.BeginChangeCheck();
+            var isEditorOnly = GUIHelper.DToggleMiniLabel("E", "jp.lilxyzw.editortoolbox.EditorOnlyLabel", instanceID.ToString(), rectEO, IsEditorOnly(gameObject.transform));
+            if(EditorGUI.EndChangeCheck())
             {
-                var rectEO = fullRect;
-                rectEO.x = 36;
-                EditorGUI.LabelField(rectEO, "E", EOIcon);
+                using var so = new SerializedObject(gameObject);
+                using var m_TagString = so.FindProperty("m_TagString");
+                m_TagString.stringValue = isEditorOnly ? "EditorOnly" : "Untagged";
+                so.ApplyModifiedProperties();
             }
         }
 

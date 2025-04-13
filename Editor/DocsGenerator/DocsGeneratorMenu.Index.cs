@@ -68,6 +68,7 @@ namespace jp.lilxyzw.editortoolbox
             var langFooter = File.ReadAllText("docs_base/lang_footer.ts");
             sb.Append(langFooter);
             sb.Replace("LANG", code);
+            sb.Replace("TAGLINE", loc("This package contains various useful editor extensions."));
 
             sb.Replace("TO_SELECT", loc("to select"));
             sb.Replace("ENTER", loc("enter"));

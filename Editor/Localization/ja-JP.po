@@ -373,6 +373,18 @@ msgstr "オブジェクトのLayerとTagを表示します。"
 
 #: EditorToolboxSettings.cs/ProjectExtension
 
+msgid "Project Line"
+msgstr "ファイル階層の線"
+
+msgid "Displays lines that represent the hierarchy of files."
+msgstr "ファイルの階層を表す線を表示します。"
+
+msgid "Overlay File In Folder"
+msgstr "フォルダにファイルをオーバーレイ"
+
+msgid "Overlays the folder icon with the files inside."
+msgstr "フォルダのアイコンに中のファイルをオーバーレイ表示します。"
+
 msgid "Icon Overlay"
 msgstr "アイコンオーバーレイ"
 
@@ -420,6 +432,12 @@ msgstr "マテリアルのShader"
 
 msgid "Displays the material's shader."
 msgstr "マテリアルのシェーダーを表示します。"
+
+msgid "Asset Marker"
+msgstr "アセットマーカー"
+
+msgid "Mark any asset to make it easier to find."
+msgstr "アセットをマークして見つけやすくします。。"
 
 
 

@@ -37,16 +37,7 @@ namespace jp.lilxyzw.editortoolbox
             material.SetFloat("clipTop", item.clipTop ? 1 : 0);
             material.SetTextureScale("_TextureMain", item.scale);
             material.SetTextureOffset("_TextureMain", item.offset);
-
-            RenderTexture bufRT = RenderTexture.active;
-            RenderTexture texR = RenderTexture.GetTemporary(objIcon.width, objIcon.height, 0, RenderTextureFormat.Default, RenderTextureReadWrite.Linear);
-            RenderTexture.active = texR;
-            Graphics.Blit(null, texR, material);
-            var tex = new Texture2D(objIcon.width, objIcon.height, TextureFormat.RGBA32, false, false);
-            tex.ReadPixels(new Rect(0, 0, texR.width, texR.height), 0, 0);
-            tex.Apply();
-            RenderTexture.active = bufRT;
-            RenderTexture.ReleaseTemporary(texR);
+            var tex = GraphicUtils.ProcessTexture(material, null, true) as Texture2D;
             tempIcons.Add(tex);
 
             return tex;
@@ -70,7 +61,6 @@ namespace jp.lilxyzw.editortoolbox
             {
                 var wide = EditorGUIUtility.wideMode;
                 EditorGUIUtility.wideMode = true;
-                Debug.Log(string.Join("\r\n", instance.items.Select(i => i.target)));
                 EditorGUI.BeginChangeCheck();
                 serializedObject.UpdateIfRequiredOrScript();
                 SerializedProperty iterator = serializedObject.GetIterator();

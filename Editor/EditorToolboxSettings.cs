@@ -68,7 +68,7 @@ namespace jp.lilxyzw.editortoolbox
         [HideInInspector] public bool enableMSAA = false;
 
         internal readonly Color backgroundColor = new Color(0.5f,0.5f,0.5f,0.05f);
-        internal readonly Color lineColor = new Color(0.5f,0.5f,0.5f,0.33f);
+        internal readonly Color lineColor = new Color(0.5f,0.5f,0.5f,0.5f);
         internal readonly Color backgroundHilightColor = new Color(1.0f,0.95f,0.5f,0.2f);
 
         internal void Save() => Save(true);

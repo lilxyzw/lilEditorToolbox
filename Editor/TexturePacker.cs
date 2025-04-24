@@ -108,14 +108,8 @@ namespace jp.lilxyzw.editortoolbox
             if(channelParams[2].tex){width = Mathf.Max(width,channelParams[2].tex.width); height = Mathf.Max(height,channelParams[2].tex.height);}
             if(channelParams[3].tex){width = Mathf.Max(width,channelParams[3].tex.width); height = Mathf.Max(height,channelParams[3].tex.height);}
             material.SetVector("_TextureSize", new Vector4(width, height, 0, 0));
-            var currentRT = RenderTexture.active;
-            var renderTexture = RenderTexture.GetTemporary(width, height);
-            RenderTexture.active = renderTexture;
-            Graphics.Blit(null, renderTexture, material);
-            packed = new Texture2D(width, height, TextureFormat.RGBA32, false, false);
-            packed.ReadPixels(new Rect(0, 0, width, height), 0, 0);
-            packed.Apply();
-            RenderTexture.active = currentRT;
+
+            packed = GraphicUtils.ProcessTexture(material, null, width, height) as Texture2D;
         }
 
         void OnDisable()

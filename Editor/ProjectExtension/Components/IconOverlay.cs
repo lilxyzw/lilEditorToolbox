@@ -17,10 +17,7 @@ namespace jp.lilxyzw.editortoolbox
             rect.height = size;
             if(!ProjectExtension.isIconGUI) rect.x += 4;
 
-            var color = GUI.color;
-            GUI.color = Color.clear;
-            EditorGUI.DrawTextureTransparent(rect, icon);
-            GUI.color = color;
+            GUI.DrawTexture(rect, icon);
         }
     }
 }

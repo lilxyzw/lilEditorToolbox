@@ -1,5 +1,6 @@
 using jp.lilxyzw.editortoolbox;
 [assembly: ExportsProjectExtensionComponent(
+    typeof(OverlayFileInFolder),
     typeof(IconOverlay),
     typeof(AlternatingProjectBackground),
     typeof(UnitypackageHilighter),
@@ -7,5 +8,7 @@ using jp.lilxyzw.editortoolbox;
     typeof(PrefabInfo),
     typeof(MaterialVariant),
     typeof(MaterialQueue),
-    typeof(MaterialShader)
+    typeof(MaterialShader),
+    typeof(ProjectLine),
+    typeof(AssetMarker)
 )]

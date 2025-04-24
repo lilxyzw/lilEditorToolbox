@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace jp.lilxyzw.editortoolbox
 {
@@ -91,30 +92,18 @@ namespace jp.lilxyzw.editortoolbox
             private static IconPopup popup;
             private static List<string> names;
             private static List<string> Names => names != null && names.Count == UnitypackageImporter.instance.importedAssets.Count ? names : names = UnitypackageImporter.instance.importedAssets.Select(i => i.name).ToList();
-            private static HashSet<EditorWindow> modifiedWindows = new();
             private static Texture tex = EditorGUIUtility.IconContent("LightingSettings Icon").image;
 
             internal static void AddButton()
             {
-                var windows = ProjectBrowserWrap.GetAllProjectBrowsers();
-                foreach(var window in windows) AddButton(window.w);
+                if(popup == null) InitButton();
+                ProjectToolbarExtension.Add(popup);
                 EditorApplication.update -= AddButton;
-            }
-
-            private static void AddButton(EditorWindow window)
-            {
-                if(modifiedWindows.Add(window))
-                {
-                    if(popup == null) InitButton();
-                    window.rootVisualElement.Add(popup);
-                }
             }
 
             private static void InitButton()
             {
                 popup = new(tex, Names.ToList(), UnitypackageHilighterData.instance.target);
-                popup.style.marginLeft = 36;
-                popup.style.height = 20;
                 popup.style.width = 24;
                 popup.valueChanged += UpdateGUIDs;
                 popup.rightClicked += UnitypackageLogEditor.Init;
@@ -130,7 +119,7 @@ namespace jp.lilxyzw.editortoolbox
                 }
                 popup.choices = Names;
                 popup.value = UnitypackageHilighterData.instance.target;
-                popup.visible = EditorToolboxSettings.instance.projectComponents.Any(c => c == typeof(UnitypackageHilighter).FullName);
+                popup.style.display = EditorToolboxSettings.instance.projectComponents.Any(c => c == typeof(UnitypackageHilighter).FullName) ? DisplayStyle.Flex : DisplayStyle.None;
             }
 
             private class UnitypackageLogEditor : EditorWindow

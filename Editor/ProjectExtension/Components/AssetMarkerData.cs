@@ -45,7 +45,6 @@ namespace jp.lilxyzw.editortoolbox
         private class AssetMarkerWindow : EditorWindow
         {
             internal static void Init() => CreateInstance<AssetMarkerWindow>().ShowAuxWindow();
-            public static Color color = Color.white;
             private static readonly Color presetColor0 = Color.HSVToRGB(0.05f, 0.7f, 0.9f);
             private static readonly Color presetColor1 = Color.HSVToRGB(0.15f, 0.7f, 0.9f);
             private static readonly Color presetColor2 = Color.HSVToRGB(0.25f, 0.7f, 0.9f);
@@ -56,10 +55,9 @@ namespace jp.lilxyzw.editortoolbox
             private static readonly Color presetColor7 = Color.HSVToRGB(0.75f, 0.7f, 0.9f);
             private static readonly Color presetColor8 = Color.HSVToRGB(0.85f, 0.7f, 0.9f);
             private static readonly Color presetColor9 = Color.HSVToRGB(0.95f, 0.7f, 0.9f);
+
             void OnGUI()
             {
-                color = EditorGUILayout.ColorField(color);
-
                 EditorGUILayout.BeginVertical(EditorStyles.helpBox);
                 EditorGUILayout.BeginHorizontal();
                 if(GUILayout.Button(EditorGUIUtility.IconContent("FolderEmpty Icon"), EditorStyles.label, GUILayout.MaxHeight(EditorGUIUtility.singleLineHeight), GUILayout.MaxWidth(EditorGUIUtility.singleLineHeight)))

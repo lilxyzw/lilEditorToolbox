@@ -617,6 +617,22 @@ msgstr "Scene Viewの上のツールバーにあるカメラモード変更ボ�
 
 
 
+#: SelectionInventory.cs
+
+msgid "Inventory for any object"
+msgstr "オブジェクトのインベントリー"
+
+msgid "This is an inventory that allows you to place any object, assets, folders, etc. Click on the added item to select it immediately."
+msgstr "任意のオブジェクトやアセット、フォルダなどを配置できるインベントリです。追加したアイテムをクリックすればすぐにそのアイテムを選択できます。"
+
+msgid "Add Something Here By Drag And Drop"
+msgstr "ここにD&Dで好きなオブジェクトを追加"
+
+msgid "Remove from inventory"
+msgstr "インベントリーから削除"
+
+
+
 #: ShaderKeywordViewer.cs
 
 msgid "Shader keyword check tool"

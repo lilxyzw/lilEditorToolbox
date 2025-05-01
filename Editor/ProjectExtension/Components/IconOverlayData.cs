@@ -37,7 +37,7 @@ namespace jp.lilxyzw.editortoolbox
             material.SetFloat("clipTop", item.clipTop ? 1 : 0);
             material.SetTextureScale("_TextureMain", item.scale);
             material.SetTextureOffset("_TextureMain", item.offset);
-            var tex = GraphicUtils.ProcessTexture(material, null, true) as Texture2D;
+            var tex = GraphicUtils.ProcessTexture(material, null, objIcon.width, objIcon.height, true) as Texture2D;
             tempIcons.Add(tex);
 
             return tex;

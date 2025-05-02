@@ -26,6 +26,7 @@ namespace jp.lilxyzw.editortoolbox
         [InitializeOnLoadMethod]
         private static void Init()
         {
+            root.style.marginRight = 470; // 検索バーをクリックできるように
             root.style.marginLeft = 36;
             root.style.height = 20;
             root.style.flexDirection = FlexDirection.Row;

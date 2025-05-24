@@ -19,6 +19,7 @@ namespace jp.lilxyzw.editortoolbox
         private int clickingIndex = -1;
         private static readonly Color backgroundColor = new(0.5f,0.5f,0.5f,0.1f);
         private static readonly Color colorActive = new(0.1f,0.6f,1.0f,0.333333f);
+        private Object currentSelection = null;
 
         [MenuItem(Common.MENU_HEAD + "Selection Inventory")]
         static void Init() => GetWindow(typeof(SelectionInventory)).Show();
@@ -40,6 +41,20 @@ namespace jp.lilxyzw.editortoolbox
 
             // D&D中はGUIを無効化
             GUI.enabled = !isDraggingFromOther;
+
+            EditorGUILayout.BeginHorizontal();
+            GUILayout.Label("Active object:", GUILayout.ExpandWidth(false));
+            using (new EditorGUI.DisabledScope(true))
+            {
+                currentSelection = EditorGUILayout.ObjectField(currentSelection, typeof(Object), false);
+            }
+            if (GUILayout.Button(EditorGUIUtility.IconContent("Toolbar Plus"), GUILayout.MaxHeight(18)))
+            {
+                Undo.RecordObject(SelectionInventoryData.instance, "Add Active Object");
+                SelectionInventoryData.instance.objects.Add(currentSelection);
+                SelectionInventoryData.instance.Save();
+            }
+            EditorGUILayout.EndHorizontal();
 
             L10n.LabelField("Add Something Here By Drag And Drop");
             EditorGUILayout.BeginVertical(EditorStyles.helpBox);
@@ -193,6 +208,11 @@ namespace jp.lilxyzw.editortoolbox
                         break;
                 }
             }
+        }
+
+        void OnSelectionChange()
+        {
+            currentSelection = Selection.activeObject;
         }
     }
 }

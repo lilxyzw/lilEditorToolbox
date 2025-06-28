@@ -29,6 +29,7 @@ export const ja_JP = defineConfig({
               { text: 'Missing参照発見ツール', link: langName + '/docs/EditorWindow/MissingFinder' },
               { text: 'オブジェクト参照を何でも一括置き換えツール', link: langName + '/docs/EditorWindow/ReferenceReplacer' },
               { text: 'Scene Viewの高解像度キャプチャツール', link: langName + '/docs/EditorWindow/SceneCapture' },
+              { text: 'オブジェクトのインベントリー', link: langName + '/docs/EditorWindow/SelectionInventory' },
               { text: 'シェーダー本体のキーワード確認ツール', link: langName + '/docs/EditorWindow/ShaderKeywordViewer' },
               { text: '拡張Inspector', link: langName + '/docs/EditorWindow/TabInspector' },
               { text: 'テクスチャチャンネルパッキングツール', link: langName + '/docs/EditorWindow/TexturePacker' },

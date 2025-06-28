@@ -15,6 +15,7 @@ lilEditorToolboxのドキュメントページです。
             <li><a href="./EditorWindow/MissingFinder">Missing参照発見ツール</a></li>
             <li><a href="./EditorWindow/ReferenceReplacer">オブジェクト参照を何でも一括置き換えツール</a></li>
             <li><a href="./EditorWindow/SceneCapture">Scene Viewの高解像度キャプチャツール</a></li>
+            <li><a href="./EditorWindow/SelectionInventory">オブジェクトのインベントリー</a></li>
             <li><a href="./EditorWindow/ShaderKeywordViewer">シェーダー本体のキーワード確認ツール</a></li>
             <li><a href="./EditorWindow/TabInspector">拡張Inspector</a></li>
             <li><a href="./EditorWindow/TexturePacker">テクスチャチャンネルパッキングツール</a></li>

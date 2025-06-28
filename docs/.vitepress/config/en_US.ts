@@ -29,6 +29,7 @@ export const en_US = defineConfig({
               { text: 'Missing reference finder tool', link: langName + '/docs/EditorWindow/MissingFinder' },
               { text: 'Batch replacement tool for all object references', link: langName + '/docs/EditorWindow/ReferenceReplacer' },
               { text: 'High-resolution capture tool for Scene View', link: langName + '/docs/EditorWindow/SceneCapture' },
+              { text: 'Inventory for any object', link: langName + '/docs/EditorWindow/SelectionInventory' },
               { text: 'Shader keyword check tool', link: langName + '/docs/EditorWindow/ShaderKeywordViewer' },
               { text: 'Extended Inspector', link: langName + '/docs/EditorWindow/TabInspector' },
               { text: 'Texture Channel Packing Tool', link: langName + '/docs/EditorWindow/TexturePacker' },

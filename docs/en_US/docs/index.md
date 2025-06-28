@@ -15,6 +15,7 @@ This is the documentation page for lilEditorToolbox.
             <li><a href="./EditorWindow/MissingFinder">Missing reference finder tool</a></li>
             <li><a href="./EditorWindow/ReferenceReplacer">Batch replacement tool for all object references</a></li>
             <li><a href="./EditorWindow/SceneCapture">High-resolution capture tool for Scene View</a></li>
+            <li><a href="./EditorWindow/SelectionInventory">Inventory for any object</a></li>
             <li><a href="./EditorWindow/ShaderKeywordViewer">Shader keyword check tool</a></li>
             <li><a href="./EditorWindow/TabInspector">Extended Inspector</a></li>
             <li><a href="./EditorWindow/TexturePacker">Texture Channel Packing Tool</a></li>

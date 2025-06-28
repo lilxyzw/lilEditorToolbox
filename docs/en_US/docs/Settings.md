@@ -34,6 +34,17 @@ Settings related to lilEditorToolbox. You can open it from `Edit/Preference/lilE
 |Fix Blendshapes|Turn off `Legacy Blend Shape Normals` when importing a model to turn off automatic recalculation of BlendShape normals.|
 |Remove Jaw|When importing a model, if a bone that does not contain `jaw` (case insensitive) in the bone name is assigned to the Humanoid Jaw, it will be automatically unassigned.|
 
+## Animator Controller Editor
+
+|Name|Description|
+|-|-|
+|Default Layer Weight1|Changed the default Layer Weight value to 1 when creating a new layer.|
+|Default Write Defaults Off|Change the default value of Write Defaults when creating a new state to off.|
+|Default Has Exit Time Off|Change the default value of Has Exit Time when creating a new transition to off.|
+|Default Exit Time1|Change the default value of Exit Time when creating a new transition to 1.|
+|Default Duration0|Change the default value of Duration when creating a new transition to 0.|
+|Default Can Transition Self Off|Change the default value of Can Transition Self when creating a new transition to off.|
+
 ## Hierarchy Extension
 
 You can display objects, components, tags, layers, etc. on the Hierarchy. You can also add your own extensions by implementing `IHierarchyExtensionConponent`. Please refer to the scripts under `Editor/HierarchyExtension/Components` for how to write them.
@@ -43,6 +54,7 @@ You can display objects, components, tags, layers, etc. on the Hierarchy. You ca
 |Hierarchy Spacer Width|The width of the margin to avoid interfering with other Hierarchy extensions.|
 |Hierarchy Spacer Priority|This is the timing to insert margins so as not to interfere with other Hierarchy extensions.|
 |Hierarchy Mouse Button|This is the mouse button that the hierarchy window extension that supports this property will respond to. If you make many erroneous operations, please change the button.|
+|Hierarchy Layer And Tag Side By Side|Displays Layer and Tag side by side.|
 |Hierarchy Spacer|Add margins so as not to interfere with other Hierarchy extensions.|
 |Active Toggle|A checkbox that turns an object on and off.|
 |Alternating Background|Alternates the background color of the Hierarchy.|
@@ -59,6 +71,7 @@ You can display extensions and prefab information on the project. You can also a
 
 |Name|Description|
 |-|-|
+|Overlay File In Folder|Overlays the folder icon with the files inside.|
 |Icon Overlay|Overlay any image on the icon.|
 |Alternating Project Background|Alternates the background color of the Project window.|
 |Unitypackage Hilighter|Highlight the assets you imported in each Unitypackage.|
@@ -67,6 +80,8 @@ You can display extensions and prefab information on the project. You can also a
 |Material Variant|Displays the parent material if the material is a variant.|
 |Material Queue|Displays the Render Queue for materials.|
 |Material Shader|Displays the material's shader.|
+|Project Line|Displays lines that represent the hierarchy of files.|
+|Asset Marker|Mark any asset to make it easier to find.|
 
 ## Toolbar Extension
 

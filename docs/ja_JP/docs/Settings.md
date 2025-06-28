@@ -34,6 +34,17 @@ lilEditorToolboxに関する設定です。メニューバーの`Edit/Preference
 |Blendshapes設定を自動修正|モデルインポート時に`Legacy Blend Shape Normals`をオフにし、BlendShapeの法線の自動再計算をオフにします。|
 |HumanoidからJawを自動削除|モデルインポート時にボーン名に`jaw`（大文字小文字区別せず）が含まれていないボーンがHumanoidのJawに割り当てられている場合、自動で割り当てを外します。|
 
+## アニメーターコントローラーエディタ
+
+|名前|説明|
+|-|-|
+|Default Layer Weight1|Changed the default Layer Weight value to 1 when creating a new layer.|
+|Write Defaultsをデフォルトでオフに|新規ステート作成時のWrite Defaultsのデフォルト値をオフに変更します。|
+|Has Exit Timeをデフォルトでオフに|新規トランジション作成時のHas Exit Timeのデフォルト値をオフに変更します。|
+|Default Exit Time1|新規トランジション作成時のExit Timeのデフォルト値を1に変更します。|
+|Default Duration0|新規トランジション作成時のDurationのデフォルト値を0に変更します。|
+|Can Transition Selfをデフォルトでオフに|新規トランジション作成時のCan Transition Selfのデフォルト値をオフに変更します。|
+
 ## ヒエラルキーウィンドウ拡張
 
 Hierarchy上にオブジェクトのオンオフ、コンポーネント、タグ、レイヤーなどを表示できます。`IHierarchyExtensionConponent`を実装することで独自に拡張を追加することもできます。書き方は`Editor/HierarchyExtension/Components`配下のスクリプトを参考にしてください。
@@ -43,6 +54,7 @@ Hierarchy上にオブジェクトのオンオフ、コンポーネント、タ�
 |余白の幅|他のHierarchy拡張に干渉しないようにする余白の幅です。|
 |余白の挿入タイミング|他のHierarchy拡張に干渉しないようにする余白の挿入タイミングです。|
 |マウスボタンの割り当て|このプロパティに対応しているヒエラルキーウィンドウ拡張が反応するマウスボタンです。誤操作が多い場合はボタンを変更してください。|
+|LayerとTagを横並びに|LayerとTagを横並びに表示します。|
 |余白の挿入|他のHierarchy拡張と干渉しないように余白を挿入します。|
 |オブジェクトのオンオフ|オブジェクトをオンオフするチェックボックスです。|
 |背景色を交互にする|Hierarchyの背景色を交互に変更します。|
@@ -59,6 +71,7 @@ Project上に拡張子やprefabの情報などを表示できます。`IProjectE
 
 |名前|説明|
 |-|-|
+|フォルダにファイルをオーバーレイ|フォルダのアイコンに中のファイルをオーバーレイ表示します。|
 |アイコンオーバーレイ|アセットのアイコンに任意の画像をオーバーレイ表示します。|
 |背景色を交互にする|Projectウィンドウの背景色を交互に変更します。|
 |unitypackageのアイテムを強調|各Unitypackageでインポートしたアセットを強調表示します。|
@@ -67,6 +80,8 @@ Project上に拡張子やprefabの情報などを表示できます。`IProjectE
 |Material Variant|マテリアルがVariantである場合に親のマテリアルを表示します。|
 |マテリアルのRenderQueue|マテリアルのRender Queueを表示します。|
 |マテリアルのShader|マテリアルのシェーダーを表示します。|
+|ファイル階層の線|ファイルの階層を表す線を表示します。|
+|アセットマーカー|アセットをマークして見つけやすくします。。|
 
 ## ツールバー拡張
 

@@ -23,6 +23,14 @@ namespace jp.lilxyzw.editortoolbox
                 window.rootVisualElement.Add(root);
         }
 
+        private static EditorWindow prevWindow;
+        private static void AddButtonPerWindow()
+        {
+            if (!EditorWindow.focusedWindow || prevWindow == EditorWindow.focusedWindow || EditorWindow.focusedWindow.GetType().FullName != "UnityEditor.ProjectBrowser") return;
+            prevWindow = EditorWindow.focusedWindow;
+            AddButton(prevWindow);
+        }
+
         [InitializeOnLoadMethod]
         private static void Init()
         {
@@ -32,6 +40,8 @@ namespace jp.lilxyzw.editortoolbox
             root.style.flexDirection = FlexDirection.Row;
             EditorApplication.update -= AddButton;
             EditorApplication.update += AddButton;
+            EditorApplication.update -= AddButtonPerWindow;
+            EditorApplication.update += AddButtonPerWindow;
         }
     }
 }

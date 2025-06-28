@@ -63,6 +63,18 @@ namespace jp.lilxyzw.editortoolbox
             return Expression.Lambda<Func<T1,R>>(call, exps).Compile();
         }
 
+        protected static Func<T1,T2,R> GetFunc<T1,T2,R>(Type type, string name)
+        {
+            var (call, exps) = GetMethodBase(type, name, new[]{typeof(T1),typeof(T2)});
+            return Expression.Lambda<Func<T1,T2,R>>(call, exps).Compile();
+        }
+
+        protected static Func<T1,T2,T3,R> GetFunc<T1,T2,T3,R>(Type type, string name)
+        {
+            var (call, exps) = GetMethodBase(type, name, new[]{typeof(T1),typeof(T2),typeof(T3)});
+            return Expression.Lambda<Func<T1,T2,T3,R>>(call, exps).Compile();
+        }
+
         // Base
         private static MethodCallExpression GetMethodBase(Type type, string name)
         {

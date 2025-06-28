@@ -42,6 +42,20 @@ namespace jp.lilxyzw.editortoolbox
         [Tooltip("When importing a model, if a bone that does not contain `jaw` (case insensitive) in the bone name is assigned to the Humanoid Jaw, it will be automatically unassigned.")]
         [ToggleLeft] public bool removeJaw = false;
 
+        [L10nHeader("Animator Controller Editor")]
+        [Tooltip("Changed the default Layer Weight value to 1 when creating a new layer.")]
+        [ToggleLeft] public bool defaultLayerWeight1 = false;
+        [Tooltip("Change the default value of Write Defaults when creating a new state to off.")]
+        [ToggleLeft] public bool defaultWriteDefaultsOff = false;
+        [Tooltip("Change the default value of Has Exit Time when creating a new transition to off.")]
+        [ToggleLeft] public bool defaultHasExitTimeOff = false;
+        [Tooltip("Change the default value of Exit Time when creating a new transition to 1.")]
+        [ToggleLeft] public bool defaultExitTime1 = false;
+        [Tooltip("Change the default value of Duration when creating a new transition to 0.")]
+        [ToggleLeft] public bool defaultDuration0 = false;
+        [Tooltip("Change the default value of Can Transition Self when creating a new transition to off.")]
+        [ToggleLeft] public bool defaultCanTransitionSelfOff = false;
+
         [L10nHeader("Hierarchy Extension", "You can display objects, components, tags, layers, etc. on the Hierarchy. You can also add your own extensions by implementing `IHierarchyExtensionConponent`. Please refer to the scripts under `Editor/HierarchyExtension/Components` for how to write them.")]
         [Tooltip("The width of the margin to avoid interfering with other Hierarchy extensions.")]
         public int hierarchySpacerWidth = 0;

@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -9,19 +10,24 @@ namespace jp.lilxyzw.editortoolbox
         {
             var clone = Object.Instantiate(target);
             EditorJsonUtility.FromJsonOverwrite(json, clone);
-            using var so = new SerializedObject(target);
-            using var soClone = new SerializedObject(clone);
-            using var iter = soClone.GetIterator();
-            iter.Next(true);
-            CopyFromSerializedProperty(so, iter);
-            while(iter.Next(false))
-                CopyFromSerializedProperty(so, iter);
-            so.ApplyModifiedProperties();
-            if(clone is Component c) Object.DestroyImmediate(c.gameObject);
+            CopyProperties(clone, target);
+            if (clone is Component c) Object.DestroyImmediate(c.gameObject);
             else Object.DestroyImmediate(clone);
         }
 
-        private static void CopyFromSerializedProperty(SerializedObject so, SerializedProperty prop)
+        internal static void CopyProperties(Object from, Object to, params string[] ignores)
+        {
+            using var so = new SerializedObject(to);
+            using var soOrig = new SerializedObject(from);
+            using var iter = soOrig.GetIterator();
+            iter.Next(true);
+            CopyFromSerializedProperty(so, iter, ignores);
+            while (iter.Next(false))
+                CopyFromSerializedProperty(so, iter, ignores);
+            so.ApplyModifiedProperties();
+        }
+
+        private static void CopyFromSerializedProperty(SerializedObject so, SerializedProperty prop, params string[] ignores)
         {
             if(
                 prop.propertyPath == "m_ObjectHideFlags" ||
@@ -29,7 +35,8 @@ namespace jp.lilxyzw.editortoolbox
                 prop.propertyPath == "m_PrefabInstance" ||
                 prop.propertyPath == "m_PrefabAsset" ||
                 prop.propertyPath == "m_GameObject" ||
-                prop.propertyPath == "m_EditorHideFlags"
+                prop.propertyPath == "m_EditorHideFlags" ||
+                ignores.Contains(prop.propertyPath)
             ) return;
 
             so.CopyFromSerializedProperty(prop);

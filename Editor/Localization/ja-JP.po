@@ -203,6 +203,45 @@ msgstr "テクスチャインポート"
 msgid "Model Import"
 msgstr "モデルインポート"
 
+msgid "Animator Controller Editor"
+msgstr "アニメーターコントローラーエディタ"
+
+msgid "Default Layer Weight 1"
+msgstr "Layer Weightをデフォルトで1に"
+
+msgid "Change the default Layer Weight value to 1 when creating a new layer."
+msgstr "新規レイヤー作成時のLayer Weightのデフォルト値を1に変更します。"
+
+msgid "Default Write Defaults Off"
+msgstr "Write Defaultsをデフォルトでオフに"
+
+msgid "Change the default value of Write Defaults when creating a new state to off."
+msgstr "新規ステート作成時のWrite Defaultsのデフォルト値をオフに変更します。"
+
+msgid "Default Has Exit Time Off"
+msgstr "Has Exit Timeをデフォルトでオフに"
+
+msgid "Change the default value of Has Exit Time when creating a new transition to off."
+msgstr "新規トランジション作成時のHas Exit Timeのデフォルト値をオフに変更します。"
+
+msgid "Default Exit Time 1"
+msgstr "Exit Timeをデフォルトで1に"
+
+msgid "Change the default value of Exit Time when creating a new transition to 1."
+msgstr "新規トランジション作成時のExit Timeのデフォルト値を1に変更します。"
+
+msgid "Default Duration 0"
+msgstr "Durationをデフォルトで0に"
+
+msgid "Change the default value of Duration when creating a new transition to 0."
+msgstr "新規トランジション作成時のDurationのデフォルト値を0に変更します。"
+
+msgid "Default Can Transition Self Off"
+msgstr "Can Transition Selfをデフォルトでオフに"
+
+msgid "Change the default value of Can Transition Self when creating a new transition to off."
+msgstr "新規トランジション作成時のCan Transition Selfのデフォルト値をオフに変更します。"
+
 msgid "Hierarchy Extension"
 msgstr "ヒエラルキーウィンドウ拡張"
 

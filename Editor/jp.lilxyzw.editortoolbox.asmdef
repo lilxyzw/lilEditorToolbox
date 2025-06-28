@@ -12,7 +12,8 @@
     "allowUnsafeCode": false,
     "overrideReferences": true,
     "precompiledReferences": [
-        "Unity.SharpZipLib.dll"
+        "Unity.SharpZipLib.dll",
+        "0Harmony.dll"
     ],
     "autoReferenced": false,
     "defineConstraints": [],
@@ -21,6 +22,16 @@
             "name": "com.unity.sharp-zip-lib",
             "expression": "",
             "define": "LIL_SHADPZIPLIB"
+        },
+        {
+            "name": "com.vrchat.base",
+            "expression": "",
+            "define": "LIL_HARMONY"
+        },
+        {
+            "name": "nadena.dev.modular-avatar",
+            "expression": "",
+            "define": "LIL_MODULAR_AVATAR"
         }
     ],
     "noEngineReferences": false

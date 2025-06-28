@@ -354,6 +354,12 @@ msgstr "マウスボタンの割り当て"
 msgid "This is the mouse button that the hierarchy window extension that supports this property will respond to. If you make many erroneous operations, please change the button."
 msgstr "このプロパティに対応しているヒエラルキーウィンドウ拡張が反応するマウスボタンです。誤操作が多い場合はボタンを変更してください。"
 
+msgid "Hierarchy Layer And Tag Side By Side"
+msgstr "LayerとTagを横並びに"
+
+msgid "Displays Layer and Tag side by side."
+msgstr "LayerとTagを横並びに表示します。"
+
 msgid "Hierarchy Spacer"
 msgstr "余白の挿入"
 

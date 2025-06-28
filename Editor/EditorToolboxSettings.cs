@@ -63,6 +63,8 @@ namespace jp.lilxyzw.editortoolbox
         public int hierarchySpacerPriority = 0;
         [Tooltip("This is the mouse button that the hierarchy window extension that supports this property will respond to. If you make many erroneous operations, please change the button.")]
         public MouseButton hierarchyMouseButton = MouseButton.Left;
+        [Tooltip("Displays Layer and Tag side by side.")]
+        public bool hierarchyLayerAndTagSideBySide = false;
         [DocsGetStrings(typeof(HierarchyExtension), "GetNameAndTooltips")]
         public string[] hierarchyComponents = new string[]{};
 

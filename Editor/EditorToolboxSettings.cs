@@ -43,7 +43,7 @@ namespace jp.lilxyzw.editortoolbox
         [ToggleLeft] public bool removeJaw = false;
 
         [L10nHeader("Animator Controller Editor")]
-        [Tooltip("Changed the default Layer Weight value to 1 when creating a new layer.")]
+        [Tooltip("Change the default Layer Weight value to 1 when creating a new layer.")]
         [ToggleLeft] public bool defaultLayerWeight1 = false;
         [Tooltip("Change the default value of Write Defaults when creating a new state to off.")]
         [ToggleLeft] public bool defaultWriteDefaultsOff = false;

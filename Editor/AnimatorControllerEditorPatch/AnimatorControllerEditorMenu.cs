@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace jp.lilxyzw.editortoolbox
 {
-    public class AnimatorControllerEditorMenu
+    internal class AnimatorControllerEditorMenu
     {
         [MenuItem(Common.MENU_HEAD + "Cleanup Animator Controller")]
         private static void CleanupAnimatorController()

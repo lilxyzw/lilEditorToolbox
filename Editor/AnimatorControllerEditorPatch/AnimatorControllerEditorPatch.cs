@@ -13,17 +13,17 @@ namespace jp.lilxyzw.editortoolbox
     [HarmonyPatch]
     internal class AnimatorControllerEditorPatch
     {
-        public static Assembly A_Graphs = Assembly.Load("UnityEditor.Graphs, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null");
-        public static Type T_AnimatorControllerTool = A_Graphs.GetType("UnityEditor.Graphs.AnimatorControllerTool");
-        public static Type T_LayerControllerView = A_Graphs.GetType("UnityEditor.Graphs.LayerControllerView");
-        public static Type T_GraphGUI = A_Graphs.GetType("UnityEditor.Graphs.AnimationStateMachine.GraphGUI");
-        public static Type T_StateNode = A_Graphs.GetType("UnityEditor.Graphs.AnimationStateMachine.StateNode");
-        public static Type T_StateMachineNode = A_Graphs.GetType("UnityEditor.Graphs.AnimationStateMachine.StateMachineNode");
-        public static Type T_AnyStateNode = A_Graphs.GetType("UnityEditor.Graphs.AnimationStateMachine.AnyStateNode");
-        public static Type T_EntryNode = A_Graphs.GetType("UnityEditor.Graphs.AnimationStateMachine.EntryNode");
-        public static Type T_AnimatorTransitionInspectorBase = A_Graphs.GetType("UnityEditor.Graphs.AnimationStateMachine.AnimatorTransitionInspectorBase");
-        private static FieldInfo FI_stateMachineGraphGUI = T_AnimatorControllerTool.GetField("stateMachineGraphGUI", BindingFlags.Instance | BindingFlags.Public);
-        private static PropertyInfo PI_activeStateMachine = T_GraphGUI.GetProperty("activeStateMachine", BindingFlags.Instance | BindingFlags.Public);
+        public static readonly Assembly A_Graphs = Assembly.Load("UnityEditor.Graphs, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null");
+        public static readonly Type T_LayerControllerView = A_Graphs.GetType("UnityEditor.Graphs.LayerControllerView");
+        public static readonly Type T_GraphGUI = A_Graphs.GetType("UnityEditor.Graphs.AnimationStateMachine.GraphGUI");
+        public static readonly Type T_StateNode = A_Graphs.GetType("UnityEditor.Graphs.AnimationStateMachine.StateNode");
+        public static readonly Type T_StateMachineNode = A_Graphs.GetType("UnityEditor.Graphs.AnimationStateMachine.StateMachineNode");
+        public static readonly Type T_AnyStateNode = A_Graphs.GetType("UnityEditor.Graphs.AnimationStateMachine.AnyStateNode");
+        public static readonly Type T_EntryNode = A_Graphs.GetType("UnityEditor.Graphs.AnimationStateMachine.EntryNode");
+        public static readonly Type T_AnimatorTransitionInspectorBase = A_Graphs.GetType("UnityEditor.Graphs.AnimationStateMachine.AnimatorTransitionInspectorBase");
+        public static readonly Type T_ParameterControllerView = A_Graphs.GetType("UnityEditor.Graphs.ParameterControllerView");
+        private static readonly FieldInfo FI_stateMachineGraphGUI = A_Graphs.GetType("UnityEditor.Graphs.AnimatorControllerTool").GetField("stateMachineGraphGUI", BindingFlags.Instance | BindingFlags.Public);
+        private static readonly PropertyInfo PI_activeStateMachine = T_GraphGUI.GetProperty("activeStateMachine", BindingFlags.Instance | BindingFlags.Public);
 
         [InitializeOnLoadMethod]
         private static void DoPatching()
@@ -35,7 +35,7 @@ namespace jp.lilxyzw.editortoolbox
         [HarmonyPatch(typeof(AnimatorController), "AddLayer", new[] { typeof(AnimatorControllerLayer) }), HarmonyPrefix]
         private static void PostfixAddLayer(ref AnimatorControllerLayer layer)
         {
-            if (!EditorToolboxSettings.instance.defaultLayerWeight1 || !CallerUtils.CallerIs(T_AnimatorControllerTool, 3)) return;
+            if (!EditorToolboxSettings.instance.defaultLayerWeight1 || !CallerUtils.CallerIs(AnimatorControllerToolWrap.type, 3)) return;
             layer.defaultWeight = 1.0f;
         }
 
@@ -73,8 +73,9 @@ namespace jp.lilxyzw.editortoolbox
         private static void PrefixShowAsContext(object __instance)
         {
             var menu = __instance as GenericMenu;
+            var caller2 = CallerUtils.GetCaller(2);
             // Layerコピペ
-            if (CallerUtils.CallerIs(T_LayerControllerView, 2))
+            if (caller2 == T_LayerControllerView)
             {
                 menu.AddItem(new GUIContent("Copy"), false, new GenericMenu.MenuFunction(LayerCloner.CopyLayer));
                 if (LayerCloner.layer != null) menu.AddItem(new GUIContent("Paste As New Layer"), false, new GenericMenu.MenuFunction(LayerCloner.PasteLayer));
@@ -82,7 +83,7 @@ namespace jp.lilxyzw.editortoolbox
                 LayerCloner.instance = LayerCloner.currentInstance;
             }
 
-            else if (CallerUtils.CallerIs(T_GraphGUI, 2))
+            else if (caller2 == T_GraphGUI)
             {
                 // Transitionコピペ
                 if (Selection.objects.All(o => o is not AnimatorTransitionBase))
@@ -96,19 +97,19 @@ namespace jp.lilxyzw.editortoolbox
                 if (Selection.activeObject && Selection.activeObject.GetType().FullName == "UnityEditor.Graphs.AnimationStateMachine.ExitNode")
                 {
                     var window = EditorWindow.focusedWindow;
-                    if (window.GetType() != T_AnimatorControllerTool) return;
+                    if (window.GetType() != AnimatorControllerToolWrap.type) return;
                     var machine = PI_activeStateMachine.GetValue(FI_stateMachineGraphGUI.GetValue(window)) as AnimatorStateMachine;
                     menu.AddItem(new GUIContent("Select In Transitions"), false, new GenericMenu.MenuFunction(() => Selection.objects = GetTransitions(machine).Where(t => t.isExit).ToArray()));
                 }
             }
 
             // 通常のStateから出入りするTransition一括選択
-            else if (CallerUtils.CallerIs(T_StateNode, 2))
+            else if (caller2 == T_StateNode)
             {
                 if (Selection.activeObject is AnimatorState state)
                 {
                     var window = EditorWindow.focusedWindow;
-                    if (window.GetType() != T_AnimatorControllerTool) return;
+                    if (window.GetType() != AnimatorControllerToolWrap.type) return;
                     var machine = PI_activeStateMachine.GetValue(FI_stateMachineGraphGUI.GetValue(window)) as AnimatorStateMachine;
                     menu.AddItem(new GUIContent("Select Out Transitions"), false, new GenericMenu.MenuFunction(() => Selection.objects = state.transitions));
                     menu.AddItem(new GUIContent("Select In Transitions"), false, new GenericMenu.MenuFunction(() => Selection.objects = GetTransitions(machine).Where(t => t.destinationState == state).ToArray()));
@@ -116,35 +117,41 @@ namespace jp.lilxyzw.editortoolbox
             }
 
             // AnyStateから出るTransition一括選択
-            else if (CallerUtils.CallerIs(T_AnyStateNode, 2))
+            else if (caller2 == T_AnyStateNode)
             {
                 var window = EditorWindow.focusedWindow;
-                if (window.GetType() != T_AnimatorControllerTool) return;
+                if (window.GetType() != AnimatorControllerToolWrap.type) return;
                 var machine = PI_activeStateMachine.GetValue(FI_stateMachineGraphGUI.GetValue(window)) as AnimatorStateMachine;
                 menu.AddItem(new GUIContent("Select Out Transitions"), false, new GenericMenu.MenuFunction(() => Selection.objects = machine.anyStateTransitions));
             }
 
             // Entryから出るTransition一括選択
-            else if (CallerUtils.CallerIs(T_EntryNode, 2))
+            else if (caller2 == T_EntryNode)
             {
                 var window = EditorWindow.focusedWindow;
-                if (window.GetType() != T_AnimatorControllerTool) return;
+                if (window.GetType() != AnimatorControllerToolWrap.type) return;
                 var machine = PI_activeStateMachine.GetValue(FI_stateMachineGraphGUI.GetValue(window)) as AnimatorStateMachine;
                 menu.AddItem(new GUIContent("Select Out Transitions"), false, new GenericMenu.MenuFunction(() => Selection.objects = machine.entryTransitions));
             }
 
             // Entryから出るTransition一括選択
-            else if (CallerUtils.CallerIs(T_StateMachineNode, 2))
+            else if (caller2 == T_StateMachineNode)
             {
                 if (Selection.activeObject is AnimatorStateMachine machine)
                 {
                     var window = EditorWindow.focusedWindow;
-                    if (window.GetType() != T_AnimatorControllerTool) return;
+                    if (window.GetType() != AnimatorControllerToolWrap.type) return;
                     var machine2 = PI_activeStateMachine.GetValue(FI_stateMachineGraphGUI.GetValue(window)) as AnimatorStateMachine;
                     var states = machine.states.Select(s => s.state);
                     menu.AddItem(new GUIContent("Select Out Transitions"), false, new GenericMenu.MenuFunction(() => Selection.objects = machine2.GetStateMachineTransitions(machine)));
                     menu.AddItem(new GUIContent("Select In Transitions"), false, new GenericMenu.MenuFunction(() => Selection.objects = GetTransitions(machine2).Where(t => t.destinationStateMachine == machine || states.Contains(t.destinationState)).ToArray()));
                 }
+            }
+
+            // Parameterの参照元をチェックするウィンドウを表示
+            else if (caller2 == T_ParameterControllerView)
+            {
+                menu.AddItem(new GUIContent("Show References"), false, new GenericMenu.MenuFunction(ParameterControllerViewPatch.ShowReferences));
             }
         }
 

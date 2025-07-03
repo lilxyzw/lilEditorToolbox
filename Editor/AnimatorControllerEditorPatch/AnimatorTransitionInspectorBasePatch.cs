@@ -15,8 +15,8 @@ namespace jp.lilxyzw.editortoolbox
     [HarmonyPatch]
     internal class AnimatorTransitionInspectorBaseCopyTransitionParametersPatch
     {
-        public static Type T_TransitionEditionContext = A_Graphs.GetType("UnityEditor.Graphs.AnimationStateMachine.TransitionEditionContext");
-        public static FieldInfo FI_transition = T_TransitionEditionContext.GetField("transition", BindingFlags.Public | BindingFlags.Instance);
+        public static readonly Type T_TransitionEditionContext = A_Graphs.GetType("UnityEditor.Graphs.AnimationStateMachine.TransitionEditionContext");
+        public static readonly FieldInfo FI_transition = T_TransitionEditionContext.GetField("transition", BindingFlags.Public | BindingFlags.Instance);
         [HarmonyTargetMethod]
         private static MethodBase TargetMethod() => AccessTools.Method(T_AnimatorTransitionInspectorBase, "CopyTransitionParameters");
 
@@ -55,8 +55,8 @@ namespace jp.lilxyzw.editortoolbox
     [HarmonyPatch]
     internal class AnimatorTransitionInspectorBaseDrawConditionsElementPatch
     {
-        private static FieldInfo FI_m_Conditions = T_AnimatorTransitionInspectorBase.GetField("m_Conditions", BindingFlags.NonPublic | BindingFlags.Instance);
-        private static FieldInfo FI_m_Controller = T_AnimatorTransitionInspectorBase.GetField("m_Controller", BindingFlags.NonPublic | BindingFlags.Instance);
+        private static readonly FieldInfo FI_m_Conditions = T_AnimatorTransitionInspectorBase.GetField("m_Conditions", BindingFlags.NonPublic | BindingFlags.Instance);
+        private static readonly FieldInfo FI_m_Controller = T_AnimatorTransitionInspectorBase.GetField("m_Controller", BindingFlags.NonPublic | BindingFlags.Instance);
         private static List<AnimatorConditionMode> m_boolModes = new() { AnimatorConditionMode.If, AnimatorConditionMode.IfNot };
         private static List<AnimatorConditionMode> m_floatModes = new() { AnimatorConditionMode.Greater, AnimatorConditionMode.Less };
         private static List<AnimatorConditionMode> m_intModes = new() { AnimatorConditionMode.Greater, AnimatorConditionMode.Less, AnimatorConditionMode.Equals, AnimatorConditionMode.NotEqual };

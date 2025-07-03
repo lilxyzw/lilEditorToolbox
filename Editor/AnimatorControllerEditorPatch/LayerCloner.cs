@@ -21,9 +21,9 @@ namespace jp.lilxyzw.editortoolbox
         public static AnimatorController originalController;
         public static AnimatorControllerLayer layer;
         private static bool isBase = true;
-        public static FieldInfo FI_m_LayerList = T_LayerControllerView.GetField("m_LayerList", BindingFlags.Instance | BindingFlags.NonPublic);
-        private static FieldInfo FI_m_Host = T_LayerControllerView.GetField("m_Host", BindingFlags.Instance | BindingFlags.NonPublic);
-        private static PropertyInfo PI_animatorController = A_Graphs.GetType("UnityEditor.Graphs.IAnimatorControllerEditor").GetProperty("animatorController", BindingFlags.Instance | BindingFlags.Public);
+        public static readonly FieldInfo FI_m_LayerList = T_LayerControllerView.GetField("m_LayerList", BindingFlags.Instance | BindingFlags.NonPublic);
+        private static readonly FieldInfo FI_m_Host = T_LayerControllerView.GetField("m_Host", BindingFlags.Instance | BindingFlags.NonPublic);
+        private static readonly PropertyInfo PI_animatorController = A_Graphs.GetType("UnityEditor.Graphs.IAnimatorControllerEditor").GetProperty("animatorController", BindingFlags.Instance | BindingFlags.Public);
         public static AnimatorController animatorController => PI_animatorController.GetValue(FI_m_Host.GetValue(instance)) as AnimatorController;
 
         [HarmonyTargetMethod]

@@ -9,9 +9,9 @@ namespace jp.lilxyzw.editortoolbox
             return type == new System.Diagnostics.StackFrame(skipFrames + 1, false).GetMethod().ReflectedType;
         }
 
-        public static string GetCaller(int skipFrames)
+        public static Type GetCaller(int skipFrames)
         {
-            return new System.Diagnostics.StackFrame(skipFrames + 1, false).GetMethod().ReflectedType.FullName + "." + new System.Diagnostics.StackFrame(skipFrames + 1, false).GetMethod().Name;
+            return new System.Diagnostics.StackFrame(skipFrames + 1, false).GetMethod().ReflectedType;
         }
     }
 }

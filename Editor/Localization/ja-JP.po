@@ -182,6 +182,15 @@ msgstr "アセンブリをアンロック中"
 
 #: EditorToolboxSettings.cs
 
+msgid "Project Settings"
+msgstr "プロジェクト設定"
+
+msgid "Setting Preset"
+msgstr "設定プリセット"
+
+msgid "New Preset"
+msgstr "新規プリセット"
+
 msgid "Settings"
 msgstr "設定"
 
@@ -241,6 +250,38 @@ msgstr "Can Transition Selfをデフォルトでオフに"
 
 msgid "Change the default value of Can Transition Self when creating a new transition to off."
 msgstr "新規トランジション作成時のCan Transition Selfのデフォルト値をオフに変更します。"
+
+
+
+
+
+msgid "Extend Animator Controller Parameter GUI"
+msgstr "アニメーターコントローラーのパラメーター編集の拡張"
+
+msgid "Add Copy And Paste Layer Menu"
+msgstr "レイヤーのコピーアンドペーストメニューを追加"
+
+msgid "Add Copy Transition Settings Menu"
+msgstr "トランジションの設定コピーメニューを追加"
+
+msgid "Add Select In Out Transitions Menu"
+msgstr "入出トランジション一括選択メニューを追加"
+
+msgid "Add Parameter References Menu"
+msgstr "パラメーター参照表示メニューを追加"
+
+msgid "Fix Copy Interruption Settings"
+msgstr "Interruption設定がコピーされるように"
+
+msgid "Fix Transition Condition GUI"
+msgstr "トランジションの条件設定GUIの修正"
+
+msgid "Fix State Multiple Edit"
+msgstr "ステート同時編集の修正"
+
+
+
+
 
 msgid "Hierarchy Extension"
 msgstr "ヒエラルキーウィンドウ拡張"

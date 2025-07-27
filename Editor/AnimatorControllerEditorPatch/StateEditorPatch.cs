@@ -27,6 +27,7 @@ namespace jp.lilxyzw.editortoolbox
         [HarmonyPostfix]
         private static bool Prefix(object __instance, string name, SerializedProperty value, SerializedProperty valueParameter, SerializedProperty valueParameterActive, AnimatorControllerParameterType parameterType)
         {
+            if (!EditorToolboxSettings.instance.fixStateMultipleEdit) return true;
             var controllerContext = PI_controllerContext.GetValue(__instance) as AnimatorController;
             if (value != null) EditorGUILayout.PropertyField(value);
             if (!controllerContext) return false;
@@ -81,6 +82,7 @@ namespace jp.lilxyzw.editortoolbox
         [HarmonyPostfix]
         private static bool Prefix(object __instance, string name, SerializedProperty value, SerializedProperty valueParameter, SerializedProperty valueParameterActive, AnimatorControllerParameterType parameterType)
         {
+            if (!EditorToolboxSettings.instance.fixStateMultipleEdit) return true;
             var controllerContext = StateEditorOnParametrizedValueGUIPatch.PI_controllerContext.GetValue(__instance) as AnimatorController;
             if (!controllerContext) return true;
 

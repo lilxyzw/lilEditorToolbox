@@ -137,6 +137,7 @@ namespace jp.lilxyzw.editortoolbox
         [HarmonyPrefix]
         private static void PrefixKeyboardHandling(object __instance)
         {
+            if (!EditorToolboxSettings.instance.addCopyAndPasteLayerMenu) return;
             var m_LayerList = LayerCloner.FI_m_LayerList.GetValue(__instance) as ReorderableList;
             if (!m_LayerList.HasKeyboardControl()) return;
 

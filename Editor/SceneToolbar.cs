@@ -45,7 +45,7 @@ namespace jp.lilxyzw.editortoolbox
             this.RegisterValueChangedCallback(e => {
                 EditorToolboxSettings.instance.enableMSAA = e.newValue;
                 foreach(var button in buttons) button.value = e.newValue;
-                EditorToolboxSettings.instance.Save();
+                EditorToolboxSettings.Save();
             });
             buttons.Add(this);
         }

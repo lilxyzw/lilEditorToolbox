@@ -46,6 +46,7 @@ namespace jp.lilxyzw.editortoolbox
         [HarmonyPrefix]
         private static void PrefixOnGUI(object __instance, ref Rect rect, int index)
         {
+            if (!EditorToolboxSettings.instance.extendAnimatorControllerParameterGUI) return;
             var type = AnimatorControllerParameterType.Float;
             if (__instance.GetType() == T_BoolElement) type = AnimatorControllerParameterType.Bool;
             else if (__instance.GetType() == T_IntElement) type = AnimatorControllerParameterType.Int;
@@ -73,6 +74,7 @@ namespace jp.lilxyzw.editortoolbox
         [HarmonyPatch(typeof(EditorGUI), "FloatField", new[] { typeof(Rect), typeof(float) }), HarmonyPrefix]
         private static void PrefixFloatField(float value)
         {
+            if (!EditorToolboxSettings.instance.extendAnimatorControllerParameterGUI) return;
             if (!CallerUtils.CallerIs(ElementPatch.T_FloatElement, 2)) return;
             EditorGUIWrap.kFloatFieldFormatString = (value == (int)value) ? "#####0.0#####" : "g7";
         }
@@ -80,6 +82,7 @@ namespace jp.lilxyzw.editortoolbox
         [HarmonyPatch(typeof(EditorGUI), "FloatField", new[] { typeof(Rect), typeof(float) }), HarmonyPostfix]
         private static void PostfixFloatField()
         {
+            if (!EditorToolboxSettings.instance.extendAnimatorControllerParameterGUI) return;
             EditorGUIWrap.kFloatFieldFormatString = "g7";
         }
     }

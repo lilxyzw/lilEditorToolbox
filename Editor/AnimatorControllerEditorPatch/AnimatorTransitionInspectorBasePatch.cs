@@ -39,6 +39,7 @@ namespace jp.lilxyzw.editortoolbox
         [HarmonyPostfix]
         private static void Postfix(object obj)
         {
+            if (!EditorToolboxSettings.instance.fixCopyInterruptionSettings) return;
             var transition = AnimatorTransitionInspectorBaseCopyTransitionParametersPatch.FI_transition.GetValue(obj) as AnimatorTransitionBase;
             
             using var so = new SerializedObject(transition);
@@ -51,7 +52,7 @@ namespace jp.lilxyzw.editortoolbox
         }
     }
 
-
+    // 遷移条件のGUIの修正
     [HarmonyPatch]
     internal class AnimatorTransitionInspectorBaseDrawConditionsElementPatch
     {
@@ -70,6 +71,7 @@ namespace jp.lilxyzw.editortoolbox
         [HarmonyPostfix]
         private static bool Prefix(object __instance, Rect rect, int index, bool selected, bool focused)
         {
+            if (!EditorToolboxSettings.instance.fixTransitionConditionGUI) return true;
             var m_Conditions = FI_m_Conditions.GetValue(__instance) as SerializedProperty;
             var m_Controller = FI_m_Controller.GetValue(__instance) as AnimatorController;
             if (m_Conditions == null || !m_Controller) return true;

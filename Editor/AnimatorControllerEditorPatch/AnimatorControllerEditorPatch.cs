@@ -75,7 +75,7 @@ namespace jp.lilxyzw.editortoolbox
             var menu = __instance as GenericMenu;
             var caller2 = CallerUtils.GetCaller(2);
             // Layerコピペ
-            if (caller2 == T_LayerControllerView)
+            if (EditorToolboxSettings.instance.addCopyAndPasteLayerMenu && caller2 == T_LayerControllerView)
             {
                 menu.AddItem(new GUIContent("Copy"), false, new GenericMenu.MenuFunction(LayerCloner.CopyLayer));
                 if (LayerCloner.layer != null) menu.AddItem(new GUIContent("Paste As New Layer"), false, new GenericMenu.MenuFunction(LayerCloner.PasteLayer));
@@ -86,7 +86,7 @@ namespace jp.lilxyzw.editortoolbox
             else if (caller2 == T_GraphGUI)
             {
                 // Transitionコピペ
-                if (Selection.objects.All(o => o is not AnimatorTransitionBase))
+                if (EditorToolboxSettings.instance.addCopyTransitionSettingsMenu && Selection.objects.All(o => o is not AnimatorTransitionBase))
                 {
                     menu.AddItem(new GUIContent("Copy Transition Settings"), false, new GenericMenu.MenuFunction(() => originalTransition = Selection.objects.First(o => o is AnimatorTransitionBase) as AnimatorTransitionBase));
                     if (originalTransition) menu.AddItem(new GUIContent("Paste Transition Settings"), false, new GenericMenu.MenuFunction(PasteTransitionSettings));
@@ -94,7 +94,7 @@ namespace jp.lilxyzw.editortoolbox
                 }
 
                 // Exitに入るTransition一括選択
-                if (Selection.activeObject && Selection.activeObject.GetType().FullName == "UnityEditor.Graphs.AnimationStateMachine.ExitNode")
+                if (EditorToolboxSettings.instance.addSelectInOutTransitionsMenu && Selection.activeObject && Selection.activeObject.GetType().FullName == "UnityEditor.Graphs.AnimationStateMachine.ExitNode")
                 {
                     var window = EditorWindow.focusedWindow;
                     if (window.GetType() != AnimatorControllerToolWrap.type) return;
@@ -104,7 +104,7 @@ namespace jp.lilxyzw.editortoolbox
             }
 
             // 通常のStateから出入りするTransition一括選択
-            else if (caller2 == T_StateNode)
+            else if (EditorToolboxSettings.instance.addSelectInOutTransitionsMenu && caller2 == T_StateNode)
             {
                 if (Selection.activeObject is AnimatorState state)
                 {
@@ -117,7 +117,7 @@ namespace jp.lilxyzw.editortoolbox
             }
 
             // AnyStateから出るTransition一括選択
-            else if (caller2 == T_AnyStateNode)
+            else if (EditorToolboxSettings.instance.addSelectInOutTransitionsMenu && caller2 == T_AnyStateNode)
             {
                 var window = EditorWindow.focusedWindow;
                 if (window.GetType() != AnimatorControllerToolWrap.type) return;
@@ -126,7 +126,7 @@ namespace jp.lilxyzw.editortoolbox
             }
 
             // Entryから出るTransition一括選択
-            else if (caller2 == T_EntryNode)
+            else if (EditorToolboxSettings.instance.addSelectInOutTransitionsMenu && caller2 == T_EntryNode)
             {
                 var window = EditorWindow.focusedWindow;
                 if (window.GetType() != AnimatorControllerToolWrap.type) return;
@@ -135,7 +135,7 @@ namespace jp.lilxyzw.editortoolbox
             }
 
             // Entryから出るTransition一括選択
-            else if (caller2 == T_StateMachineNode)
+            else if (EditorToolboxSettings.instance.addSelectInOutTransitionsMenu && caller2 == T_StateMachineNode)
             {
                 if (Selection.activeObject is AnimatorStateMachine machine)
                 {
@@ -149,7 +149,7 @@ namespace jp.lilxyzw.editortoolbox
             }
 
             // Parameterの参照元をチェックするウィンドウを表示
-            else if (caller2 == T_ParameterControllerView)
+            else if (EditorToolboxSettings.instance.addParameterReferencesMenu && caller2 == T_ParameterControllerView)
             {
                 menu.AddItem(new GUIContent("Show References"), false, new GenericMenu.MenuFunction(ParameterControllerViewPatch.ShowReferences));
             }

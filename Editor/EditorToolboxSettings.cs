@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using UnityEditor;
+using UnityEditorInternal;
 using UnityEngine;
 
 namespace jp.lilxyzw.editortoolbox
@@ -11,8 +13,7 @@ namespace jp.lilxyzw.editortoolbox
         "Settings",
         "Settings related to lilEditorToolbox. You can open it from `Edit/Preference/lilEditorToolbox` on the menu bar, where you can change the language and enable various functions."
     )]
-    [FilePath("jp.lilxyzw/editortoolbox.asset", FilePathAttribute.Location.PreferencesFolder)]
-    internal class EditorToolboxSettings : ScriptableSingleton<EditorToolboxSettings>
+    internal class EditorToolboxSettings : ScriptableObject
     {
         [Header("Language")]
         [Tooltip("The language setting for lilEditorToolbox. The language file exists in `jp.lilxyzw.editortoolbox/Editor/Localization`, and you can support other languages by creating a language file.")]
@@ -56,6 +57,23 @@ namespace jp.lilxyzw.editortoolbox
         [Tooltip("Change the default value of Can Transition Self when creating a new transition to off.")]
         [ToggleLeft] public bool defaultCanTransitionSelfOff = false;
 
+        [Tooltip("")]
+        [ToggleLeft] public bool extendAnimatorControllerParameterGUI = false;
+        [Tooltip("")]
+        [ToggleLeft] public bool addCopyAndPasteLayerMenu = false;
+        [Tooltip("")]
+        [ToggleLeft] public bool addCopyTransitionSettingsMenu = false;
+        [Tooltip("")]
+        [ToggleLeft] public bool addSelectInOutTransitionsMenu = false;
+        [Tooltip("")]
+        [ToggleLeft] public bool addParameterReferencesMenu = false;
+        [Tooltip("")]
+        [ToggleLeft] public bool fixCopyInterruptionSettings = false;
+        [Tooltip("")]
+        [ToggleLeft] public bool fixTransitionConditionGUI = false;
+        [Tooltip("")]
+        [ToggleLeft] public bool fixStateMultipleEdit = false;
+
         [L10nHeader("Hierarchy Extension", "You can display objects, components, tags, layers, etc. on the Hierarchy. You can also add your own extensions by implementing `IHierarchyExtensionConponent`. Please refer to the scripts under `Editor/HierarchyExtension/Components` for how to write them.")]
         [Tooltip("The width of the margin to avoid interfering with other Hierarchy extensions.")]
         public int hierarchySpacerWidth = 0;
@@ -87,7 +105,56 @@ namespace jp.lilxyzw.editortoolbox
         internal readonly Color lineColor = new Color(0.5f,0.5f,0.5f,0.5f);
         internal readonly Color backgroundHilightColor = new Color(1.0f,0.95f,0.5f,0.2f);
 
-        internal void Save() => Save(true);
+        private static EditorToolboxSettings s_Instance;
+        internal static EditorToolboxSettings instance
+        {
+            get
+            {
+                if (!s_Instance)
+                {
+                    InternalEditorUtility.LoadSerializedFileAndForget(GetFilePath());
+                    if (!s_Instance)
+                    {
+                        s_Instance = CreateInstance<EditorToolboxSettings>();
+                        s_Instance.hideFlags = HideFlags.DontSave | HideFlags.HideInHierarchy;
+                    }
+                }
+                return s_Instance;
+            }
+        }
+
+        internal static void SetReload()
+        {
+            if(File.Exists(GetFilePath())) s_Instance = null;
+        }
+
+        internal static void Save()
+        {
+            if (!s_Instance)
+            {
+                Debug.LogError("Cannot save ScriptableSingleton: no instance!");
+                return;
+            }
+
+            var filePath = GetFilePath();
+            var directoryName = Path.GetDirectoryName(filePath);
+            if (!Directory.Exists(directoryName))
+                Directory.CreateDirectory(directoryName);
+
+            InternalEditorUtility.SaveToSerializedFileAndForget(new[]{ s_Instance }, filePath, true);
+        }
+
+        private EditorToolboxSettings()
+        {
+            if (!s_Instance) s_Instance = this;
+        }
+
+        private static string GetFilePath()
+        {
+            if(string.IsNullOrEmpty(EditorToolboxSettingsProject.instance.settingPreset))
+                return InternalEditorUtility.unityPreferencesFolder + "/jp.lilxyzw/editortoolbox.asset";
+            return InternalEditorUtility.unityPreferencesFolder + "/jp.lilxyzw/editortoolbox_" + EditorToolboxSettingsProject.instance.settingPreset + ".asset";
+        }
     }
 
     [Flags]
@@ -103,34 +170,109 @@ namespace jp.lilxyzw.editortoolbox
     public class EditorToolboxSettingsEditor : Editor
     {
         public static Action update;
+        private static SerializedObject serializedObjectProject;
+        private static new SerializedObject serializedObject;
+        private static string[] settingPresets;
+
+        private class SettingPresetWIndow : PopupWindowContent
+        {
+            private string settingNewPreset;
+
+            public override Vector2 GetWindowSize()
+            {
+                return new Vector2(400, 20);
+            }
+
+            public override void OnGUI(Rect rect)
+            {
+                EditorGUILayout.BeginHorizontal();
+                settingNewPreset = L10n.TextField("New Preset", settingNewPreset);
+                if (L10n.ButtonLimited("Add"))
+                {
+                    settingPresets = null;
+                    var invalidChars = Path.GetInvalidFileNameChars();
+                    serializedObjectProject.FindProperty("settingPreset").stringValue = string.Concat(settingNewPreset.Where(c => !invalidChars.Contains(c)));
+                    serializedObjectProject.ApplyModifiedProperties();
+                    EditorToolboxSettingsProject.Save();
+                    EditorToolboxSettings.SetReload();
+                    EditorToolboxSettings.Save();
+                    serializedObject = null;
+                    Reload();
+                    editorWindow.Close();
+                }
+                EditorGUILayout.EndHorizontal();
+            }
+        }
 
         public override void OnInspectorGUI()
         {
-            if(L10n.ButtonLimited("Open preference folder"))
+            // プロジェクトごとの設定
+            EditorGUILayout.Space();
+            L10n.LabelField("Project Settings", EditorStyles.boldLabel);
+            if (serializedObjectProject == null) serializedObjectProject = new(EditorToolboxSettingsProject.instance);
+            serializedObjectProject.UpdateIfRequiredOrScript();
+            var iteratorProject = serializedObjectProject.GetIterator();
+            iteratorProject.NextVisible(true); // m_Script
+            while (iteratorProject.NextVisible(false))
             {
-                System.Diagnostics.Process.Start(UnityEditorInternal.InternalEditorUtility.unityPreferencesFolder + "/jp.lilxyzw");
+                if (iteratorProject.name == "settingPreset")
+                {
+                    EditorGUI.BeginChangeCheck();
+                    settingPresets ??= new[] { "(Default)" }.Union(Directory.GetFiles(InternalEditorUtility.unityPreferencesFolder + "/jp.lilxyzw")
+                        .Select(p => Path.GetFileNameWithoutExtension(p))
+                        .Where(f => f.StartsWith("editortoolbox_"))
+                        .Select(f => f.Substring("editortoolbox_".Length))).Union(new[] { L10n.L("New Preset") }).ToArray();
+                    var id = Array.IndexOf(settingPresets, iteratorProject.stringValue);
+                    if (string.IsNullOrEmpty(iteratorProject.stringValue)) id = 0;
+                    id = EditorGUILayout.Popup(L10n.G(iteratorProject.displayName, iteratorProject.tooltip), id, settingPresets);
+                    if (EditorGUI.EndChangeCheck() && id != -1)
+                    {
+                        if (id == settingPresets.Length - 1) PopupWindow.Show(GUILayoutUtility.GetLastRect(), new SettingPresetWIndow());
+                        else iteratorProject.stringValue = id == 0 ? "" : settingPresets[id];
+                    }
+
+                }
+                else
+                {
+                    L10n.PropertyField(iteratorProject);
+                }
             }
 
+            if (serializedObjectProject.ApplyModifiedProperties())
+            {
+                EditorToolboxSettingsProject.Save();
+                EditorToolboxSettings.SetReload();
+                serializedObject = null;
+                Reload();
+            }
+
+            if (L10n.ButtonLimited("Open preference folder"))
+            {
+                System.Diagnostics.Process.Start(InternalEditorUtility.unityPreferencesFolder + "/jp.lilxyzw");
+            }
+
+            // 共通設定
+            if (serializedObject == null) serializedObject = new(EditorToolboxSettings.instance);
             EditorGUI.BeginChangeCheck();
             serializedObject.UpdateIfRequiredOrScript();
-            SerializedProperty iterator = serializedObject.GetIterator();
+            var iterator = serializedObject.GetIterator();
             iterator.NextVisible(true); // m_Script
             void StringListAsToggle((string[] key, string fullname)[] names)
             {
                 EditorGUILayout.BeginVertical(EditorStyles.helpBox);
                 var vals = Enumerable.Range(0, iterator.arraySize).Select(i => iterator.GetArrayElementAtIndex(i).stringValue).ToList();
-                foreach(var name in names)
+                foreach (var name in names)
                 {
                     var contains = vals.Contains(name.fullname);
                     string label = L10n.L(name.key[0]);
-                    if(!name.fullname.StartsWith("jp.lilxyzw.editortoolbox")) label = $"{label} ({name.fullname})";
+                    if (!name.fullname.StartsWith("jp.lilxyzw.editortoolbox")) label = $"{label} ({name.fullname})";
                     var toggle = EditorGUILayout.ToggleLeft(L10n.G(label, name.key[1]), contains);
-                    if(contains != toggle)
+                    if (contains != toggle)
                     {
-                        if(toggle)
+                        if (toggle)
                         {
                             iterator.InsertArrayElementAtIndex(iterator.arraySize);
-                            iterator.GetArrayElementAtIndex(iterator.arraySize-1).stringValue = name.fullname;
+                            iterator.GetArrayElementAtIndex(iterator.arraySize - 1).stringValue = name.fullname;
                         }
                         else
                         {
@@ -141,26 +283,26 @@ namespace jp.lilxyzw.editortoolbox
                 EditorGUILayout.EndVertical();
             }
 
-            while(iterator.NextVisible(false))
+            while (iterator.NextVisible(false))
             {
-                if(iterator.name == "hierarchyComponents")
+                if (iterator.name == "hierarchyComponents")
                 {
                     EditorGUILayout.Space();
                     StringListAsToggle(HierarchyExtension.names);
                 }
-                else if(iterator.name == "projectComponents")
+                else if (iterator.name == "projectComponents")
                 {
                     EditorGUILayout.Space();
                     L10n.LabelField("Project Extension", EditorStyles.boldLabel);
                     StringListAsToggle(ProjectExtension.names);
                 }
-                else if(iterator.name == "toolbarComponents")
+                else if (iterator.name == "toolbarComponents")
                 {
                     EditorGUILayout.Space();
                     L10n.LabelField("Toolbar Extension", EditorStyles.boldLabel);
                     StringListAsToggle(ToolbarExtension.names);
                 }
-                else if(iterator.name == "language")
+                else if (iterator.name == "language")
                 {
                     EditorGUILayout.Space();
                     EditorGUILayout.LabelField("Language", EditorStyles.boldLabel);
@@ -169,7 +311,7 @@ namespace jp.lilxyzw.editortoolbox
                     var names = L10n.GetLanguageNames();
                     EditorGUI.BeginChangeCheck();
                     var ind = EditorGUILayout.Popup("Language", Array.IndexOf(langs, iterator.stringValue), names);
-                    if(EditorGUI.EndChangeCheck()) iterator.stringValue = langs[ind];
+                    if (EditorGUI.EndChangeCheck()) iterator.stringValue = langs[ind];
                 }
                 else
                 {
@@ -177,15 +319,20 @@ namespace jp.lilxyzw.editortoolbox
                 }
             }
 
-            if(EditorGUI.EndChangeCheck())
+            if (EditorGUI.EndChangeCheck())
             {
                 serializedObject.ApplyModifiedProperties();
                 L10n.Load();
-                EditorToolboxSettings.instance.Save();
-                EditorApplication.RepaintHierarchyWindow();
-                EditorApplication.RepaintProjectWindow();
-                update.Invoke();
+                EditorToolboxSettings.Save();
+                Reload();
             }
+        }
+
+        private static void Reload()
+        {
+            EditorApplication.RepaintHierarchyWindow();
+            EditorApplication.RepaintProjectWindow();
+            update.Invoke();
         }
     }
 

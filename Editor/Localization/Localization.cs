@@ -51,8 +51,8 @@ namespace jp.lilxyzw.editortoolbox
 
         private static GUIContent G(string key, Texture image, string tooltip)
         {
-            if(!instance.localizationAsset) Load();
-            if(guicontents.TryGetValue(key, out var content)) return content;
+            if (!instance.localizationAsset) Load();
+            if (guicontents.TryGetValue(key, out var content)) return content;
             return guicontents[key] = new GUIContent(L(key), image, L(tooltip));
         }
     }

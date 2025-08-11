@@ -55,7 +55,6 @@ namespace jp.lilxyzw.editortoolbox
             if(EditorToolboxSettings.instance.defaultHasExitTimeOff) __result.hasExitTime = false;
             if(EditorToolboxSettings.instance.defaultExitTime1) __result.exitTime = 1;
             if(EditorToolboxSettings.instance.defaultDuration0) __result.duration = 0;
-            if(EditorToolboxSettings.instance.defaultCanTransitionSelfOff) __result.canTransitionToSelf = false;
         }
 
         [HarmonyPatch(typeof(AnimatorStateMachine), "AddAnyStateTransition", new[] { typeof(AnimatorState) }), HarmonyPostfix]

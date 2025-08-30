@@ -84,7 +84,7 @@ namespace jp.lilxyzw.editortoolbox
             using var m_ConditionEvent = element.FindPropertyRelative("m_ConditionEvent");
             var parameters = m_Controller.parameters;
             var parameterNames = parameters.Select(p => p.name).ToList();
-            var parameterType = parameters.FirstOrDefault(p => p.name == m_ConditionEvent.stringValue).type;
+            var parameterType = parameters.FirstOrDefault(p => p.name == m_ConditionEvent.stringValue)?.type;
 
             // パラメーター選択
             var paramIndex = parameterNames.IndexOf(m_ConditionEvent.stringValue);
@@ -97,7 +97,7 @@ namespace jp.lilxyzw.editortoolbox
             // パラメーターの型が変わった場合に条件設定
             using var m_ConditionMode = element.FindPropertyRelative("m_ConditionMode");
             using var m_EventTreshold = element.FindPropertyRelative("m_EventTreshold");
-            var newParamType = parameters.FirstOrDefault(p => p.name == m_ConditionEvent.stringValue).type;
+            var newParamType = parameters.FirstOrDefault(p => p.name == m_ConditionEvent.stringValue)?.type;
             if (parameterType != newParamType)
             {
                 switch (newParamType)

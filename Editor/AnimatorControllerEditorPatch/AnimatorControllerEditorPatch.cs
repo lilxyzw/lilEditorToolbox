@@ -85,7 +85,7 @@ namespace jp.lilxyzw.editortoolbox
             else if (caller2 == T_GraphGUI)
             {
                 // Transitionコピペ
-                if (EditorToolboxSettings.instance.addCopyTransitionSettingsMenu && Selection.objects.All(o => o is not AnimatorTransitionBase))
+                if (EditorToolboxSettings.instance.addCopyTransitionSettingsMenu && Selection.objects.Any(o => o is AnimatorTransitionBase))
                 {
                     menu.AddItem(new GUIContent("Copy Transition Settings"), false, new GenericMenu.MenuFunction(() => originalTransition = Selection.objects.First(o => o is AnimatorTransitionBase) as AnimatorTransitionBase));
                     if (originalTransition) menu.AddItem(new GUIContent("Paste Transition Settings"), false, new GenericMenu.MenuFunction(PasteTransitionSettings));

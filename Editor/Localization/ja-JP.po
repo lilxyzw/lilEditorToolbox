@@ -270,6 +270,9 @@ msgstr "入出トランジション一括選択メニューを追加"
 msgid "Add Parameter References Menu"
 msgstr "パラメーター参照表示メニューを追加"
 
+msgid "Make Transition With Double Click"
+msgstr "ダブルクリックでトランジションを作成"
+
 msgid "Fix Copy Interruption Settings"
 msgstr "Interruption設定がコピーされるように"
 

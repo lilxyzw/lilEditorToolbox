@@ -68,6 +68,8 @@ namespace jp.lilxyzw.editortoolbox
         [Tooltip("")]
         [ToggleLeft] public bool addParameterReferencesMenu = false;
         [Tooltip("")]
+        [ToggleLeft] public bool makeTransitionWithDoubleClick = false;
+        [Tooltip("")]
         [ToggleLeft] public bool fixCopyInterruptionSettings = false;
         [Tooltip("")]
         [ToggleLeft] public bool fixTransitionConditionGUI = false;

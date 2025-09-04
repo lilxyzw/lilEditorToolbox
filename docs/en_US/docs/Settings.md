@@ -17,6 +17,7 @@ Settings related to lilEditorToolbox. You can open it from `Edit/Preference/lilE
 |Drag And Drop Overwrite|When importing assets via D&D, if there is a file with the same name at the same level, it will be overwritten by the import.|
 |Cancel Unitypackage Overwrite In Packages|Prevents unitypackage from overwriting assets under Packages.|
 |Do Not Add Variant To The End Of Prefab Name|Do not add "Variant" to the end of the name when creating a Prefab Variant.|
+|Add Unitypackage Directory Selection Menu|Add a button to change the import directory in the unitypackage import window.|
 
 ## Texture Import
 
@@ -38,12 +39,21 @@ Settings related to lilEditorToolbox. You can open it from `Edit/Preference/lilE
 
 |Name|Description|
 |-|-|
-|Default Layer Weight1|Changed the default Layer Weight value to 1 when creating a new layer.|
+|Default Layer Weight 1|Change the default Layer Weight value to 1 when creating a new layer.|
 |Default Write Defaults Off|Change the default value of Write Defaults when creating a new state to off.|
 |Default Has Exit Time Off|Change the default value of Has Exit Time when creating a new transition to off.|
-|Default Exit Time1|Change the default value of Exit Time when creating a new transition to 1.|
-|Default Duration0|Change the default value of Duration when creating a new transition to 0.|
+|Default Exit Time 1|Change the default value of Exit Time when creating a new transition to 1.|
+|Default Duration 0|Change the default value of Duration when creating a new transition to 0.|
 |Default Can Transition Self Off|Change the default value of Can Transition Self when creating a new transition to off.|
+|Extend Animator Controller Parameter GUI|The Animator Controller parameter type has been expanded to allow it to be changed, and a decimal point will be displayed if the type is Float, making it easier to distinguish from Int types.|
+|Add Copy And Paste Layer Menu|Add copy and paste to the right-click menu of the Animator Controller layer.|
+|Add Copy Transition Settings Menu|Add copy and paste settings to the transition right-click menu.|
+|Add Select In Out Transitions Menu|Add a bulk selection menu for entering and exiting transitions to the state right-click menu.|
+|Add Parameter References Menu|Add a menu to the right-click menu of parameters that displays the referenced transition state.|
+|Make Transition With Double Click|Make transition when you double-click a state.|
+|Fix Copy Interruption Settings|Fix a Unity bug where transition Interruption settings were not copied.|
+|Fix Transition Condition GUI|When changing a parameter in the transition condition settings, if the destination is an Int type, the default value will be Equals.|
+|Fix State Multiple Edit|Fix a Unity bug that caused some properties to be overwritten when editing multiple states at the same time.|
 
 ## Hierarchy Extension
 

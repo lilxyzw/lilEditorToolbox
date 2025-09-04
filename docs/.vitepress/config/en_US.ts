@@ -18,6 +18,7 @@ export const en_US = defineConfig({
         collapsed: false,
         items: [
           { text: 'Settings', link: langName + '/docs/Settings' },
+          { text: 'AnimatorController related extension menu', link: langName + '/docs/AnimatorControllerEditorMenu' },
           { text: 'Missing Asset Identification Tool', link: langName + '/docs/Grimoire' },
           { text: 'Save changes in PlayMode', link: langName + '/docs/PlayModeSaver' },
           { text: 'Scene View Extensions', link: langName + '/docs/SceneExtension' },

@@ -5,6 +5,7 @@ This is the documentation page for lilEditorToolbox.
 <div class="table-of-contents">
     <ul>
     <li><a href="./Settings">Settings</a></li>
+    <li><a href="./AnimatorControllerEditorMenu">AnimatorController related extension menu</a></li>
     <li><a href="./Grimoire">Missing Asset Identification Tool</a></li>
     <li><a href="./PlayModeSaver">Save changes in PlayMode</a></li>
     <li><a href="./SceneExtension">Scene View Extensions</a></li>

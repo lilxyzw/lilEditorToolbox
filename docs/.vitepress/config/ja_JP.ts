@@ -18,6 +18,7 @@ export const ja_JP = defineConfig({
         collapsed: false,
         items: [
           { text: '設定', link: langName + '/docs/Settings' },
+          { text: 'AnimatorController related extension menu', link: langName + '/docs/AnimatorControllerEditorMenu' },
           { text: '不足アセット特定ツール', link: langName + '/docs/Grimoire' },
           { text: 'PlayModeでの変更を保存', link: langName + '/docs/PlayModeSaver' },
           { text: 'Scene View拡張', link: langName + '/docs/SceneExtension' },

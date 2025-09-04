@@ -258,29 +258,56 @@ msgstr "新規トランジション作成時のCan Transition Selfのデフォ�
 msgid "Extend Animator Controller Parameter GUI"
 msgstr "アニメーターコントローラーのパラメーター編集の拡張"
 
+msgid "The Animator Controller parameter type has been expanded to allow it to be changed, and a decimal point will be displayed if the type is Float, making it easier to distinguish from Int types."
+msgstr "アニメーターコントローラーのパラメーターの型の変更を可能にし、型がFloatの場合は小数点を表示しInt型と区別しやすくします。"
+
 msgid "Add Copy And Paste Layer Menu"
 msgstr "レイヤーのコピーアンドペーストメニューを追加"
+
+msgid "Add copy and paste to the right-click menu of the Animator Controller layer."
+msgstr "アニメーターコントローラーのレイヤーの右クリックメニューにコピー、ペーストを追加します。"
 
 msgid "Add Copy Transition Settings Menu"
 msgstr "トランジションの設定コピーメニューを追加"
 
+msgid "Add copy and paste settings to the transition right-click menu."
+msgstr "トランジションの右クリックメニューに設定のコピー、ペーストを追加します。"
+
 msgid "Add Select In Out Transitions Menu"
 msgstr "入出トランジション一括選択メニューを追加"
+
+msgid "Add a bulk selection menu for entering and exiting transitions to the state right-click menu."
+msgstr "ステートの右クリックメニューに入出トランジションの一括選択メニューを追加します。"
 
 msgid "Add Parameter References Menu"
 msgstr "パラメーター参照表示メニューを追加"
 
+msgid "Add a menu to the right-click menu of parameters that displays the referenced transition state."
+msgstr "パラメーターの右クリックメニューに参照しているトランジション・ステートを表示するメニューを追加します。"
+
 msgid "Make Transition With Double Click"
 msgstr "ダブルクリックでトランジションを作成"
+
+msgid "Make transition when you double-click a state."
+msgstr "ステートをダブルクリックした際にトランジションを作成します。"
 
 msgid "Fix Copy Interruption Settings"
 msgstr "Interruption設定がコピーされるように"
 
+msgid "Fix a Unity bug where transition Interruption settings were not copied."
+msgstr "トランジションのInterruption設定がコピーされないUnityの不具合を修正します。"
+
 msgid "Fix Transition Condition GUI"
 msgstr "トランジションの条件設定GUIの修正"
 
+msgid "When changing a parameter in the transition condition settings, if the destination is an Int type, the default value will be Equals."
+msgstr "トランジションの条件設定でパラメーター変更時に変更先がInt型であればEqualsを初期値にします。"
+
 msgid "Fix State Multiple Edit"
 msgstr "ステート同時編集の修正"
+
+msgid "Fix a Unity bug that caused some properties to be overwritten when editing multiple states at the same time."
+msgstr "ステート同時編集時に一部プロパティが上書きされてしまうUnityのバグを修正します。"
 
 
 

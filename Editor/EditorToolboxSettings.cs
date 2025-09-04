@@ -57,23 +57,23 @@ namespace jp.lilxyzw.editortoolbox
         [Tooltip("Change the default value of Can Transition Self when creating a new transition to off.")]
         [ToggleLeft] public bool defaultCanTransitionSelfOff = false;
 
-        [Tooltip("")]
+        [Tooltip("The Animator Controller parameter type has been expanded to allow it to be changed, and a decimal point will be displayed if the type is Float, making it easier to distinguish from Int types.")]
         [ToggleLeft] public bool extendAnimatorControllerParameterGUI = false;
-        [Tooltip("")]
+        [Tooltip("Add copy and paste to the right-click menu of the Animator Controller layer.")]
         [ToggleLeft] public bool addCopyAndPasteLayerMenu = false;
-        [Tooltip("")]
+        [Tooltip("Add copy and paste settings to the transition right-click menu.")]
         [ToggleLeft] public bool addCopyTransitionSettingsMenu = false;
-        [Tooltip("")]
+        [Tooltip("Add a bulk selection menu for entering and exiting transitions to the state right-click menu.")]
         [ToggleLeft] public bool addSelectInOutTransitionsMenu = false;
-        [Tooltip("")]
+        [Tooltip("Add a menu to the right-click menu of parameters that displays the referenced transition state.")]
         [ToggleLeft] public bool addParameterReferencesMenu = false;
-        [Tooltip("")]
+        [Tooltip("Make transition when you double-click a state.")]
         [ToggleLeft] public bool makeTransitionWithDoubleClick = false;
-        [Tooltip("")]
+        [Tooltip("Fix a Unity bug where transition Interruption settings were not copied.")]
         [ToggleLeft] public bool fixCopyInterruptionSettings = false;
-        [Tooltip("")]
+        [Tooltip("When changing a parameter in the transition condition settings, if the destination is an Int type, the default value will be Equals.")]
         [ToggleLeft] public bool fixTransitionConditionGUI = false;
-        [Tooltip("")]
+        [Tooltip("Fix a Unity bug that caused some properties to be overwritten when editing multiple states at the same time.")]
         [ToggleLeft] public bool fixStateMultipleEdit = false;
 
         [L10nHeader("Hierarchy Extension", "You can display objects, components, tags, layers, etc. on the Hierarchy. You can also add your own extensions by implementing `IHierarchyExtensionConponent`. Please refer to the scripts under `Editor/HierarchyExtension/Components` for how to write them.")]

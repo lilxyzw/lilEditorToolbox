@@ -1,8 +1,8 @@
 using System;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 
 using System.Runtime.CompilerServices;
 [assembly:InternalsVisibleTo("jp.lilxyzw.editortoolbox")]
@@ -125,7 +125,7 @@ namespace jp.lilxyzw.editortoolbox
 
         private static string ToDisplayName(this string name)
         {
-            name = string.Concat(name.Select(c => char.IsUpper(c) ? " "+c : c.ToString())).Trim();
+            name = Regex.Replace(name, "([A-Z]+|[0-9]+)", " $1");
             return char.ToUpper(name[0]) + name[1..];
         }
     }

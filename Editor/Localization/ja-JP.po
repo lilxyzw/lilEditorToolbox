@@ -100,6 +100,27 @@ msgstr "lilEditorToolboxのドキュメントページです。"
 
 
 
+#: AnimatorControllerEditorPatch/AnimatorControllerEditorMenu.cs
+
+msgid "AnimatorController related extension menus"
+msgstr "AnimatorController関係の拡張メニュー"
+
+msgid "These are some additional menus related to the AnimatorController."
+msgstr "これらはAnimatorControllerに関連したいくつかの追加メニューです。"
+
+msgid "Detect and remove unnecessary sub-assets contained in AnimatorController."
+msgstr "AnimatorControllerに含まれる不要なサブアセットを検出して除去します。"
+
+msgid "## Copy and paste menu for StateMachineBehavior"
+msgstr "## StateMachineBehaviourのコピーアンドペーストメニュー"
+
+msgid "StateMachineBehaviour can be copied and pasted just like a component."
+msgstr "StateMachineBehaviourをコンポーネント同様にコピーアンドペースト可能にします。"
+
+msgid "Allows you to create BlendTree like any other asset."
+msgstr "BlendTreeを他のアセット同様に作成可能にします。"
+
+
 
 #: AssetGrimoire/Grimoire.cs
 

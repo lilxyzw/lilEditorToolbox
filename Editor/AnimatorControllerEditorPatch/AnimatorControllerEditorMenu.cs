@@ -5,6 +5,22 @@ using UnityEngine;
 
 namespace jp.lilxyzw.editortoolbox
 {
+    [Docs(
+        "AnimatorController related extension menu",
+        "These are some additional menus related to the AnimatorController.",
+        "",
+        "## Tools/lilEditorToolbox/Cleanup Animator Controller",
+        "",
+        "Detect and remove unnecessary sub-assets contained in AnimatorController.",
+        "",
+        "## Copy and paste menu for StateMachineBehavior",
+        "",
+        "StateMachineBehaviour can be copied and pasted just like a component.",
+        "",
+        "## Assets/Create/BlendTree",
+        "",
+        "Allows you to create BlendTree like any other asset."
+    )]
     internal class AnimatorControllerEditorMenu
     {
         [MenuItem(Common.MENU_HEAD + "Cleanup Animator Controller")]

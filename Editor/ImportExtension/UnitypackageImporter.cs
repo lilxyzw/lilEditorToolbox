@@ -66,10 +66,10 @@ namespace jp.lilxyzw.editortoolbox
                 }
             }
 
-            // 既存アセットの場所を表示
             if(window.ShowTreeGUI(m_ImportPackageItems))
             {
-                if(string.IsNullOrEmpty(lastProjectPath) || !lastProjectPath.StartsWith("Assets/")) yield break;
+                // インポート先の変更
+                if(!EditorToolboxSettings.instance.addUnitypackageDirectorySelectionMenu || string.IsNullOrEmpty(lastProjectPath) || !lastProjectPath.StartsWith("Assets/")) yield break;
                 var path = lastProjectPath;
                 var origins = new Dictionary<object, string>();
                 var root = new VisualElement();
@@ -107,6 +107,7 @@ namespace jp.lilxyzw.editortoolbox
             }
             else
             {
+                // 既存アセットの場所を表示
                 var button = new Button(){text = L10n.L("Show Import Window")};
                 button.style.marginTop = 36;
                 button.style.width = Common.GetTextWidth(button.text) + 32;

@@ -26,6 +26,8 @@ namespace jp.lilxyzw.editortoolbox
         [ToggleLeft] public bool cancelUnitypackageOverwriteInPackages = false;
         [Tooltip("Do not add \"Variant\" to the end of the name when creating a Prefab Variant.")]
         [ToggleLeft] public bool doNotAddVariantToTheEndOfPrefabName = false;
+        [Tooltip("Add a button to change the import directory in the unitypackage import window.")]
+        [ToggleLeft] public bool addUnitypackageDirectorySelectionMenu = false;
 
         [L10nHeader("Texture Import")]
         [Tooltip("Automatically turn off Crunch Compression when importing textures to speed up imports.")]

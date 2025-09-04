@@ -203,14 +203,90 @@ msgstr "設定ファイルの保存先を表示"
 msgid "The language setting for lilEditorToolbox. The language file exists in `jp.lilxyzw.editortoolbox/Editor/Localization`, and you can support other languages by creating a language file."
 msgstr "lilEditorToolboxの設定言語です。言語ファイルは`jp.lilxyzw.editortoolbox/Editor/Localization`に存在し、言語ファイルを作成することで他の言語にも対応できます。"
 
+
+
+#: EditorToolboxSettings.cs/AssetImport
+
 msgid "Asset Import"
 msgstr "アセットインポート"
+
+msgid "Drag And Drop Overwrite"
+msgstr "ドラッグ＆ドロップで自動上書き"
+
+msgid "When importing assets via D&D, if there is a file with the same name at the same level, it will be overwritten by the import."
+msgstr "アセットをD&Dでインポートしたとき、同一階層に同名のファイルがある場合上書きインポートします。"
+
+msgid "Cancel Unitypackage Overwrite In Packages"
+msgstr "unitypackageインポート時にPackages配下のアセットの上書きを防止"
+
+msgid "Prevents unitypackage from overwriting assets under Packages."
+msgstr "unitypackageでPackages配下のアセットの上書きするのを防止します。"
+
+msgid "Do Not Add Variant To The End Of Prefab Name"
+msgstr "Prefab名の末尾に\"Variant\"を追加しない"
+
+msgid "Do not add \"Variant\" to the end of the name when creating a Prefab Variant."
+msgstr "Prefab Variant作成時に名前の末尾に\"Variant\"を追加しないようにします。"
+
+msgid "Add Unitypackage Directory Selection Menu"
+msgstr "unitypackageインポート先変更メニューを追加"
+
+msgid "Add a button to change the import directory in the unitypackage import window."
+msgstr "unitypackageのインポートウィンドウにインポート先を変更できるボタンを追加します。"
+
+
+
+#: EditorToolboxSettings.cs/TextureImport
 
 msgid "Texture Import"
 msgstr "テクスチャインポート"
 
+msgid "Turn Off Crunch Compression"
+msgstr "Crunch Compressionを自動オフ"
+
+msgid "Automatically turn off Crunch Compression when importing textures to speed up imports."
+msgstr "テクスチャインポート時に`Crunch Compression`を自動でオフにしてインポートを高速化します。"
+
+msgid "Turn On Streaming Mipmaps"
+msgstr "Streaming Mipmapsを自動オン"
+
+msgid "Automatically turn on `Streaming Mipmaps` when importing textures."
+msgstr "テクスチャインポート時に`Streaming Mipmaps`を自動でオンにします。"
+
+msgid "Change To Kaiser Mipmaps"
+msgstr "Kaiser Mipmapsに自動変更"
+
+msgid "Automatically change to `Kaiser` when importing texture."
+msgstr "テクスチャインポート時に`Kaiser`に自動で変更します。"
+
+
+
+#: EditorToolboxSettings.cs/ModelImport
+
 msgid "Model Import"
 msgstr "モデルインポート"
+
+msgid "Turn On Readable"
+msgstr "Readableを自動オン"
+
+msgid "Automatically turn on `Readable` when importing a model."
+msgstr "モデルインポート時に`Readable`を自動でオンにします。"
+
+msgid "Fix Blendshapes"
+msgstr "Blendshapes設定を自動修正"
+
+msgid "Turn off `Legacy Blend Shape Normals` when importing a model to turn off automatic recalculation of BlendShape normals."
+msgstr "モデルインポート時に`Legacy Blend Shape Normals`をオフにし、BlendShapeの法線の自動再計算をオフにします。"
+
+msgid "Remove Jaw"
+msgstr "HumanoidからJawを自動削除"
+
+msgid "When importing a model, if a bone that does not contain `jaw` (case insensitive) in the bone name is assigned to the Humanoid Jaw, it will be automatically unassigned."
+msgstr "モデルインポート時にボーン名に`jaw`（大文字小文字区別せず）が含まれていないボーンがHumanoidのJawに割り当てられている場合、自動で割り当てを外します。"
+
+
+
+#: EditorToolboxSettings.cs/AnimatorControllerEditor
 
 msgid "Animator Controller Editor"
 msgstr "アニメーターコントローラーエディタ"
@@ -250,10 +326,6 @@ msgstr "Can Transition Selfをデフォルトでオフに"
 
 msgid "Change the default value of Can Transition Self when creating a new transition to off."
 msgstr "新規トランジション作成時のCan Transition Selfのデフォルト値をオフに変更します。"
-
-
-
-
 
 msgid "Extend Animator Controller Parameter GUI"
 msgstr "アニメーターコントローラーのパラメーター編集の拡張"
@@ -311,101 +383,13 @@ msgstr "ステート同時編集時に一部プロパティが上書きされて
 
 
 
-
+#: EditorToolboxSettings.cs/HierarchyExtension
 
 msgid "Hierarchy Extension"
 msgstr "ヒエラルキーウィンドウ拡張"
 
 msgid "You can display objects, components, tags, layers, etc. on the Hierarchy. You can also add your own extensions by implementing `IHierarchyExtensionConponent`. Please refer to the scripts under `Editor/HierarchyExtension/Components` for how to write them."
 msgstr "Hierarchy上にオブジェクトのオンオフ、コンポーネント、タグ、レイヤーなどを表示できます。`IHierarchyExtensionConponent`を実装することで独自に拡張を追加することもできます。書き方は`Editor/HierarchyExtension/Components`配下のスクリプトを参考にしてください。"
-
-msgid "Project Extension"
-msgstr "プロジェクトウィンドウ拡張"
-
-msgid "You can display extensions and prefab information on the project. You can also add your own extensions by implementing `IProjectExtensionConponent`. Please refer to the script under `Editor/ProjectExtension/Components` for how to write it."
-msgstr "Project上に拡張子やprefabの情報などを表示できます。`IProjectExtensionConponent`を実装することで独自に拡張を追加することもできます。書き方は`Editor/ProjectExtension/Components`配下のスクリプトを参考にしてください。"
-
-msgid "Toolbar Extension"
-msgstr "ツールバー拡張"
-
-msgid "You can display an assembly lock button or an extension inspector tab on the Toolbar. You can also add your own extension by implementing `IToolbarExtensionComponent`. Please refer to the script under `Editor/ToolbarExtension/Components` for how to write it."
-msgstr "Toolbar上にアセンブリのロックボタンや拡張インスペクターのタブを開くボタンを表示できます。`IToolbarExtensionConponent`を実装することで独自に拡張を追加することもできます。書き方は`Editor/ToolbarExtension/Components`配下のスクリプトを参考にしてください。"
-
-msgid "Drag And Drop Overwrite"
-msgstr "ドラッグ＆ドロップで自動上書き"
-
-msgid "When importing assets via D&D, if there is a file with the same name at the same level, it will be overwritten by the import."
-msgstr "アセットをD&Dでインポートしたとき、同一階層に同名のファイルがある場合上書きインポートします。"
-
-msgid "Cancel Unitypackage Overwrite In Packages"
-msgstr "unitypackageインポート時にPackages配下のアセットの上書きを防止"
-
-msgid "Prevents unitypackage from overwriting assets under Packages."
-msgstr "unitypackageでPackages配下のアセットの上書きするのを防止します。"
-
-msgid "Do Not Add Variant To The End Of Prefab Name"
-msgstr "Prefab名の末尾に\"Variant\"を追加しない"
-
-msgid "Do not add \"Variant\" to the end of the name when creating a Prefab Variant."
-msgstr "Prefab Variant作成時に名前の末尾に\"Variant\"を追加しないようにします。"
-
-msgid "Turn Off Crunch Compression"
-msgstr "Crunch Compressionを自動オフ"
-
-msgid "Automatically turn off Crunch Compression when importing textures to speed up imports."
-msgstr "テクスチャインポート時に`Crunch Compression`を自動でオフにしてインポートを高速化します。"
-
-msgid "Turn On Streaming Mipmaps"
-msgstr "Streaming Mipmapsを自動オン"
-
-msgid "Automatically turn on `Streaming Mipmaps` when importing textures."
-msgstr "テクスチャインポート時に`Streaming Mipmaps`を自動でオンにします。"
-
-msgid "Change To Kaiser Mipmaps"
-msgstr "Kaiser Mipmapsに自動変更"
-
-msgid "Automatically change to `Kaiser` when importing texture."
-msgstr "テクスチャインポート時に`Kaiser`に自動で変更します。"
-
-msgid "Turn On Readable"
-msgstr "Readableを自動オン"
-
-msgid "Automatically turn on `Readable` when importing a model."
-msgstr "モデルインポート時に`Readable`を自動でオンにします。"
-
-msgid "Fix Blendshapes"
-msgstr "Blendshapes設定を自動修正"
-
-msgid "Turn off `Legacy Blend Shape Normals` when importing a model to turn off automatic recalculation of BlendShape normals."
-msgstr "モデルインポート時に`Legacy Blend Shape Normals`をオフにし、BlendShapeの法線の自動再計算をオフにします。"
-
-msgid "Remove Jaw"
-msgstr "HumanoidからJawを自動削除"
-
-msgid "When importing a model, if a bone that does not contain `jaw` (case insensitive) in the bone name is assigned to the Humanoid Jaw, it will be automatically unassigned."
-msgstr "モデルインポート時にボーン名に`jaw`（大文字小文字区別せず）が含まれていないボーンがHumanoidのJawに割り当てられている場合、自動で割り当てを外します。"
-
-msgid "Menu Directory Replaces"
-msgstr "メニューの階層変更・削除"
-
-msgid "You can customize the menu bar by changing or deleting the menu hierarchy. You can also edit multiple menus at once by specifying `Tools/*`."
-msgstr "メニューバーにあるメニューの階層を変更したり削除したりして任意にカスタマイズできます。`Tools/*`のように指定して複数まとめて編集することもできます。"
-
-msgid "Some menu items may not be compatible with replacement."
-msgstr "一部メニューについては置き換えに対応していない場合があります。"
-
-msgid "Enable Menu Directory Replaces"
-msgstr "メニューの階層変更・削除を有効化"
-
-msgid "When this check box is selected, changing and deleting the menu hierarchy is enabled."
-msgstr "このチェックボックスがオンの場合にメニューの階層変更・削除が有効化されます。"
-
-msgid "Add the menu to be changed here. If To is empty, the menu will be deleted, if it is not empty, it will be moved to that hierarchy."
-msgstr "変更対象のメニューをここに追加します。Toが空の場合はメニューの削除が、空でない場合はその階層への移動が行われます。"
-
-
-
-#: EditorToolboxSettings.cs/HierarchyExtension
 
 msgid "Hierarchy Spacer Width"
 msgstr "余白の幅"
@@ -489,6 +473,12 @@ msgstr "オブジェクトのLayerとTagを表示します。"
 
 #: EditorToolboxSettings.cs/ProjectExtension
 
+msgid "Project Extension"
+msgstr "プロジェクトウィンドウ拡張"
+
+msgid "You can display extensions and prefab information on the project. You can also add your own extensions by implementing `IProjectExtensionConponent`. Please refer to the script under `Editor/ProjectExtension/Components` for how to write it."
+msgstr "Project上に拡張子やprefabの情報などを表示できます。`IProjectExtensionConponent`を実装することで独自に拡張を追加することもできます。書き方は`Editor/ProjectExtension/Components`配下のスクリプトを参考にしてください。"
+
 msgid "Project Line"
 msgstr "ファイル階層の線"
 
@@ -559,6 +549,12 @@ msgstr "アセットをマークして見つけやすくします。。"
 
 #: EditorToolboxSettings.cs/ToolbarExtension
 
+msgid "Toolbar Extension"
+msgstr "ツールバー拡張"
+
+msgid "You can display an assembly lock button or an extension inspector tab on the Toolbar. You can also add your own extension by implementing `IToolbarExtensionComponent`. Please refer to the script under `Editor/ToolbarExtension/Components` for how to write it."
+msgstr "Toolbar上にアセンブリのロックボタンや拡張インスペクターのタブを開くボタンを表示できます。`IToolbarExtensionConponent`を実装することで独自に拡張を追加することもできます。書き方は`Editor/ToolbarExtension/Components`配下のスクリプトを参考にしてください。"
+
 msgid "Lock Reload Assemblies Button"
 msgstr "アセンブリのロックボタン"
 
@@ -570,6 +566,28 @@ msgstr "インスペクターのタブ追加ボタン"
 
 msgid "Displays a button to add a tab to the Inspector that is locked on the selected object."
 msgstr "選択中のオブジェクトでロックされたInspectorをタブに追加するボタンを表示します。"
+
+
+
+#: EditorToolboxSettings.cs/MenuDirectoryReplaces
+
+msgid "Menu Directory Replaces"
+msgstr "メニューの階層変更・削除"
+
+msgid "You can customize the menu bar by changing or deleting the menu hierarchy. You can also edit multiple menus at once by specifying `Tools/*`."
+msgstr "メニューバーにあるメニューの階層を変更したり削除したりして任意にカスタマイズできます。`Tools/*`のように指定して複数まとめて編集することもできます。"
+
+msgid "Some menu items may not be compatible with replacement."
+msgstr "一部メニューについては置き換えに対応していない場合があります。"
+
+msgid "Enable Menu Directory Replaces"
+msgstr "メニューの階層変更・削除を有効化"
+
+msgid "When this check box is selected, changing and deleting the menu hierarchy is enabled."
+msgstr "このチェックボックスがオンの場合にメニューの階層変更・削除が有効化されます。"
+
+msgid "Add the menu to be changed here. If To is empty, the menu will be deleted, if it is not empty, it will be moved to that hierarchy."
+msgstr "変更対象のメニューをここに追加します。Toが空の場合はメニューの削除が、空でない場合はその階層への移動が行われます。"
 
 
 

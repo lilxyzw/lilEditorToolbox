@@ -915,7 +915,7 @@ msgstr "E：下降"
 msgid "Esc: End"
 msgstr "Esc：结束操作"
 
-msgid "Wheel: Change Move Speed"
+msgid "Wheel: Change Scroll Speed"
 msgstr "滚轮：调整移动速度"
 
 msgid "Operate"

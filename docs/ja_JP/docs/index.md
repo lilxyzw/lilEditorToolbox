@@ -5,7 +5,7 @@ lilEditorToolboxのドキュメントページです。
 <div class="table-of-contents">
     <ul>
     <li><a href="./Settings">設定</a></li>
-    <li><a href="./AnimatorControllerEditorMenu">AnimatorController related extension menu</a></li>
+    <li><a href="./AnimatorControllerEditorMenu">AnimatorController関係の拡張メニュー</a></li>
     <li><a href="./Grimoire">不足アセット特定ツール</a></li>
     <li><a href="./PlayModeSaver">PlayModeでの変更を保存</a></li>
     <li><a href="./SceneExtension">Scene View拡張</a></li>

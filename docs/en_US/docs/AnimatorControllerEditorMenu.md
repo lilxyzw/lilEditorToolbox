@@ -1,4 +1,4 @@
-﻿# AnimatorController related extension menu
+﻿# AnimatorController related extension menus
 
 These are some additional menus related to the AnimatorController.
 

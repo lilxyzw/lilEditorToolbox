@@ -6,7 +6,7 @@ using UnityEngine;
 namespace jp.lilxyzw.editortoolbox
 {
     [Docs(
-        "AnimatorController related extension menu",
+        "AnimatorController related extension menus",
         "These are some additional menus related to the AnimatorController.",
         "",
         "## Tools/lilEditorToolbox/Cleanup Animator Controller",

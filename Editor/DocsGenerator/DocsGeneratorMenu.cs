@@ -17,7 +17,7 @@ namespace jp.lilxyzw.editortoolbox
         private static HashSet<string> queue = new();
         private static Type[] types;
 
-        [MenuItem("Help/lilEditorToolbox/Generate Docs")]
+        [MenuItem("Help/DocsGenerator/lilEditorToolbox")]
         private static void Generate()
         {
             currentLang = EditorToolboxSettings.instance.language;

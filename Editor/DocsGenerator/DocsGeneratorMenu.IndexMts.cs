@@ -21,7 +21,7 @@ namespace jp.lilxyzw.editortoolbox
             foreach(var code in codes)
             {
             var name = new CultureInfo(code.Replace('_', '-')).NativeName;
-            name = name.Substring(0, name.IndexOf('(')-1);
+            if(name.Contains('(')) name = name.Substring(0, name.IndexOf('(')-1);
             sb.AppendLine($"    {code}: {{ label: '{name}', ...{code} }},");
             }
             sb.AppendLine("  }");

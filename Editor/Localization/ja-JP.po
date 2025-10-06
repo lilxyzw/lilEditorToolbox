@@ -173,6 +173,12 @@ msgstr "インポート先"
 msgid "Show Import Window"
 msgstr "インポート画面を表示"
 
+msgid "This unitypackage contains the script."
+msgstr "このunitypackageにはスクリプトが含まれています。"
+
+msgid "Exclude scripts from import"
+msgstr "スクリプトをインポート対象から除外"
+
 
 
 #: ProjectExtension/Components/IconOverlay.cs
@@ -254,6 +260,12 @@ msgstr "unitypackageインポート先変更メニューを追加"
 
 msgid "Add a button to change the import directory in the unitypackage import window."
 msgstr "unitypackageのインポートウィンドウにインポート先を変更できるボタンを追加します。"
+
+msgid "Add Unitypackage Contains Script Warning"
+msgstr "unitypackageにスクリプトが含まれている場合の警告を追加"
+
+msgid "Add a warning if the unitypackage contains scripts."
+msgstr "unitypackageにスクリプトが含まれている場合の警告を追加します。"
 
 
 

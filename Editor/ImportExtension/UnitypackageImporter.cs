@@ -68,14 +68,35 @@ namespace jp.lilxyzw.editortoolbox
 
             if(window.ShowTreeGUI(m_ImportPackageItems))
             {
-                // インポート先の変更
-                if(!EditorToolboxSettings.instance.addUnitypackageDirectorySelectionMenu || string.IsNullOrEmpty(lastProjectPath) || !lastProjectPath.StartsWith("Assets/")) yield break;
-                var path = lastProjectPath;
-                var origins = new Dictionary<object, string>();
                 var root = new VisualElement();
                 root.style.marginLeft = 6;
                 root.style.alignItems = Align.Center;
                 root.style.flexDirection = FlexDirection.Row;
+                window.w.rootVisualElement.Add(root);
+
+                // スクリプトの検知
+                if (EditorToolboxSettings.instance.addUnitypackageContainsScriptWarning && items.Any(i => i.destinationAssetPath.EndsWith(".cs", StringComparison.OrdinalIgnoreCase) || i.destinationAssetPath.EndsWith(".dll", StringComparison.OrdinalIgnoreCase)))
+                {
+                    var help = new HelpBox(L10n.L("This unitypackage contains the script."), HelpBoxMessageType.Warning);
+                    root.Add(help);
+                    var excludebutton = new Button { text = L10n.L("Exclude scripts from import") };
+                    help.Add(excludebutton);
+                    excludebutton.clicked += () =>
+                    {
+                        foreach (var item in items)
+                        {
+                            var dest = item.destinationAssetPath;
+                            if (!dest.EndsWith(".cs", StringComparison.OrdinalIgnoreCase) && !dest.EndsWith(".dll", StringComparison.OrdinalIgnoreCase) && !dest.EndsWith(".asmdef", StringComparison.OrdinalIgnoreCase) && !dest.EndsWith(".asmref", StringComparison.OrdinalIgnoreCase)) continue;
+                            item.assetChanged = false;
+                        }
+                        root.Remove(help);
+                    };
+                }
+
+                // インポート先の変更
+                if (!EditorToolboxSettings.instance.addUnitypackageDirectorySelectionMenu || string.IsNullOrEmpty(lastProjectPath) || !lastProjectPath.StartsWith("Assets/")) yield break;
+                var path = lastProjectPath;
+                var origins = new Dictionary<object, string>();
                 root.Add(new Label(L10n.L("Import directory")));
 
                 var button = new Button(){text = "Assets/"};
@@ -103,7 +124,6 @@ namespace jp.lilxyzw.editortoolbox
                 };
 
                 root.Add(button);
-                window.w.rootVisualElement.Add(root);
             }
             else
             {

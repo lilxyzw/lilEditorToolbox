@@ -12,7 +12,7 @@ namespace jp.lilxyzw.editortoolbox
 
         public int Priority => 1100;
 
-        public void OnGUI(ref Rect currentRect, GameObject gameObject, int instanceID, Rect fullRect)
+        public void OnGUI(ref Rect currentRect, GameObject gameObject, EntityId entityId, Rect fullRect)
         {
             var components = gameObject.GetComponents<Component>().Where(c => c is not Transform).ToArray();
             if(components.Length > 0)

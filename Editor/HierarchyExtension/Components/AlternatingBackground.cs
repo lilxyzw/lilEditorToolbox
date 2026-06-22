@@ -8,7 +8,7 @@ namespace jp.lilxyzw.editortoolbox
     {
         public int Priority => -1500;
 
-        public void OnGUI(ref Rect currentRect, GameObject gameObject, int instanceID, Rect fullRect)
+        public void OnGUI(ref Rect currentRect, GameObject gameObject, EntityId entityId, Rect fullRect)
         {
             if((int)fullRect.y % (int)(fullRect.height*2) >= (int)fullRect.height)
                 EditorGUI.DrawRect(fullRect, EditorToolboxSettings.instance.backgroundColor);

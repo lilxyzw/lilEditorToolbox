@@ -16,7 +16,7 @@ namespace jp.lilxyzw.editortoolbox
         [InitializeOnLoadMethod] private static void Initialize() =>
             ObjectChangeEvents.changesPublished += (ref ObjectChangeEventStream stream) => iconsMap.Clear();
 
-        public void OnGUI(ref Rect currentRect, GameObject gameObject, int instanceID, Rect fullRect)
+        public void OnGUI(ref Rect currentRect, GameObject gameObject, EntityId entityId, Rect fullRect)
         {
             if(!iconsMap.TryGetValue(gameObject, out var icons))
             {

@@ -10,12 +10,12 @@ namespace jp.lilxyzw.editortoolbox
 
         public int Priority => 100;
 
-        public void OnGUI(ref Rect currentRect, GameObject gameObject, int instanceID, Rect fullRect)
+        public void OnGUI(ref Rect currentRect, GameObject gameObject, EntityId entityId, Rect fullRect)
         {
             currentRect.x -= ICON_SIZE;
             currentRect.width = ICON_SIZE;
             EditorGUI.BeginChangeCheck();
-            var active = GUIHelper.DToggle("jp.lilxyzw.editortoolbox.ActiveToggle", instanceID.ToString(), currentRect, gameObject.activeSelf);
+            var active = GUIHelper.DToggle("jp.lilxyzw.editortoolbox.ActiveToggle", entityId.ToString(), currentRect, gameObject.activeSelf);
             if(EditorGUI.EndChangeCheck())
             {
                 using var so = new SerializedObject(gameObject);

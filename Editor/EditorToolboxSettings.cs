@@ -97,7 +97,9 @@ namespace jp.lilxyzw.editortoolbox
         public string[] projectComponents = new string[]{};
 
         [L10nHeader("Toolbar Extension", "You can display an assembly lock button or an extension inspector tab on the Toolbar. You can also add your own extension by implementing `IToolbarExtensionComponent`. Please refer to the script under `Editor/ToolbarExtension/Components` for how to write it.")]
+        #if !UNITY_6000_3_OR_NEWER
         [DocsGetStrings(typeof(ToolbarExtension), "GetNameAndTooltips")]
+        #endif
         public string[] toolbarComponents = new string[]{};
 
         [L10nHeader("Menu Directory Replaces", "You can customize the menu bar by changing or deleting the menu hierarchy. You can also edit multiple menus at once by specifying `Tools/*`.")]
@@ -302,12 +304,14 @@ namespace jp.lilxyzw.editortoolbox
                     L10n.LabelField("Project Extension", EditorStyles.boldLabel);
                     StringListAsToggle(ProjectExtension.names);
                 }
+                #if !UNITY_6000_3_OR_NEWER
                 else if (iterator.name == "toolbarComponents")
                 {
                     EditorGUILayout.Space();
                     L10n.LabelField("Toolbar Extension", EditorStyles.boldLabel);
                     StringListAsToggle(ToolbarExtension.names);
                 }
+                #endif
                 else if (iterator.name == "language")
                 {
                     EditorGUILayout.Space();

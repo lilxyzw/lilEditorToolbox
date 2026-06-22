@@ -40,7 +40,11 @@ namespace jp.lilxyzw.editortoolbox
             });
             var rect = worldBound;
             rect.width = choices.Max(c => Common.GetTextWidth(c)) + 28;
+            #if UNITY_6000_4_OR_NEWER
+            menu.DropDown(rect, this, DropdownMenuSizeMode.Fixed);
+            #else
             menu.DropDown(rect, this, anchored: true);
+            #endif
         }
     }
 }

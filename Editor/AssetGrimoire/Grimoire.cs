@@ -34,8 +34,13 @@ namespace jp.lilxyzw.editortoolbox
                 switch(iter.propertyType)
                 {
                     case SerializedPropertyType.ObjectReference:
+                        #if UNITY_6000_4_OR_NEWER
+                        if(iter.objectReferenceValue || iter.objectReferenceEntityIdValue == EntityId.None) break;
+                        var guid = GlobalObjectId.GetGlobalObjectIdSlow(iter.objectReferenceEntityIdValue).assetGUID.ToString();
+                        #else
                         if(iter.objectReferenceValue || iter.objectReferenceInstanceIDValue == 0) break;
                         var guid = GlobalObjectId.GetGlobalObjectIdSlow(iter.objectReferenceInstanceIDValue).assetGUID.ToString();
+                        #endif
                         if(!string.IsNullOrEmpty(AssetDatabase.GUIDToAssetPath(guid))) break;
                         var lib = GUIDLibrary.SearchLib(PATH_DATABASE, GUIDLibrary.CompressGUID(guid));
                         if(lib) libs.Add(lib);

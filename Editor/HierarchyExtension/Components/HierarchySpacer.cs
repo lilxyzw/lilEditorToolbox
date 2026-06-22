@@ -7,7 +7,7 @@ namespace jp.lilxyzw.editortoolbox
     {
         public int Priority => EditorToolboxSettings.instance.hierarchySpacerPriority;
 
-        public void OnGUI(ref Rect currentRect, GameObject gameObject, int instanceID, Rect fullRect)
+        public void OnGUI(ref Rect currentRect, GameObject gameObject, EntityId entityId, Rect fullRect)
         {
             currentRect.x = fullRect.xMax - EditorToolboxSettings.instance.hierarchySpacerWidth;
         }

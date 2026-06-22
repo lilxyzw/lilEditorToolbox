@@ -1,6 +1,8 @@
+using System;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace jp.lilxyzw.editortoolbox
 {
@@ -43,5 +45,6 @@ namespace jp.lilxyzw.editortoolbox
         }
     }
 
+    [Serializable]
     internal abstract class DirectElements{}
 }

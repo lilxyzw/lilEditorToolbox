@@ -13,7 +13,7 @@ namespace jp.lilxyzw.editortoolbox
 
         public int Priority => 200;
 
-        public void OnGUI(ref Rect currentRect, GameObject gameObject, int instanceID, Rect fullRect)
+        public void OnGUI(ref Rect currentRect, GameObject gameObject, EntityId entityId, Rect fullRect)
         {
             var layer = new GUIContent(LayerMask.LayerToName(gameObject.layer));
             var tag = new GUIContent(gameObject.tag);

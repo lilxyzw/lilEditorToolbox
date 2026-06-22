@@ -43,7 +43,11 @@ namespace jp.lilxyzw.editortoolbox.runtime
                     case UnityEngine.LightType.Spot: LightmapperUtils.Extract(l, ref spot); LightmapperUtils.Extract(l, out cookie); ld.Init(ref spot, ref cookie); break;
                     case UnityEngine.LightType.Rectangle: LightmapperUtils.Extract(l, ref rect); LightmapperUtils.Extract(l, out cookie); ld.Init(ref rect, ref cookie); break;
                     case UnityEngine.LightType.Disc: LightmapperUtils.Extract(l, ref disc); LightmapperUtils.Extract(l, out cookie); ld.Init(ref disc, ref cookie); break;
+                    #if UNITY_6000_4_OR_NEWER
+                    default: ld.InitNoBake(l.GetEntityId()); break;
+                    #else
                     default: ld.InitNoBake(l.GetInstanceID()); break;
+                    #endif
                 }
 
                 if(ld.falloff != FalloffType.Undefined)
@@ -59,7 +63,11 @@ namespace jp.lilxyzw.editortoolbox.runtime
 
         void SetLightsDirty()
         {
+            #if UNITY_6000_4_OR_NEWER
+            foreach(var l in FindObjectsByType<Light>())
+            #else
             foreach(var l in FindObjectsByType<Light>(FindObjectsSortMode.None))
+            #endif
                 UnityEditor.Experimental.Lightmapping.SetLightDirty(l);
         }
 

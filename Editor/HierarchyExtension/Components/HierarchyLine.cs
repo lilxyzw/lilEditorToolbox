@@ -8,7 +8,7 @@ namespace jp.lilxyzw.editortoolbox
     {
         public int Priority => -900;
 
-        public void OnGUI(ref Rect currentRect, GameObject gameObject, int instanceID, Rect fullRect)
+        public void OnGUI(ref Rect currentRect, GameObject gameObject, EntityId entityId, Rect fullRect)
         {
             if(gameObject.transform.parent)
             {

@@ -11,7 +11,7 @@ namespace jp.lilxyzw.editortoolbox
     )]
     public static class PlayModeSaver
     {
-        private static Dictionary<int, (string json, int? instanceID, Type type)> changes = new();
+        private static Dictionary<EntityId, (string json, EntityId? entityId, Type type)> changes = new();
 
         [InitializeOnLoadMethod]
         private static void Init()
@@ -24,8 +24,8 @@ namespace jp.lilxyzw.editortoolbox
         private static void SaveAfterPlayMode(MenuCommand command)
         {
             var json = EditorJsonUtility.ToJson(command.context);
-            var id = command.context.GetInstanceID();
-            changes[id] = (json, command.context is Component co ? co.gameObject.GetInstanceID() : null, command.context.GetType());
+            var id = command.context.GetEntityId();
+            changes[id] = (json, command.context is Component co ? co.gameObject.GetEntityId() : null, command.context.GetType());
         }
 
         [MenuItem("CONTEXT/Object/Save changes in PlayMode", true)]
@@ -36,10 +36,10 @@ namespace jp.lilxyzw.editortoolbox
             if(state != PlayModeStateChange.EnteredEditMode || changes.Count == 0) return;
             foreach(var kv in changes)
             {
-                var obj = EditorUtility.InstanceIDToObject(kv.Key);
+                var obj = EditorUtility.EntityIdToObject(kv.Key);
 
                 // PlayModeで追加されたコンポーネントの場合は追加処理
-                if(!obj && kv.Value.instanceID != null && EditorUtility.InstanceIDToObject((int)kv.Value.instanceID) is GameObject go && go)
+                if(!obj && kv.Value.entityId != null && EditorUtility.EntityIdToObject((EntityId)kv.Value.entityId) is GameObject go && go)
                 {
                     obj = Undo.AddComponent(go, kv.Value.type);
                 }

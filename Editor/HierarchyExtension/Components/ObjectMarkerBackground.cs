@@ -9,7 +9,7 @@ namespace jp.lilxyzw.editortoolbox
     {
         public int Priority => -1450;
 
-        public void OnGUI(ref Rect currentRect, GameObject gameObject, int instanceID, Rect fullRect)
+        public void OnGUI(ref Rect currentRect, GameObject gameObject, EntityId entityId, Rect fullRect)
         {
             var marker = gameObject.GetComponent<ObjectMarker>();
             if(marker)

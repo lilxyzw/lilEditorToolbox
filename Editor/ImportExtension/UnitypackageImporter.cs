@@ -20,7 +20,7 @@ namespace jp.lilxyzw.editortoolbox
         {
             AssetDatabase.importPackageStarted -= OnImportPackageStarted;
             AssetDatabase.importPackageStarted += OnImportPackageStarted;
-            DragAndDrop.AddDropHandler((_,path,_) => {
+            DragAndDrop.AddDropHandlerV2((_,path,_) => {
                 lastProjectPath = path;
                 return DragAndDropVisualMode.None;
             });

@@ -8,14 +8,14 @@ namespace jp.lilxyzw.editortoolbox
     {
         public int Priority => -800;
 
-        public void OnGUI(ref Rect currentRect, GameObject gameObject, int instanceID, Rect fullRect)
+        public void OnGUI(ref Rect currentRect, GameObject gameObject, EntityId entityId, Rect fullRect)
         {
             var rectEO = fullRect;
             rectEO.x = 36;
             rectEO.width = rectEO.height;
 
             EditorGUI.BeginChangeCheck();
-            var isEditorOnly = GUIHelper.DToggleMiniLabel("E", "jp.lilxyzw.editortoolbox.EditorOnlyLabel", instanceID.ToString(), rectEO, IsEditorOnly(gameObject.transform));
+            var isEditorOnly = GUIHelper.DToggleMiniLabel("E", "jp.lilxyzw.editortoolbox.EditorOnlyLabel", entityId.ToString(), rectEO, IsEditorOnly(gameObject.transform));
             if(EditorGUI.EndChangeCheck())
             {
                 using var so = new SerializedObject(gameObject);

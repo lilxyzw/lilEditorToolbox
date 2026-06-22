@@ -21,8 +21,13 @@ namespace jp.lilxyzw.editortoolbox
 
         [InitializeOnLoadMethod] private static void Initialize()
         {
+            #if UNITY_6000_4_OR_NEWER
+            EditorApplication.hierarchyWindowItemByEntityIdOnGUI -= OnGUI;
+            EditorApplication.hierarchyWindowItemByEntityIdOnGUI += OnGUI;
+            #else
             EditorApplication.hierarchyWindowItemOnGUI -= OnGUI;
             EditorApplication.hierarchyWindowItemOnGUI += OnGUI;
+            #endif
             EditorToolboxSettingsEditor.update -= Resolve;
             EditorToolboxSettingsEditor.update += Resolve;
         }
@@ -41,9 +46,13 @@ namespace jp.lilxyzw.editortoolbox
         }
 
         // GUI
-        private static void OnGUI(int instanceID, Rect selectionRect)
+        #if UNITY_6000_4_OR_NEWER
+        private static void OnGUI(EntityId entityId, Rect selectionRect)
+        #else
+        private static void OnGUI(int entityId, Rect selectionRect)
+        #endif
         {
-            var go = EditorUtility.InstanceIDToObject(instanceID) as GameObject;
+            var go = EditorUtility.EntityIdToObject(entityId) as GameObject;
             if(!go) return;
 
             var rectOrigin = selectionRect;
@@ -53,7 +62,7 @@ namespace jp.lilxyzw.editortoolbox
 
             var mix = EditorGUI.showMixedValue;
             EditorGUI.showMixedValue = false;
-            foreach(var c in hierarchyExtensionComponents) c.OnGUI(ref selectionRect, go, instanceID, rectOrigin);
+            foreach(var c in hierarchyExtensionComponents) c.OnGUI(ref selectionRect, go, entityId, rectOrigin);
             EditorGUI.showMixedValue = mix;
         }
 

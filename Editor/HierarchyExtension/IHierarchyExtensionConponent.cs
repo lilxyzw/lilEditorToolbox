@@ -13,7 +13,7 @@ namespace jp.lilxyzw.editortoolbox
         /// </summary>
         /// <value></value>
         public int Priority { get; }
-        public void OnGUI(ref Rect currentRect, GameObject gameObject, int instanceID, Rect fullRect);
+        public void OnGUI(ref Rect currentRect, GameObject gameObject, EntityId entityId, Rect fullRect);
     }
 
     [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]

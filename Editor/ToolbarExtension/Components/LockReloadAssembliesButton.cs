@@ -5,6 +5,20 @@ using UnityEngine.UIElements;
 namespace jp.lilxyzw.editortoolbox
 {
     [Tooltip("Locks the assembly to reduce the wait time for script compilation. This is useful if you frequently rewrite scripts.")]
+    #if UNITY_6000_3_OR_NEWER
+    internal class LockReloadAssembliesButton
+    {
+        [UnityEditor.Toolbars.MainToolbarElement("lilEditorToolbox/Lock Reload Assemblies Button", defaultDockPosition = UnityEditor.Toolbars.MainToolbarDockPosition.Left)]
+        private static UnityEditor.Toolbars.MainToolbarToggle Create()
+        {
+            var content = new UnityEditor.Toolbars.MainToolbarContent(L10n.L("Assemblies Unlocked"));
+            return new(content, LockReloadAssemblies.isLocked, (v) => {
+                LockReloadAssemblies.ToggleLock();
+                content.text = LockReloadAssemblies.isLocked ? L10n.L("Assemblies Locked") : L10n.L("Assemblies Unlocked");
+            });
+        }
+    }
+    #else
     internal class LockReloadAssembliesButton : IToolbarExtensionComponent
     {
         public int Priority => 0;
@@ -20,4 +34,5 @@ namespace jp.lilxyzw.editortoolbox
             return root;
         }
     }
+    #endif
 }

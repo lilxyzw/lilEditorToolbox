@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
@@ -14,7 +15,7 @@ namespace jp.lilxyzw.editortoolbox
     internal class TabInspector : EditorWindow
     {
         public List<Object> targets;
-        public InspectorWindowWrap inspector;
+        [NonSerialized] public InspectorWindowWrap inspector;
 
         [DocsField] private static readonly string[] L_NORMAL = {"Normal", "This is a regular Inspector."};
         [DocsField] private static readonly string[] L_DEBUG = {"Debug", "Inspector for debugging. Normally, you do not need to use it."};

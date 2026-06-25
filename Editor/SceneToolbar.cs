@@ -5,6 +5,7 @@ using UnityEditor.Toolbars;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEditor.UIElements;
+using UnityEngine.Rendering;
 
 namespace jp.lilxyzw.editortoolbox
 {
@@ -47,12 +48,13 @@ namespace jp.lilxyzw.editortoolbox
                 foreach(var button in buttons) button.value = e.newValue;
                 EditorToolboxSettings.Save();
             });
+            SetEnabled(!GraphicsSettings.currentRenderPipeline);
             buttons.Add(this);
         }
 
         private static void UpdateMSAA(SceneView sceneView)
         {
-            if(EditorToolboxSettings.instance.enableMSAA)
+            if(EditorToolboxSettings.instance.enableMSAA && !GraphicsSettings.currentRenderPipeline)
             {
                 var rt = sceneView.camera.targetTexture;
                 if(!rt) return;
@@ -61,6 +63,7 @@ namespace jp.lilxyzw.editortoolbox
 
                 rt.Release();
                 rt.antiAliasing = QualitySettings.antiAliasing;
+                Screen.SetMSAASamples(QualitySettings.antiAliasing);
                 rt.Create();
                 prevRTs[sceneView] = rt;
             }

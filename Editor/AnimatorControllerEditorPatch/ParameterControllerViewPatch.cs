@@ -27,7 +27,7 @@ namespace jp.lilxyzw.editortoolbox
         {
             var pcv = new ParameterControllerViewWrap(instance);
             var controller = pcv.animatorController;
-            var parameter = controller.parameters[pcv.m_LastSelectedIndex];
+            var parameter = controller.parameters[pcv.m_ParameterList.index];
             ParameterReferenceWIndow.Show(parameter, controller);
         }
     }
@@ -191,12 +191,12 @@ namespace jp.lilxyzw.editortoolbox
     {
         private static Type T_IAnimatorControllerEditor = A_Graphs.GetType("UnityEditor.Graphs.IAnimatorControllerEditor");
         private static readonly (Delegate g, Delegate s) FI_m_Host = GetFieldIns(T_ParameterControllerView, "m_Host", T_IAnimatorControllerEditor);
-        private static readonly (Delegate g, Delegate s) FI_m_LastSelectedIndex = GetFieldIns(T_ParameterControllerView, "m_LastSelectedIndex", typeof(int));
+        private static readonly (Delegate g, Delegate s) FI_m_ParameterList = GetFieldIns(T_ParameterControllerView, "m_ParameterList", typeof(UnityEditorInternal.ReorderableList));
         private static readonly PropertyInfo PI_animatorController = T_IAnimatorControllerEditor.GetProperty("animatorController", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
         private object instance;
         public ParameterControllerViewWrap(object instance) => this.instance = instance;
         public AnimatorController animatorController => PI_animatorController.GetValue(FI_m_Host.g.DynamicInvoke(instance)) as AnimatorController;
-        public int m_LastSelectedIndex => (int)FI_m_LastSelectedIndex.g.DynamicInvoke(instance);
+        public UnityEditorInternal.ReorderableList m_ParameterList => (UnityEditorInternal.ReorderableList)FI_m_ParameterList.g.DynamicInvoke(instance);
     }
 
     internal class ElementWrap : WrapBase

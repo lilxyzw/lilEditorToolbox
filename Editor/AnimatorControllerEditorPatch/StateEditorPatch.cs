@@ -100,7 +100,11 @@ namespace jp.lilxyzw.editortoolbox
             if (valueParameterActive.boolValue) StateEditorOnParametrizedValueGUIPatch.DrawParameter(__instance, name, value, valueParameter, valueParameterActive, parameterType, controllerContext);
             #endif
             else if (value != null) EditorGUILayout.PropertyField(value);
+            #if UNITY_6000_2_OR_NEWER
             else EditorGUILayout.LabelField(label);
+            #else
+            else EditorGUILayout.LabelField(name);
+            #endif
             StateEditorOnParametrizedValueGUIPatch.DrawToggle(valueParameterActive);
             EditorGUILayout.EndHorizontal();
             return false;

@@ -8,6 +8,8 @@ namespace jp.lilxyzw.editortoolbox
     {
         private static readonly Type type = typeof(Editor).Assembly.GetType("UnityEditor.WindowLayout");
         internal static Action UpdateWindowLayoutMenu = GetAction(type, "UpdateWindowLayoutMenu");
+
+        /*
         [InitializeOnLoadMethod]
         private static void Test()
         {
@@ -24,5 +26,6 @@ namespace jp.lilxyzw.editortoolbox
                 }
             }
         }
+        */
     }
 }

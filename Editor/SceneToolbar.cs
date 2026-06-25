@@ -63,7 +63,6 @@ namespace jp.lilxyzw.editortoolbox
 
                 rt.Release();
                 rt.antiAliasing = QualitySettings.antiAliasing;
-                Screen.SetMSAASamples(QualitySettings.antiAliasing);
                 rt.Create();
                 prevRTs[sceneView] = rt;
             }

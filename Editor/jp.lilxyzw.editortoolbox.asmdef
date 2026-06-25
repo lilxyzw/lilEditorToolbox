@@ -29,6 +29,11 @@
             "define": "LIL_HARMONY"
         },
         {
+            "name": "dev.hai-vr.chillaxins",
+            "expression": "",
+            "define": "LIL_HARMONY"
+        },
+        {
             "name": "nadena.dev.modular-avatar",
             "expression": "",
             "define": "LIL_MODULAR_AVATAR"

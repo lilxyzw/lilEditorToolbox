@@ -84,13 +84,8 @@ namespace jp.lilxyzw.editortoolbox
                             ScanRecursive(iter.objectReferenceValue);
                             break;
                         }
-                        #if UNITY_6000_4_OR_NEWER
-                        if(iter.objectReferenceEntityIdValue == EntityId.None) break;
-                        var guid = GlobalObjectId.GetGlobalObjectIdSlow(iter.objectReferenceEntityIdValue).assetGUID.ToString();
-                        #else
-                        if(iter.objectReferenceInstanceIDValue == 0) break;
-                        var guid = GlobalObjectId.GetGlobalObjectIdSlow(iter.objectReferenceInstanceIDValue).assetGUID.ToString();
-                        #endif
+                        if(iter.GetObjectReferenceEntityIdValue() == EntityId.None) break;
+                        var guid = GlobalObjectId.GetGlobalObjectIdSlow(iter.GetObjectReferenceEntityIdValue()).assetGUID.ToString();
                         if(!string.IsNullOrEmpty(AssetDatabase.GUIDToAssetPath(guid))) break;
                         objects.Add(obj);
                         break;

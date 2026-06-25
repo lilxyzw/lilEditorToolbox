@@ -5,7 +5,7 @@ namespace jp.lilxyzw.editortoolbox
 {
     internal class EditorUtilityWrap : WrapBase
     {
-        private static readonly Type type = typeof(EditorUtility);
+        private static readonly Type type = typeof(UnityEditor.EditorUtility);
         internal static readonly Action Internal_UpdateAllMenus = GetAction(type, "Internal_UpdateAllMenus");
     }
 }

@@ -25,7 +25,7 @@ namespace jp.lilxyzw.editortoolbox
         private static MethodBase TargetMethod() => AccessTools.Method(T_StateEditor, "OnParametrizedValueGUI");
 
         [HarmonyPostfix]
-        private static bool Prefix(object __instance, string name, SerializedProperty value, SerializedProperty valueParameter, SerializedProperty valueParameterActive, AnimatorControllerParameterType parameterType)
+        private static bool Prefix(object __instance, SerializedProperty value, SerializedProperty valueParameter, SerializedProperty valueParameterActive, AnimatorControllerParameterType parameterType)
         {
             if (!EditorToolboxSettings.instance.fixStateMultipleEdit) return true;
             var controllerContext = PI_controllerContext.GetValue(__instance) as AnimatorController;
@@ -42,7 +42,7 @@ namespace jp.lilxyzw.editortoolbox
             return false;
         }
 
-        public static void DrawParameter(object __instance, string name, SerializedProperty value, SerializedProperty valueParameter, SerializedProperty valueParameterActive, AnimatorControllerParameterType parameterType, AnimatorController controllerContext)
+        public static void DrawParameter(object __instance, GUIContent label, SerializedProperty value, SerializedProperty valueParameter, SerializedProperty valueParameterActive, AnimatorControllerParameterType parameterType, AnimatorController controllerContext)
         {
             var list = MI_CollectParameters.Invoke(__instance, new object[] { controllerContext, parameterType }) as List<string>;
             if (list.Count == 0 && valueParameterActive.boolValue)
@@ -57,11 +57,14 @@ namespace jp.lilxyzw.editortoolbox
 
                 EditorGUI.showMixedValue = valueParameter.hasMultipleDifferentValues;
                 EditorGUI.BeginChangeCheck();
-                string stringValue = MI_TextFieldDropDown.Invoke(null, new object[] { new GUIContent(name), valueParameter.stringValue, list.ToArray() }) as string;
+                string stringValue = MI_TextFieldDropDown.Invoke(null, new object[] { label, valueParameter.stringValue, list.ToArray() }) as string;
                 if (EditorGUI.EndChangeCheck()) valueParameter.stringValue = stringValue;
                 EditorGUI.showMixedValue = false;
             }
         }
+
+        public static void DrawParameter(object __instance, string text, SerializedProperty value, SerializedProperty valueParameter, SerializedProperty valueParameterActive, AnimatorControllerParameterType parameterType, AnimatorController controllerContext)
+            => DrawParameter(__instance, new GUIContent(text), value, valueParameter, valueParameterActive, parameterType, controllerContext);
 
         public static void DrawToggle(SerializedProperty valueParameterActive)
         {
@@ -80,16 +83,24 @@ namespace jp.lilxyzw.editortoolbox
         private static MethodBase TargetMethod() => AccessTools.Method(StateEditorOnParametrizedValueGUIPatch.T_StateEditor, "OnParametrizedValueGUIOverride");
 
         [HarmonyPostfix]
+        #if UNITY_6000_2_OR_NEWER
+        private static bool Prefix(object __instance, GUIContent label, SerializedProperty value, SerializedProperty valueParameter, SerializedProperty valueParameterActive, AnimatorControllerParameterType parameterType)
+        #else
         private static bool Prefix(object __instance, string name, SerializedProperty value, SerializedProperty valueParameter, SerializedProperty valueParameterActive, AnimatorControllerParameterType parameterType)
+        #endif
         {
             if (!EditorToolboxSettings.instance.fixStateMultipleEdit) return true;
             var controllerContext = StateEditorOnParametrizedValueGUIPatch.PI_controllerContext.GetValue(__instance) as AnimatorController;
             if (!controllerContext) return true;
 
             EditorGUILayout.BeginHorizontal();
+            #if UNITY_6000_2_OR_NEWER
+            if (valueParameterActive.boolValue) StateEditorOnParametrizedValueGUIPatch.DrawParameter(__instance, label, value, valueParameter, valueParameterActive, parameterType, controllerContext);
+            #else
             if (valueParameterActive.boolValue) StateEditorOnParametrizedValueGUIPatch.DrawParameter(__instance, name, value, valueParameter, valueParameterActive, parameterType, controllerContext);
+            #endif
             else if (value != null) EditorGUILayout.PropertyField(value);
-            else EditorGUILayout.LabelField(new GUIContent(name));
+            else EditorGUILayout.LabelField(label);
             StateEditorOnParametrizedValueGUIPatch.DrawToggle(valueParameterActive);
             EditorGUILayout.EndHorizontal();
             return false;

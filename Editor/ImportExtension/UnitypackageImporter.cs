@@ -66,7 +66,7 @@ namespace jp.lilxyzw.editortoolbox
                 }
             }
 
-            if(window.ShowTreeGUI(m_ImportPackageItems))
+            if(items.Any(i => !i.isFolder && i.assetChanged))
             {
                 var root = new VisualElement();
                 root.style.marginLeft = 6;

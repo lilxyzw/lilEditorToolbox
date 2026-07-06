@@ -34,6 +34,7 @@ namespace jp.lilxyzw.editortoolbox
         public static implicit operator int(EntityId entityId) => entityId.i;
         public static implicit operator EntityId(int intValue) => new(){i = intValue};
         public override readonly int GetHashCode() => i;
+        public override string ToString() => i.ToString();
     }
     #endif
 

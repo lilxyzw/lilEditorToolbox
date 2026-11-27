@@ -21,7 +21,12 @@ namespace jp.lilxyzw.editortoolbox
         private static readonly Dictionary<string, Object> objMap = new();
         public static Object GUIDToObject(string guid)
         {
-            if(objMap.TryGetValue(guid, out var obj)) return obj;
+            if(objMap.TryGetValue(guid, out var obj))
+            {
+                // A deleted asset stays in the cache as a destroyed object, and every component that reads it throws.
+                if(ReferenceEquals(obj, null) || obj) return obj;
+                objMap.Remove(guid);
+            }
             var path = AssetDatabase.GUIDToAssetPath(guid);
             if(string.IsNullOrEmpty(path)) return objMap[guid] = null;
             return objMap[guid] = AssetDatabase.LoadAssetAtPath<Object>(path);

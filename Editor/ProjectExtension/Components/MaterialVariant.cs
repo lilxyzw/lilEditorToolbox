@@ -9,9 +9,10 @@ namespace jp.lilxyzw.editortoolbox
 
         public void OnGUI(ref Rect currentRect, string guid, string path, string name, string extension, Rect fullRect)
         {
-            if(ProjectExtension.isIconGUI || extension != ".mat" || ProjectExtension.GUIDToObject(guid) is not Material material) return;
+            if(ProjectExtension.isIconGUI || extension != ".mat" || ProjectExtension.GUIDToObject(guid) is not Material material || !material) return;
 
-            if(material.isVariant && material.parent) GUIHelper.DrawLabel(ref currentRect, $"Variant: {material.parent.name}");
+            var parent = material.isVariant ? material.parent : null;
+            if(parent) GUIHelper.DrawLabel(ref currentRect, $"Variant: {parent.name}");
         }
     }
 }
